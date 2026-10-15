@@ -1,0 +1,2 @@
+# Placeholder: dependencies will be pinned by component owners after model/stack selection.
+# e.g. ultralytics / transformers / opencv-python / fastapi (do not install blindly).
