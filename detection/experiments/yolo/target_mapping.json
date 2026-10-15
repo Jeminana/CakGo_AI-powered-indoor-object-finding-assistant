@@ -1,0 +1,26 @@
+{
+  "description": "Which classes of the pretrained (COCO-80) YOLO model count as each shared CakGo category. Only exact semantic matches are allowed; look-alike classes are NOT counted.",
+  "model_label_set": "COCO 2017, 80 classes (Ultralytics pretrained detection weights)",
+  "categories": {
+    "wallet": {
+      "supported": false,
+      "coco_classes": [],
+      "note": "COCO has no wallet class. 'handbag' is a different object and is not used as a substitute."
+    },
+    "keys": {
+      "supported": false,
+      "coco_classes": [],
+      "note": "COCO has no key / keys class."
+    },
+    "glasses": {
+      "supported": false,
+      "coco_classes": [],
+      "note": "COCO has no eyeglasses / sunglasses class ('wine glass' and 'cup' are drinkware)."
+    },
+    "remote_control": {
+      "supported": true,
+      "coco_classes": ["remote"],
+      "note": "COCO class 65 'remote'."
+    }
+  }
+}

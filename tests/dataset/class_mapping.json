@@ -1,0 +1,61 @@
+{
+  "description": "Shared CakGo evaluation categories and how each source dataset's ORIGINAL labels map onto them. Source labels are never rewritten in the annotations; this file only documents/drives the grouping. Model-specific label mappings (e.g. YOLO's COCO classes) live in each experiment folder, not here.",
+  "categories": {
+    "wallet":         {"display_name": "Wallet",               "quota": 15},
+    "keys":           {"display_name": "Keys",                 "quota": 15},
+    "glasses":        {"display_name": "Glasses / Sunglasses", "quota": 15},
+    "remote_control": {"display_name": "Remote control",       "quota": 15}
+  },
+  "negative": {
+    "folder": "negative",
+    "quota": 10,
+    "definition": "Image whose source annotations contain at least one object, but none that maps to a CakGo category. Images with zero annotations are NOT used as negatives (they may simply be unlabeled)."
+  },
+  "sources": {
+    "objects_in_house": {
+      "role": "primary",
+      "name": "Objects In House",
+      "url": "https://universe.roboflow.com/cropdev/objects-in-house",
+      "workspace": "cropdev",
+      "project": "objects-in-house",
+      "version": 5,
+      "export_format": "coco",
+      "split_preference": ["test", "valid"],
+      "license": "CC0 1.0 (Public Domain)",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "label_map": {
+        "wallet": "wallet",
+        "keys": "keys",
+        "glasses-sunglasses": "glasses",
+        "remote-control": "remote_control",
+        "backpack-bag": null,
+        "broom": null,
+        "casual-shoes": null,
+        "earphone": null
+      }
+    },
+    "home_item_detection": {
+      "role": "secondary (only used to fill shortfalls)",
+      "name": "Home item detection",
+      "url": "https://universe.roboflow.com/emulxionai-w5sq2/home-item-detection-7kqro",
+      "workspace": "emulxionai-w5sq2",
+      "project": "home-item-detection-7kqro",
+      "version": 1,
+      "export_format": "coco",
+      "split_preference": ["test", "valid"],
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "label_map": {
+        "car key with keychain": "keys",
+        "car key without keychain": "keys",
+        "keys for apartment": "keys",
+        "eye glasses": "glasses",
+        "remote controller": "remote_control",
+        "box for eye glasses": null,
+        "pills blisters": null,
+        "pills bottles": null,
+        "pills boxes": null
+      }
+    }
+  }
+}

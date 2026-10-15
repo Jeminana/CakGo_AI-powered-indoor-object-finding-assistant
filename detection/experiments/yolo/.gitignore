@@ -1,0 +1,4 @@
+# Pretrained weights are downloaded on first run - never commit.
+weights/
+# Ultralytics default output folder (not used by our scripts, but just in case).
+runs/

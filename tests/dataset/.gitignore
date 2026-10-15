@@ -1,0 +1,7 @@
+# Raw Roboflow exports (thousands of images) - never commit.
+.cache/
+# Evaluation images are reproduced locally with `prepare_dataset.py fetch`;
+# only manifest.csv, annotations/ and metadata are committed.
+images/**
+!images/*/
+!images/*/.gitkeep

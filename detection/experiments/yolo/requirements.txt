@@ -1,0 +1,4 @@
+# YOLO experiment dependencies (Member 1). Install into a virtual environment.
+# Install a CUDA build of torch first if you have an NVIDIA GPU:
+#   https://pytorch.org/get-started/locally/
+ultralytics==8.4.177
