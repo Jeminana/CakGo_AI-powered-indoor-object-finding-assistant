@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CakGo - Find Objects</title>
+    
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f7fa;
+            text-align: center;
+            padding: 30px;
+        }
+
+        h1 {
+            color: #243b55;
+        }
+
+        button {
+            background-color: #b8e44c;
+            padding: 15px;
+            font-size: 20px;
+            border-radius: 10px;
+            border: none;
+            margin-top: 20px;
+        }
+    
+            
+    /* Mobile-friendly layout */
+    button {
+        cursor: pointer;
+        min-height: 56px;
+    }
+
+    video {
+        display: block;
+        margin: 20px auto;
+        width: 100%;
+        max-width: 450px;
+    }
+
+    
+
+       
+
+    
+
+    @media (max-width: 600px) {
+        body {
+            padding: 15px;
+        }
+
+        h1 {
+            font-size: 32px;
+        }
+
+        button {
+            width: 100%;
+            max-width: 350px;
+            margin-top: 12px;
+        }
+    }
+
+    
+
+   
+        margin-top: 20px;
+    }
+
+    /* Mobile-friendly layout */
+    button {
+        cursor: pointer;
+        min-height: 56px;
+    }
+
+    video {
+        display: block;
+        margin: 20px auto;
+        width: 100%;
+        max-width: 450px;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            padding: 15px;
+        }
+
+        h1 {
+            font-size: 32px;
+        }
+
+        button {
+            width: 100%;
+            max-width: 350px;
+            margin-top: 12px;
+        }
+    }
+
+        margin-top: 20px;
+    }
+
+    /* Mobile-friendly layout */
+    button {
+        cursor: pointer;
+        min-height: 56px;
+    }
+
+    video {
+        display: block;
+        margin: 20px auto;
+        width: 100%;
+        max-width: 450px;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            padding: 15px;
+        }
+
+        h1 {
+            font-size: 32px;
+        }
+
+        button {
+            width: 100%;
+            max-width: 350px;
+            margin-top: 12px;
+        }
+    }
+
+</style>
+</head>
+<body>
+
+    <h1>CakGo</h1>
+
+    <h2>AI Object Finder</h2>
+
+    <p>Find your objects using your smartphone camera.</p>
+
+ 
+<div style="margin: 20px auto; max-width: 350px;">
+    <label for="targetObject" style="font-size: 20px;">
+        What are you looking for?
+    </label>
+
+    <select id="targetObject"
+            style="width: 100%; padding: 15px;
+                   font-size: 20px; margin-top: 10px;
+                   border-radius: 10px;">
+        <option value="cup">Cup</option>
+        <option value="phone">Phone</option>
+        <option value="keys">Keys</option>
+        <option value="book">Book</option>
+        <option value="bottle">Bottle</option>
+    </select>
+</div>
+  
+<button id="startBtn">Start Camera</button>
+<button id="stopBtn">Stop Camera</button>
+
+<video id="camera" autoplay playsinline muted
+       style="width:100%;max-width:450px;margin-top:20px;
+              border-radius:12px;background:#222;">
+</video>
+
+<p id="status" role="status" aria-live="polite">
+    Camera is not started.
+</p>
+
+<script>
+    const video = document.getElementById("camera");
+    const statusText = document.getElementById("status");
+    let stream = null;
+
+    document.getElementById("startBtn").onclick = async function() {
+        try {
+            if (!navigator.mediaDevices ||
+                !navigator.mediaDevices.getUserMedia) {
+                statusText.textContent =
+                    "Camera requires a secure connection.";
+                return;
+            }
+
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+
+            stream = await navigator.mediaDevices.getUserMedia({
+                video: { facingMode: "environment" },
+                audio: false
+            });
+
+            video.srcObject = stream;
+            statusText.textContent = "Camera is running.";
+        } catch (error) {
+            statusText.textContent =
+                "Cannot open camera. Check camera permission.";
+            console.error(error);
+        }
+    };
+
+    document.getElementById("stopBtn").onclick = function() {
+        if (stream) {
+            stream.getTracks().forEach(track => track.stop());
+            stream = null;
+        }
+        video.srcObject = null;
+        statusText.textContent = "Camera stopped.";
+    };
+</script>
+
+
+</body>
+</html>
