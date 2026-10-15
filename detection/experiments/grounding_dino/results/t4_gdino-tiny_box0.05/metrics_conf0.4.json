@@ -1,0 +1,93 @@
+{
+  "run": "t4_gdino-tiny_box0.05",
+  "model": "IDEA-Research/grounding-dino-tiny",
+  "thresholds": {
+    "confidence": 0.4,
+    "iou": 0.5,
+    "inference_min_confidence": 0.05
+  },
+  "notes": [
+    "AP50 only uses predictions saved at confidence >= inference_min_confidence (run_inference.py --box-threshold).",
+    "Each image is queried once per category; latency is per query, i.e. per app request."
+  ],
+  "num_images": 70,
+  "categories": {
+    "wallet": {
+      "prompt": "wallet.",
+      "status": "evaluated",
+      "num_gt_boxes": 17,
+      "num_predictions": 48,
+      "true_positives": 15,
+      "false_positives": 33,
+      "false_negatives": 2,
+      "precision": 0.3125,
+      "recall": 0.8824,
+      "ap50": 0.5213,
+      "num_target_images": 15,
+      "target_images_detected": 13,
+      "image_level_detection_rate": 0.8667,
+      "negative_images": 10,
+      "negative_images_with_false_positive": 4
+    },
+    "keys": {
+      "prompt": "keys.",
+      "status": "evaluated",
+      "num_gt_boxes": 32,
+      "num_predictions": 113,
+      "true_positives": 29,
+      "false_positives": 84,
+      "false_negatives": 3,
+      "precision": 0.2566,
+      "recall": 0.9062,
+      "ap50": 0.3334,
+      "num_target_images": 15,
+      "target_images_detected": 15,
+      "image_level_detection_rate": 1.0,
+      "negative_images": 10,
+      "negative_images_with_false_positive": 7
+    },
+    "glasses": {
+      "prompt": "glasses. sunglasses.",
+      "status": "evaluated",
+      "num_gt_boxes": 18,
+      "num_predictions": 56,
+      "true_positives": 17,
+      "false_positives": 39,
+      "false_negatives": 1,
+      "precision": 0.3036,
+      "recall": 0.9444,
+      "ap50": 0.6956,
+      "num_target_images": 15,
+      "target_images_detected": 15,
+      "image_level_detection_rate": 1.0,
+      "negative_images": 10,
+      "negative_images_with_false_positive": 5
+    },
+    "remote_control": {
+      "prompt": "remote control.",
+      "status": "evaluated",
+      "num_gt_boxes": 18,
+      "num_predictions": 72,
+      "true_positives": 18,
+      "false_positives": 54,
+      "false_negatives": 0,
+      "precision": 0.25,
+      "recall": 1.0,
+      "ap50": 0.941,
+      "num_target_images": 15,
+      "target_images_detected": 15,
+      "image_level_detection_rate": 1.0,
+      "negative_images": 10,
+      "negative_images_with_false_positive": 6
+    }
+  },
+  "latency_ms": {
+    "wall_ms_per_query": {
+      "mean": 333.88,
+      "median": 331.48,
+      "p95": 363.78,
+      "min": 307.75,
+      "max": 370.06
+    }
+  }
+}

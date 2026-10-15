@@ -1,0 +1,80 @@
+{
+  "run": "t4_yolo26s_conf0.001",
+  "model": "yolo26s.pt",
+  "thresholds": {
+    "confidence": 0.5,
+    "iou": 0.5,
+    "inference_min_confidence": 0.001
+  },
+  "notes": [
+    "AP50 only uses predictions saved at confidence >= inference_min_confidence; re-run inference with --conf 0.001 for an un-truncated AP.",
+    "Unsupported categories are not scored; a COCO-pretrained model has no class for them."
+  ],
+  "num_images": 70,
+  "categories": {
+    "wallet": {
+      "status": "unsupported",
+      "reason": "COCO has no wallet class. 'handbag' is a different object and is not used as a substitute.",
+      "num_target_images": 15
+    },
+    "keys": {
+      "status": "unsupported",
+      "reason": "COCO has no key / keys class.",
+      "num_target_images": 15
+    },
+    "glasses": {
+      "status": "unsupported",
+      "reason": "COCO has no eyeglasses / sunglasses class ('wine glass' and 'cup' are drinkware).",
+      "num_target_images": 15
+    },
+    "remote_control": {
+      "status": "evaluated",
+      "model_classes": [
+        "remote"
+      ],
+      "num_gt_boxes": 18,
+      "num_predictions": 14,
+      "true_positives": 14,
+      "false_positives": 0,
+      "false_negatives": 4,
+      "precision": 1.0,
+      "recall": 0.7778,
+      "ap50": 0.8704,
+      "num_target_images": 15,
+      "target_images_detected": 12,
+      "image_level_detection_rate": 0.8,
+      "negative_images": 10,
+      "negative_images_with_false_positive": 0
+    }
+  },
+  "latency_ms": {
+    "wall_ms": {
+      "mean": 14.42,
+      "median": 13.24,
+      "p95": 23.15,
+      "min": 12.78,
+      "max": 26.37
+    },
+    "preprocess_ms": {
+      "mean": 0.73,
+      "median": 0.71,
+      "p95": 0.84,
+      "min": 0.67,
+      "max": 0.89
+    },
+    "inference_ms": {
+      "mean": 12.12,
+      "median": 10.96,
+      "p95": 20.73,
+      "min": 10.64,
+      "max": 23.72
+    },
+    "postprocess_ms": {
+      "mean": 1.21,
+      "median": 1.18,
+      "p95": 1.58,
+      "min": 1.04,
+      "max": 1.93
+    }
+  }
+}
