@@ -1,18 +1,53 @@
 # Testing & Evaluation — Member 4
 
-## Objective
-Design repeatable tests and support the team with safe images, bug reports, documentation and the demo. Other members also test their own modules.
+## Component Purpose
+The `tests/` directory manages quality assurance, test data organization, comparative model evaluation benchmarks, and integration testing for CakGo.
 
-## Tasks
-- Day 1: Choose candidate target categories and test conditions.
-- Day 2: Prepare consent-safe images (clear, clutter, partial obstruction).
-- Day 3: QA first end-to-end test and report blockers.
-- Days 4–5: Regression testing and integration bug tracking.
-- Day 6: Test accuracy, guidance, latency and usability.
-- Day 7: Compile evidence and backup demo.
+## Assigned Team Member
+- **Member 4**
+  - **Initial Responsibility:** Grounding DINO testing (`detection/experiments/grounding_dino/`).
+  - **Post-Testing Responsibility:** Documentation, evaluation reports, integration QA, and final testing (`tests/`, `docs/`).
 
-## Template
-| ID | Target | Condition | Model | Found? | False positives | Latency ms | Guidance correct? | Notes |
-|---|---|---|---|---|---|---|---|---|
+## Dataset Selection Status
+> **Dataset selection pending team discussion and confirmation.**
+> We have not finalized which dataset to use for comparing YOLO and Grounding DINO. We are currently considering several options, including the Microsoft ORBIT Dataset and other datasets containing everyday household objects. However, the final dataset will be selected later, after discussion and confirmation with the team members.
+>
+> **Mandatory Guidelines for Testing:**
+> - **Do not select or finalize any dataset prematurely.**
+> - **Do not download datasets.**
+> - **Do not automatically use ORBIT or any other dataset.**
+> - **Do not create actual evaluation images or annotations.**
+> - Keep the dataset folder structure (`tests/dataset/`) prepared for future use.
+> - The two members responsible for model evaluation (**Member 1** for YOLO and **Member 4** for Grounding DINO) will use the **same dataset** once it has been confirmed.
+> - The proposed number of images, object categories, and evaluation conditions should remain provisional.
+> - The team will provide the confirmed dataset details later.
 
-Include not-detected, invalid input, and camera-permission-denied scenarios. Do not invent metrics or upload personal images without consent. AI agents should generate test plans, not fabricated measurements.
+## Directory Structure
+```text
+tests/
+├── README.md           # This document
+├── dataset/            # Prepared directory for the evaluation dataset once confirmed
+│   └── README.md       # Dataset guidelines & pending notice
+└── results/            # Benchmark logs, latency logs, and comparative evaluation metrics
+    └── README.md       # Results documentation
+```
+
+## Comparative Model Evaluation Protocol (Once Dataset Confirmed)
+When the team confirms the dataset:
+1. **Identical Sample Set:** Both Member 1 (YOLO) and Member 4 (Grounding DINO) will run evaluation on the identical set of test images.
+2. **Standard Evaluation Metrics:**
+   - **Detection Rate / Recall:** Accuracy on target indoor objects (e.g. keys, wallet, phone, glasses).
+   - **Inference Latency:** Average milliseconds per frame across CPU and GPU.
+   - **Robustness:** Performance under clutter, dim lighting, and partial occlusions.
+   - **False Positive Rate:** Identifying non-target objects incorrectly.
+3. **Log Storage:** All output logs, JSON evaluations, and latency records will be stored in `tests/results/`.
+
+## End-to-End Integration QA
+- **Mock Integration Tests:** Verify frontend communication with backend mock endpoints before full model wiring.
+- **E2E Pipeline Testing:** Verify smartphone camera frame capture → backend processing → model detection → Korean audio playback.
+- **Accessibility & Edge Cases:** Camera denied, server timeout, missing target object, low network bandwidth.
+
+## Instructions for AI Coding Agents
+1. Do not download external datasets or invent fake benchmark data.
+2. Maintain the separation between `tests/dataset/` (pending confirmation) and `tests/results/`.
+3. Provide reproducible, automated pytest or benchmark scripts.

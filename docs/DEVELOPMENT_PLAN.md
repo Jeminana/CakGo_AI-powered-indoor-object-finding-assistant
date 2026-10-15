@@ -1,37 +1,49 @@
 # Seven-day Parallel Development Plan
 
-## Team ownership
-| Member | Work |
-|---|---|
-| 1 | `detection/`: compare YOLO vs Grounding DINO, choose model, expose detector |
-| 2 | `frontend/`: phone camera, accessible UI, upload/results |
-| 3 | `backend/` + `voice/`: API, model integration, Korean guidance |
-| 4 | `tests/` + `docs/`: images, QA, documentation, demo assistance |
+## Team Ownership & Updated Responsibilities
 
-## Independent work
-Model comparison, UI with mock JSON, speech from mock JSON, server mock endpoints, test-image preparation and documentation can all begin on Day 1.
+| Member | Initial Responsibility | Responsibility After Model Testing |
+|---|---|---|
+| **Member 1** | YOLO testing (`detection/experiments/yolo/`) | Final model implementation and improvement (`detection/`) |
+| **Member 2** | Smartphone camera and frontend (`frontend/`) | Frontend development and integration (`frontend/`) |
+| **Member 3** | Backend and voice guidance (`backend/`, `voice/`) | Backend, API, and voice integration (`backend/`, `voice/`) |
+| **Member 4** | Grounding DINO testing (`detection/experiments/grounding_dino/`) | Documentation, evaluation reports, and testing (`tests/`, `docs/`) |
 
-## Dependent work
-Actual detector/backend connection; phone/backend upload; live speech integration; final end-to-end QA. Use `API_CONTRACT.md` to avoid waiting.
+## Dataset Status Notice
+> **Dataset selection pending team discussion and confirmation.**
+> We are currently considering several options, including the Microsoft ORBIT Dataset and other datasets containing everyday household objects. The final dataset will be selected later after discussion and confirmation with the team members.
+>
+> - **Member 1** and **Member 4** will compare the models using the **same dataset** once it has been confirmed.
+> - Proposed object categories, test sample counts, and evaluation conditions remain provisional.
+> - The team will provide confirmed dataset details later.
 
-| Day | Member 1 | Member 2 | Member 3 | Member 4 |
+## Independent vs. Dependent Work
+- **Independent Work:**
+  - **Model Testing:** Member 1 (YOLO) and Member 4 (Grounding DINO) set up independent experiment environments in `detection/experiments/`.
+  - **Frontend & Voice:** Member 2 (Frontend) and Member 3 (Backend & Voice) work independently using simulated mock detection responses adhering to [`API_CONTRACT.md`](API_CONTRACT.md).
+- **Dependent Work:**
+  - Connecting the chosen detector adapter to the backend server.
+  - End-to-end phone camera capture → backend detection → Korean voice feedback.
+
+## Daily Development Schedule
+
+| Day | Member 1 (YOLO / Detection) | Member 2 (Frontend) | Member 3 (Backend & Voice) | Member 4 (Grounding DINO / QA) |
 |---|---|---|---|---|
-| 1 | Set up two models | Test phone camera | Mock server + TTS | Sample images + test plan |
-| 2 | Compare same images | Mock camera search UI | Mock API + guidance | Log model/test findings |
-| 3 | Select detector + adapter | Send phone frame | Integrate real response | End-to-end QA |
-| 4–5 | Improve detection | Boxes, status and accessibility | Stabilize API and speech | Regression tests + bugs |
-| 6 | Detection evaluation | Real-phone testing | Audio/latency testing | Measured test report |
-| 7 | Model results | Demo interface | Final pipeline | Final documentation and demo |
+| **Day 1** | Set up YOLO experiment environment & dummy inference | Phone camera preview & permission test | FastAPI mock server & TTS audio logic | Set up Grounding DINO experiment & text configs |
+| **Day 2** | Prepare YOLO benchmark scripts (pending dataset) | Capture frame & render mock detection result | Mock `/api/detect` with spatial calculations | Prepare Grounding DINO benchmark scripts (pending dataset) |
+| **Day 3** | Run model benchmark on confirmed dataset with Member 4; select detector | Submit phone camera frame to `POST /api/detect` | Wire selected detector adapter into backend API | Run model benchmark on confirmed dataset with Member 1; log results |
+| **Day 4–5** | Optimize chosen detector & implement `detect()` adapter | Bounding box rendering & accessibility controls | Stabilize API timeouts, error handling & speech | Run E2E regression tests & track bug fixes |
+| **Day 6** | Measure latency, memory, and detection limits | Real-phone physical testing across browsers | Optimize latency & audio debounce | Compile measured QA report in `tests/results/` |
+| **Day 7** | Final model adapter sign-off | Polished mobile UI for demo | End-to-end pipeline stabilization | Final project documentation & demo support |
 
-## Integration checkpoints
-- Day 1: Agree target labels, API, phone/browser + HTTPS approach.
-- Day 2: Mock image submission and simulated guidance working.
-- Day 3: Real phone frame → selected model → spoken result.
-- Day 5: End-to-end MVP stable.
-- Days 6–7: No major new features; evaluate and present.
+## Integration Checkpoints
+- **Day 1:** Agree on API contract, component boundaries, and HTTPS hosting approach.
+- **Day 2:** Mock image submission and mock directional voice feedback working independently.
+- **Day 3:** Dataset confirmed → Model benchmark completed → Selected model adapter integrated into backend.
+- **Day 5:** End-to-end MVP stable (Phone camera → Backend API → Detection → Korean speech).
+- **Days 6–7:** Final evaluation, benchmark reporting, and demo rehearsals.
 
-## Collaboration
-Suggested branches: `feature/detection`, `feature/frontend`, `feature/backend-voice`, `feature/qa-docs`. Review pull requests before merging, integrate early and document changed contracts.
-
-## Working with AI agents
-Ask the agent to first read root README, owned component README and shared contract. Prefer small changes and verifiable tests; humans review code and results. No fabricated evaluation data.
+## Collaboration Workflow
+- **Git Branches:** `feature/detection`, `feature/frontend`, `feature/backend-voice`, `feature/qa-docs`.
+- **Pull Requests:** Open PRs against `main`. No direct push to `main` for experimental code.
+- **API Contract:** All cross-component communication must strictly conform to [`API_CONTRACT.md`](API_CONTRACT.md).

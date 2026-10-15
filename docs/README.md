@@ -1,12 +1,24 @@
-# Documentation & Research — Member 4
+# Documentation & Project Records — Member 4
 
 ## Purpose
-Document project scope, architecture, test results, hardware/browser setup and limitations. Assist other developers with clear READMEs and test evidence.
+The `docs/` directory maintains project-wide specifications, interface contracts, development schedules, meeting reports, and research documentation for CakGo.
 
-## Main files
-- `API_CONTRACT.md`: shared API JSON and conventions.
-- `DEVELOPMENT_PLAN.md`: days, owners, dependencies and checkpoints.
-- Add PR-FAQ, presentation, actual experimental results and screenshots only after team approval.
+## Assigned Team Member
+- **Member 4**
+  - **Initial Responsibility:** Grounding DINO testing (`detection/experiments/grounding_dino/`).
+  - **Post-Testing Responsibility:** Documentation, evaluation reports, and testing (`tests/`, `docs/`).
 
-## Tasks
-Track which features are proposed versus tested; report the phone and browser used; document reproducible setup and demo procedures. Prototype does not guarantee keys, wallets, glasses or transparent objects are detectable.
+## Dataset Selection Status
+> **Dataset selection pending team discussion and confirmation.**
+> Dataset options (including Microsoft ORBIT and everyday household object collections) remain under consideration. No dataset has been finalized or downloaded. Specifications involving dataset size, image counts, and object classes are provisional until confirmed by the team.
+
+## Main Documents
+- [`API_CONTRACT.md`](API_CONTRACT.md): Shared REST API specification and coordinate conventions. Must remain consistent across all components.
+- [`DEVELOPMENT_PLAN.md`](DEVELOPMENT_PLAN.md): 7-day development plan, member ownership, integration checkpoints, and collaboration workflow.
+- [`REPORT.md`](REPORT.md): Official IC-PBL Team Activity Report (preserved).
+- [`TEAM_ACTIVITY_REPORT.md`](TEAM_ACTIVITY_REPORT.md): Initial IC-PBL Team Activity Report record (preserved).
+
+## Guidelines for Developers & AI Agents
+1. Treat [`API_CONTRACT.md`](API_CONTRACT.md) as the single source of truth for component communication.
+2. Meeting reports (`REPORT.md`, `TEAM_ACTIVITY_REPORT.md`) must be preserved in their existing format and location.
+3. Keep documentation factual and avoid fabricated performance metrics.
