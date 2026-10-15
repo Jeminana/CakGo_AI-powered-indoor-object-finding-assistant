@@ -1,7 +1,11 @@
+from pathlib import Path
+
 import pytest
 from PIL import Image
 
-from detector import GroundingDinoDetector
+from detector import GroundingDinoDetector, load_json, prompt_text
+
+REPO_ROOT = Path(__file__).resolve().parents[4]
 
 
 class FakeDetector(GroundingDinoDetector):
@@ -75,8 +79,16 @@ def test_config_files_load_without_loading_the_model():
 
     assert detector.model_id == "IDEA-Research/grounding-dino-tiny"
     assert 0 < detector.box_threshold < 1 and 0 < detector.text_threshold < 1
-    assert detector.phrases_for("cell phone") == ["cell phone", "smartphone"]
     assert detector._model is None
+
+
+def test_prompts_cover_the_shared_dataset_categories():
+    categories = load_json(REPO_ROOT / "tests" / "dataset" / "class_mapping.json")["categories"]
+    detector = GroundingDinoDetector.from_config()
+
+    assert set(detector.prompts) == set(categories)
+    assert prompt_text(detector.phrases_for("glasses")) == "glasses. sunglasses."
+    assert prompt_text(detector.phrases_for("remote_control")) == "remote control."
 
 
 def test_config_overrides_ignore_none():

@@ -27,6 +27,11 @@ def to_pil_rgb(image):
     return Image.fromarray(image).convert("RGB")
 
 
+def prompt_text(phrases):
+    """Grounding DINO expects lowercase phrases, each terminated by a period: "glasses. sunglasses." """
+    return " ".join(f"{phrase.lower().strip().rstrip('.')}." for phrase in phrases)
+
+
 def build_result(target, raw_detections, image_size):
     """Turn raw ``(score, [x1, y1, x2, y2])`` pairs into the API contract's result shape."""
     width, height = image_size
@@ -85,9 +90,7 @@ class GroundingDinoDetector:
 
         if self._model is None:
             self._load()
-        # Grounding DINO expects lowercase phrases, each terminated by a period: "keys. key ring."
-        text = " ".join(f"{phrase.lower().strip().rstrip('.')}." for phrase in phrases)
-        inputs = self._processor(images=image, text=text, return_tensors="pt").to(self.device)
+        inputs = self._processor(images=image, text=prompt_text(phrases), return_tensors="pt").to(self.device)
         with torch.inference_mode():
             outputs = self._model(**inputs)
         result = self._processor.post_process_grounded_object_detection(
