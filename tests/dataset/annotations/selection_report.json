@@ -1,0 +1,41 @@
+{
+  "generated_at": "2026-10-15T20:56:05+00:00",
+  "seed": "cakgo-eval-v1",
+  "dhash_max_distance": 6,
+  "sources": {
+    "objects_in_house": {
+      "name": "Objects In House",
+      "version": 5,
+      "splits": [
+        "test",
+        "valid"
+      ]
+    }
+  },
+  "counts": {
+    "wallet": {
+      "selected": 15,
+      "target": 15
+    },
+    "keys": {
+      "selected": 15,
+      "target": 15
+    },
+    "glasses": {
+      "selected": 15,
+      "target": 15
+    },
+    "remote_control": {
+      "selected": 15,
+      "target": 15
+    },
+    "negative": {
+      "selected": 10,
+      "target": 10
+    }
+  },
+  "shortfalls": {},
+  "skipped": {
+    "near_duplicate": 4
+  }
+}

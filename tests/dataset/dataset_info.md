@@ -32,6 +32,10 @@ Published versions (from the version pages):
 (1,965 / 991) are also identical to v11/v12. That suggests v5 shares their held-out split (inferred from the
 counts only, not confirmed). The evaluation subset is drawn from the **test and valid** splits only.
 
+**Checked after download (2026-10-16):** the v5 COCO export also uses a ninth label, `remote-control-ac`
+(26 boxes in test+valid). It is not in `class_mapping.json`, so `build` treats it as non-target; none of the
+70 selected images contain it. Whether AC remotes should count as *Remote control* is a team decision.
+
 ### Secondary — Home item detection (EmulxionAI)
 
 Used **only** if the primary dataset cannot fill a category.
@@ -78,13 +82,15 @@ Not mapped (kept as-is, treated as non-target): `backpack-bag`, `broom`, `casual
 
 | Category | Target | Selected | Shortfall / notes |
 |---|---|---|---|
-| Wallet | 15 | *after build* | |
-| Keys | 15 | *after build* | |
-| Glasses / Sunglasses | 15 | *after build* | |
-| Remote control | 15 | *after build* | |
-| Target-absent | 10 | *after build* | |
+| Wallet | 15 | 15 | none |
+| Keys | 15 | 15 | none |
+| Glasses / Sunglasses | 15 | 15 | none |
+| Remote control | 15 | 15 | none |
+| Target-absent | 10 | 10 | none |
 
 Selection seed: `cakgo-eval-v1`. The exact numbers are in `annotations/selection_report.json`.
+Built on 2026-10-15 20:56 UTC from v5 test+valid (2,956 candidate images); 4 near-duplicates were skipped.
+No shortfalls, so the secondary dataset was not downloaded or used. All 70 images are 640×640.
 
 ## 5. Model coverage (for interpreting results)
 
@@ -105,7 +111,13 @@ Selection seed: `cakgo-eval-v1`. The exact numbers are in `annotations/selection
 - **Annotation quality not audited.** Labels are community annotations. Negatives are defined by their labels
   and could contain an unlabeled target, so manual review (`review_status`) is required.
 - **Small sample.** About 70 images gives indicative, not statistically strong, comparisons.
-- **Class balance of the primary dataset** (images per class) could not be read from the public page; it is
-  known only after download.
+- **Class balance of the primary dataset** (boxes in test+valid, counted after download): casual-shoes 928,
+  glasses-sunglasses 594, wallet 432, broom 377, remote-control 374, keys 325, backpack-bag 258, earphone 184,
+  remote-control-ac 26.
+- **Unlabeled targets in the subset.** An AI pre-screen of contact sheets (not a human review) found 12 images
+  where a target is visible but has no box: sunglasses/glasses in `keys_001`, `keys_003`, `keys_004`, `keys_007`,
+  `keys_008`, `keys_009`, `keys_012`, `keys_013`; a wallet in `keys_015`; keys in `wallet_003`; a second wallet in
+  `wallet_006` and `wallet_007`. Correct detections of those objects are scored as false positives. The
+  10 negatives showed no visible target. `review_status` is still `unreviewed` until a human checks the images.
 - **Download depends on Roboflow availability and a personal API key.** If Roboflow regenerates an export,
   file hashes may change; `verify` detects this (see README section 2b).
