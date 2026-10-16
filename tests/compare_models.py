@@ -5,6 +5,10 @@ which tests/test_gdino_evaluate.py checks against yolo/evaluate.py), and the YOL
 cross-checked against the YOLO run's own metrics.json. Prints the Markdown tables used in
 tests/results/model_comparison_report.md.
 
+YOLO run folders are read from tests/results/yolo_reference_runs/ by default (Member 4's
+reference runs of Member 1's scripts); pass --yolo-results-dir to use other runs. The YOLO
+experiment folder is only read (target_mapping.json), never written.
+
 Example (from the repository root):
   python tests/compare_models.py --yolo-run t4_yolo26s_conf0.001 --yolo-latency-run t4_yolo26s_conf0.25 \
       --gdino-run t4_gdino-tiny_box0.05 --yolo-cpu-run colabcpu_yolo26s_latency-sample \
@@ -22,6 +26,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 YOLO_DIR = REPO_ROOT / "detection" / "experiments" / "yolo"
 GDINO_DIR = REPO_ROOT / "detection" / "experiments" / "grounding_dino"
 GROUND_TRUTH_PATH = REPO_ROOT / "tests" / "dataset" / "annotations" / "ground_truth.json"
+YOLO_REFERENCE_RUNS = REPO_ROOT / "tests" / "results" / "yolo_reference_runs"
 sys.path.insert(0, str(GDINO_DIR))
 from evaluate import iou, latency_stats, match, score_category  # noqa: E402
 
@@ -49,11 +54,11 @@ def read_jsonl(path: Path) -> dict:
         return {p["image_id"]: p for p in map(json.loads, f)}
 
 
-def yolo_predictions(run: str) -> tuple[dict, dict]:
+def yolo_predictions(run_dir: Path) -> tuple[dict, dict]:
     """YOLO detections relabelled to CakGo categories (supported categories only)."""
     mapping = json.loads((YOLO_DIR / "target_mapping.json").read_text(encoding="utf-8"))["categories"]
     to_category = {label: c for c, m in mapping.items() if m["supported"] for label in m["coco_classes"]}
-    preds = read_jsonl(YOLO_DIR / "results" / run / "predictions.jsonl")
+    preds = read_jsonl(run_dir / "predictions.jsonl")
     for p in preds.values():
         p["detections"] = [{**d, "label": to_category[d["label"]]} for d in p["detections"]
                            if d["label"] in to_category]
@@ -129,17 +134,19 @@ def main() -> None:
     parser.add_argument("--gdino-cpu-run")
     parser.add_argument("--yolo-conf", type=float, default=0.25, help="YOLO operating confidence")
     parser.add_argument("--gdino-conf", type=float, default=0.35, help="Grounding DINO operating confidence")
+    parser.add_argument("--yolo-results-dir", type=Path, default=YOLO_REFERENCE_RUNS,
+                        help="folder that holds the YOLO run folders (default: tests/results/yolo_reference_runs)")
     args = parser.parse_args()
 
     ground_truth = json.loads(GROUND_TRUTH_PATH.read_text(encoding="utf-8"))
     categories = ground_truth["categories"]
     gt_all = {g["image_id"]: g for g in ground_truth["images"]}
     gt_clean = {i: g for i, g in gt_all.items() if i not in GT_ISSUES}
-    yolo, yolo_supported = yolo_predictions(args.yolo_run)
+    yolo, yolo_supported = yolo_predictions(args.yolo_results_dir / args.yolo_run)
     gdino = read_jsonl(GDINO_DIR / "results" / args.gdino_run / "predictions.jsonl")
 
     # Cross-check: our scoring of the YOLO run must equal the YOLO run's own metrics.json.
-    own = json.loads((YOLO_DIR / "results" / args.yolo_run / "metrics.json").read_text(encoding="utf-8"))
+    own = json.loads((args.yolo_results_dir / args.yolo_run / "metrics.json").read_text(encoding="utf-8"))
     own_conf = own["thresholds"]["confidence"]
     for c, m in own["categories"].items():
         if m["status"] == "evaluated":
@@ -200,14 +207,14 @@ def main() -> None:
     print("### Latency per request (ms)\n")
     print("| Model | Hardware | Measured | mean | median | p95 | min | max |")
     print("|---|---|---|---|---|---|---|---|")
-    runs = [("YOLO26s", "T4 GPU", YOLO_DIR, args.yolo_latency_run),
-            ("Grounding DINO tiny", "T4 GPU", GDINO_DIR, args.gdino_run),
-            ("YOLO26s", "Colab CPU", YOLO_DIR, args.yolo_cpu_run),
-            ("Grounding DINO tiny", "Colab CPU", GDINO_DIR, args.gdino_cpu_run)]
-    for name, hardware, exp_dir, run in runs:
+    runs = [("YOLO26s", "T4 GPU", args.yolo_results_dir, args.yolo_latency_run),
+            ("Grounding DINO tiny", "T4 GPU", GDINO_DIR / "results", args.gdino_run),
+            ("YOLO26s", "Colab CPU", args.yolo_results_dir, args.yolo_cpu_run),
+            ("Grounding DINO tiny", "Colab CPU", GDINO_DIR / "results", args.gdino_cpu_run)]
+    for name, hardware, results_dir, run in runs:
         if not run:
             continue
-        preds = read_jsonl(exp_dir / "results" / run / "predictions.jsonl")
+        preds = read_jsonl(results_dir / run / "predictions.jsonl")
         values = [v for p in preds.values() for v in
                   (p["timing"]["wall_ms"].values() if isinstance(p["timing"]["wall_ms"], dict)
                    else [p["timing"]["wall_ms"]])]

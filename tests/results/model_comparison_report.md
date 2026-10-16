@@ -1,8 +1,14 @@
 # Model Comparison Report — YOLO vs Grounding DINO (Day 3)
 
 Input for the Day 4 model decision; the decision itself belongs to the team.
-Prepared by Member 4 on 2026-10-16. The YOLO numbers come from Member 1's scripts, run unmodified on the same
-Colab VM as Grounding DINO.
+Prepared by Member 4 on 2026-10-16.
+
+> **About the YOLO numbers:** the repository had no YOLO results on 2026-10-16. PR #1 shipped the YOLO
+> scripts, but the evaluation subset had not been built yet. So Member 4 ran Member 1's YOLO scripts
+> **unmodified** on the same Colab VM and the same 70 images as Grounding DINO. These are reference numbers,
+> not Member 1's official results. Their run folders are in `tests/results/yolo_reference_runs/`, so nothing
+> was added to `detection/experiments/yolo/`. Member 1 can confirm them or replace them with an own run on the
+> same `manifest.csv`.
 
 ## Summary
 
@@ -41,7 +47,7 @@ Colab VM as Grounding DINO.
 | Dataset | `tests/dataset/manifest.csv` (sha256 `ca73e2c1…5bde4b`): 70 images, Objects In House v5 test+valid, seed `cakgo-eval-v1`; 15 each of wallet, keys, glasses, remote control, plus 10 target-free images; all 640×640 |
 | Hardware | One Colab VM: Tesla T4, fp32 for both models; CPU runs on the same VM's 2 vCPUs (Intel Xeon @ 2.00 GHz) |
 | Software | Python 3.13.15, torch 2.11.0+cu130; ultralytics 8.4.177; transformers 5.18.0 |
-| YOLO | `yolo26s.pt` (sha256 `646f8bc3…db384a1b`), imgsz 640, NMS IoU 0.7. Accuracy from run `t4_yolo26s_conf0.001` (untruncated AP), latency from `t4_yolo26s_conf0.25` (default settings) |
+| YOLO | Member 1's scripts from PR #1, unmodified, run by Member 4. `yolo26s.pt` (sha256 `646f8bc3…db384a1b`), imgsz 640, NMS IoU 0.7. Accuracy from run `t4_yolo26s_conf0.001` (untruncated AP), latency from `t4_yolo26s_conf0.25` (default settings); run folders in `tests/results/yolo_reference_runs/` |
 | Grounding DINO | `IDEA-Research/grounding-dino-tiny` (revision `a2bb814d`, read from the VM cache after the run), text threshold 0.25, boxes saved from 0.05. One query per image per category (280 queries), because the app asks for one target at a time. Prompts, chosen before the run: `wallet.`, `keys.`, `glasses. sunglasses.`, `remote control.` |
 | Scoring | Same code for both: per category, greedy matching at IoU ≥ 0.5 across all 70 images, all-point AP50. `tests/compare_models.py` reproduces YOLO's own `metrics.json` exactly, and `tests/test_gdino_evaluate.py` checks the Grounding DINO evaluator against YOLO's |
 | Operating thresholds | YOLO 0.25 (Member 1's default), Grounding DINO 0.35 (provisional config). Sweeps below show both models across thresholds |
@@ -133,6 +139,8 @@ Grounding DINO 1,480.8 MB over the whole run (`run_info.json`); YOLO 128.1 MB, m
 
 ## Limitations
 
+- **YOLO run by Member 4:** the YOLO numbers are a reference run of Member 1's unmodified scripts, not Member 1's
+  own results. If Member 1's run on the same manifest differs, use Member 1's run and re-run the comparison.
 - **Small sample:** 15 images per category and 10 target-free images, so the numbers are indicative only.
 - **Not phone frames:** the source images are stretched to 640×640 and many are stock photos with watermarks.
 - **Unreviewed ground truth:** labels are community annotations, and `review_status` is still `unreviewed`.
@@ -162,5 +170,8 @@ python tests/compare_models.py --yolo-run t4_yolo26s_conf0.001 --yolo-latency-ru
     --gdino-cpu-run colabcpu_gdino-tiny_latency-sample
 ```
 
+The YOLO scripts write their run folders to `detection/experiments/yolo/results/`. For this report those folders
+were moved unchanged to `tests/results/yolo_reference_runs/`, which `compare_models.py` reads by default. To
+compare other YOLO runs, pass `--yolo-results-dir detection/experiments/yolo/results`.
 The `metrics_conf<t>.json` files in each run folder come from re-running the evaluator with `--conf-threshold <t>`.
 The CPU runs used a 10-image manifest (two images per bucket), which is saved next to their predictions.
