@@ -1,5 +1,23 @@
 # Voice Guidance Module — Member 3
 
+## Implemented voice helper (상싱위)
+
+`guidance.js` exports browser-global `CakGoVoice`. Load the script, construct
+`new CakGoVoice({onStatus: text => { /* update UI text */ }})`, and call `enable()`
+inside a user click. Pass each successful detection response to `guide(result)`.
+Call `stop()` to disable audio and cancel queued speech; call `error('camera')`
+or `error('network')` for failures. The same target/direction is throttled for
+four seconds and speech is never queued over an active utterance.
+
+Browser Web Speech synthesis avoids a server TTS dependency and generated audio
+storage. A ko-KR voice is selected when available; otherwise the browser default
+voice is used. Text status survives disabled/failed audio. No distance estimate
+is announced. Open the backend's `/voice-demo` for manual checks.
+
+Automated logic checks: `node voice/test_guidance.cjs` (Node.js required).
+Actual Korean speech on iOS Safari and Android Chrome still requires testing;
+the automated checks do not establish device compatibility or audio quality.
+
 ## Component Purpose
 The `voice/` component handles spoken Korean directional audio feedback for CakGo. It enables visually impaired users and those with low vision to locate everyday items without needing to examine bounding boxes on the screen.
 
