@@ -1,0 +1,6 @@
+# Grounding DINO experiment (Member 4). Install: pip install -r requirements.txt
+torch
+transformers>=4.49  # post_process_grounded_object_detection(threshold=...) was added in 4.49
+pillow
+numpy
+pytest

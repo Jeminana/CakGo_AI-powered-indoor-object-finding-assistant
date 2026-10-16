@@ -1,0 +1,6 @@
+{
+  "model_id": "IDEA-Research/grounding-dino-tiny",
+  "device": "auto",
+  "box_threshold": 0.35,
+  "text_threshold": 0.25
+}

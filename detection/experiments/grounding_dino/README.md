@@ -39,14 +39,43 @@ This directory houses the experimentation, benchmarking, and wrapper implementat
   ```
   Where `bbox` represents `[x1, y1, x2, y2]` in original image pixel coordinates.
 
-## Planned Structure
+## Structure
 ```text
 detection/experiments/grounding_dino/
 ├── README.md           # This guide
-├── detector.py         # Standardized Grounding DINO inference wrapper
-├── evaluate.py         # Benchmark and latency measurement script
-└── config/             # Model architecture configs and prompt definitions
+├── requirements.txt    # torch, transformers>=4.49, pillow, numpy, pytest
+├── detector.py         # Standardized Grounding DINO inference wrapper: detect(image, target)
+├── run_inference.py    # Runs the model on tests/dataset/manifest.csv, saves predictions + run info
+├── evaluate.py         # Scores predictions against tests/dataset/annotations/ground_truth.json (same rules as YOLO)
+├── config/
+│   ├── model.json      # Checkpoint, device, box/text thresholds
+│   └── prompts.json    # CakGo category -> prompt phrases
+├── results/            # One folder per run
+└── tests/              # Unit tests (fake model, pinned YOLO-evaluator reference numbers) + opt-in real-model smoke test
 ```
+
+## Setup & Usage
+- **Implementation:** Hugging Face `transformers` port of Grounding DINO with the official `IDEA-Research/grounding-dino-tiny` checkpoint (Apache-2.0, ~690 MB, downloaded to the Hugging Face cache on first use; weights are never committed). This avoids compiling the original `groundingdino` package and runs on CPU or CUDA (e.g. Colab).
+- **Install:** `pip install -r requirements.txt` (Colab already ships `torch` and `transformers`).
+- **Detect:**
+  ```python
+  from PIL import Image
+  from detector import detect
+
+  detect(Image.open("frame.jpg"), "keys")
+  # {"target": "keys", "detected": True, "detections": [{"label": "keys", "confidence": 0.62, "bbox": [x1, y1, x2, y2]}]}
+  ```
+  Or from the shell: `python detector.py frame.jpg keys`. CakGo categories in `config/prompts.json` expand to their prompt phrases (`glasses` -> `glasses. sunglasses.`, `remote_control` -> `remote control.`); any other text is used as the prompt as-is. The `label` of every detection is the requested target.
+- **Provisional settings:** `box_threshold` 0.35 / `text_threshold` 0.25 (the original Grounding DINO demo values) stay provisional until the team fixes the confidence threshold ("Day 1 decisions to confirm" in the API contract). Prompts were chosen from the category names in `tests/dataset/class_mapping.json` before looking at results and are recorded in each run's `run_info.json`.
+- **Benchmark on the shared dataset (from the repository root):**
+  ```bash
+  python tests/dataset/prepare_dataset.py verify                          # same files as YOLO
+  python detection/experiments/grounding_dino/run_inference.py             # default: all 4 categories, saves conf >= 0.05
+  python detection/experiments/grounding_dino/evaluate.py --run <run_name> # scores at box_threshold (0.35) unless --conf-threshold
+  ```
+  Each image is queried once per CakGo category (the app asks for one target at a time), so every category is scored on every image, like YOLO's classes. `evaluate.py` uses the same matching, metrics and output layout as `detection/experiments/yolo/evaluate.py` at PR #1 (per category TP/FP/FN, precision, recall, AP50, target-image detection rate, negative images with a false positive). The scoring functions are copied, not imported, so this folder never reads the YOLO folder; `tests/test_gdino_evaluate.py` pins the numbers the YOLO evaluator produced for a test fixture. Latency is `wall_ms_per_query`: one `detect()` call (pre-processing, inference, post-processing) after warm-up, image reading excluded. Use `--device cpu` to measure CPU latency.
+- **Outputs (`results/<run_name>/`):** `predictions.jsonl` (per image: detections of every category query and ms per query), `run_info.json` (model revision, prompts, thresholds, versions, GPU, peak VRAM, manifest sha256), `metrics.json` / `metrics.md`.
+- **Tests:** `pytest tests` runs the unit tests with a fake model (no download). The real-model smoke test on a synthetic drawing is opt-in: `GDINO_SMOKE=1 pytest tests/test_gdino_smoke.py`.
 
 ## Instructions for AI Coding Agents
 1. Work exclusively inside `detection/experiments/grounding_dino/`.

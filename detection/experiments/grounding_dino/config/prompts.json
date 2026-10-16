@@ -1,0 +1,6 @@
+{
+  "wallet": ["wallet"],
+  "keys": ["keys"],
+  "glasses": ["glasses", "sunglasses"],
+  "remote_control": ["remote control"]
+}

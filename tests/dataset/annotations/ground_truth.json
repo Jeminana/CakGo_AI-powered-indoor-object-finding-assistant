@@ -1,0 +1,2210 @@
+{
+ "bbox_format": "xyxy in absolute pixels of the image file at file_path",
+ "note": "objects lists EVERY original source annotation (all labels); category is the CakGo category, or null when the source label is not a target.",
+ "categories": [
+  "wallet",
+  "keys",
+  "glasses",
+  "remote_control"
+ ],
+ "images": [
+  {
+   "image_id": "wallet_001",
+   "file_path": "images/wallet/wallet_001.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "wallet",
+   "objects": [
+    {
+     "source_label": "wallet",
+     "category": "wallet",
+     "bbox_xyxy": [
+      97.75,
+      352.25,
+      568.25,
+      580.75
+     ],
+     "bbox_source_coco_xywh": [
+      97.75,
+      352.25,
+      470.5,
+      228.5
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "wallet_002",
+   "file_path": "images/wallet/wallet_002.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "wallet",
+   "objects": [
+    {
+     "source_label": "wallet",
+     "category": "wallet",
+     "bbox_xyxy": [
+      19,
+      114.25,
+      640,
+      505.75
+     ],
+     "bbox_source_coco_xywh": [
+      19,
+      114.25,
+      621,
+      391.5
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "wallet_003",
+   "file_path": "images/wallet/wallet_003.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "wallet",
+   "objects": [
+    {
+     "source_label": "wallet",
+     "category": "wallet",
+     "bbox_xyxy": [
+      112,
+      28,
+      422,
+      446
+     ],
+     "bbox_source_coco_xywh": [
+      112,
+      28,
+      310,
+      418
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "wallet_004",
+   "file_path": "images/wallet/wallet_004.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "wallet",
+   "objects": [
+    {
+     "source_label": "wallet",
+     "category": "wallet",
+     "bbox_xyxy": [
+      166.25,
+      29.25,
+      627.75,
+      558.75
+     ],
+     "bbox_source_coco_xywh": [
+      166.25,
+      29.25,
+      461.5,
+      529.5
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "wallet_005",
+   "file_path": "images/wallet/wallet_005.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "wallet",
+   "objects": [
+    {
+     "source_label": "wallet",
+     "category": "wallet",
+     "bbox_xyxy": [
+      83.25,
+      99.5,
+      538.75,
+      365.5
+     ],
+     "bbox_source_coco_xywh": [
+      83.25,
+      99.5,
+      455.5,
+      266
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "wallet_006",
+   "file_path": "images/wallet/wallet_006.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "wallet",
+   "objects": [
+    {
+     "source_label": "wallet",
+     "category": "wallet",
+     "bbox_xyxy": [
+      326,
+      148,
+      640,
+      640
+     ],
+     "bbox_source_coco_xywh": [
+      326,
+      148,
+      314,
+      492
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "wallet_007",
+   "file_path": "images/wallet/wallet_007.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "wallet",
+   "objects": [
+    {
+     "source_label": "wallet",
+     "category": "wallet",
+     "bbox_xyxy": [
+      148.5,
+      79,
+      379.5,
+      394
+     ],
+     "bbox_source_coco_xywh": [
+      148.5,
+      79,
+      231,
+      315
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "wallet_008",
+   "file_path": "images/wallet/wallet_008.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "wallet",
+   "objects": [
+    {
+     "source_label": "wallet",
+     "category": "wallet",
+     "bbox_xyxy": [
+      130.5,
+      259.5,
+      503.5,
+      540.5
+     ],
+     "bbox_source_coco_xywh": [
+      130.5,
+      259.5,
+      373,
+      281
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "wallet_009",
+   "file_path": "images/wallet/wallet_009.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "wallet",
+   "objects": [
+    {
+     "source_label": "wallet",
+     "category": "wallet",
+     "bbox_xyxy": [
+      145,
+      245.5,
+      640,
+      620.5
+     ],
+     "bbox_source_coco_xywh": [
+      145,
+      245.5,
+      495,
+      375
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "wallet_010",
+   "file_path": "images/wallet/wallet_010.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "wallet",
+   "objects": [
+    {
+     "source_label": "wallet",
+     "category": "wallet",
+     "bbox_xyxy": [
+      127.5,
+      75.25,
+      522.5,
+      494.75
+     ],
+     "bbox_source_coco_xywh": [
+      127.5,
+      75.25,
+      395,
+      419.5
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "wallet_011",
+   "file_path": "images/wallet/wallet_011.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "wallet",
+   "objects": [
+    {
+     "source_label": "wallet",
+     "category": "wallet",
+     "bbox_xyxy": [
+      96.5,
+      110,
+      447.5,
+      352
+     ],
+     "bbox_source_coco_xywh": [
+      96.5,
+      110,
+      351,
+      242
+     ]
+    },
+    {
+     "source_label": "wallet",
+     "category": "wallet",
+     "bbox_xyxy": [
+      434,
+      112.5,
+      640,
+      347.5
+     ],
+     "bbox_source_coco_xywh": [
+      434,
+      112.5,
+      206,
+      235
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "wallet_012",
+   "file_path": "images/wallet/wallet_012.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "wallet",
+   "objects": [
+    {
+     "source_label": "wallet",
+     "category": "wallet",
+     "bbox_xyxy": [
+      4,
+      133,
+      640,
+      559
+     ],
+     "bbox_source_coco_xywh": [
+      4,
+      133,
+      636,
+      426
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "wallet_013",
+   "file_path": "images/wallet/wallet_013.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "wallet",
+   "objects": [
+    {
+     "source_label": "wallet",
+     "category": "wallet",
+     "bbox_xyxy": [
+      290.75,
+      366,
+      611.25,
+      567
+     ],
+     "bbox_source_coco_xywh": [
+      290.75,
+      366,
+      320.5,
+      201
+     ]
+    },
+    {
+     "source_label": "wallet",
+     "category": "wallet",
+     "bbox_xyxy": [
+      186,
+      50.5,
+      502,
+      321.5
+     ],
+     "bbox_source_coco_xywh": [
+      186,
+      50.5,
+      316,
+      271
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "wallet_014",
+   "file_path": "images/wallet/wallet_014.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "wallet",
+   "objects": [
+    {
+     "source_label": "wallet",
+     "category": "wallet",
+     "bbox_xyxy": [
+      72.5,
+      127.5,
+      605.5,
+      496.5
+     ],
+     "bbox_source_coco_xywh": [
+      72.5,
+      127.5,
+      533,
+      369
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "wallet_015",
+   "file_path": "images/wallet/wallet_015.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "wallet",
+   "objects": [
+    {
+     "source_label": "wallet",
+     "category": "wallet",
+     "bbox_xyxy": [
+      53,
+      180,
+      369,
+      472
+     ],
+     "bbox_source_coco_xywh": [
+      53,
+      180,
+      316,
+      292
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "keys_001",
+   "file_path": "images/keys/keys_001.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "keys",
+   "objects": [
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      181.75,
+      203.5,
+      370.25,
+      338.5
+     ],
+     "bbox_source_coco_xywh": [
+      181.75,
+      203.5,
+      188.5,
+      135
+     ]
+    },
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      375.75,
+      149,
+      569.25,
+      260
+     ],
+     "bbox_source_coco_xywh": [
+      375.75,
+      149,
+      193.5,
+      111
+     ]
+    },
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      470.75,
+      310.75,
+      638.25,
+      489.25
+     ],
+     "bbox_source_coco_xywh": [
+      470.75,
+      310.75,
+      167.5,
+      178.5
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "keys_002",
+   "file_path": "images/keys/keys_002.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "keys",
+   "objects": [
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      180,
+      320.5,
+      434,
+      523.5
+     ],
+     "bbox_source_coco_xywh": [
+      180,
+      320.5,
+      254,
+      203
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "keys_003",
+   "file_path": "images/keys/keys_003.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "keys",
+   "objects": [
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      249,
+      0,
+      377,
+      49
+     ],
+     "bbox_source_coco_xywh": [
+      249,
+      0,
+      128,
+      49
+     ]
+    },
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      43.5,
+      95,
+      197.5,
+      220
+     ],
+     "bbox_source_coco_xywh": [
+      43.5,
+      95,
+      154,
+      125
+     ]
+    },
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      231.5,
+      291,
+      486.5,
+      556
+     ],
+     "bbox_source_coco_xywh": [
+      231.5,
+      291,
+      255,
+      265
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "keys_004",
+   "file_path": "images/keys/keys_004.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "keys",
+   "objects": [
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      57.25,
+      140.5,
+      170.75,
+      251.5
+     ],
+     "bbox_source_coco_xywh": [
+      57.25,
+      140.5,
+      113.5,
+      111
+     ]
+    },
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      467,
+      332,
+      640,
+      564
+     ],
+     "bbox_source_coco_xywh": [
+      467,
+      332,
+      173,
+      232
+     ]
+    },
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      0,
+      320,
+      230,
+      529
+     ],
+     "bbox_source_coco_xywh": [
+      0,
+      320,
+      230,
+      209
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "keys_005",
+   "file_path": "images/keys/keys_005.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "keys",
+   "objects": [
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      172.5,
+      17.25,
+      312.5,
+      185.75
+     ],
+     "bbox_source_coco_xywh": [
+      172.5,
+      17.25,
+      140,
+      168.5
+     ]
+    },
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      357.25,
+      159,
+      555.75,
+      305
+     ],
+     "bbox_source_coco_xywh": [
+      357.25,
+      159,
+      198.5,
+      146
+     ]
+    },
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      347.5,
+      394.75,
+      462.5,
+      533.25
+     ],
+     "bbox_source_coco_xywh": [
+      347.5,
+      394.75,
+      115,
+      138.5
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "keys_006",
+   "file_path": "images/keys/keys_006.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "keys",
+   "objects": [
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      340.75,
+      203,
+      477.25,
+      389
+     ],
+     "bbox_source_coco_xywh": [
+      340.75,
+      203,
+      136.5,
+      186
+     ]
+    },
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      108,
+      57.5,
+      234,
+      191.5
+     ],
+     "bbox_source_coco_xywh": [
+      108,
+      57.5,
+      126,
+      134
+     ]
+    },
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      305.75,
+      468.25,
+      469.25,
+      566.75
+     ],
+     "bbox_source_coco_xywh": [
+      305.75,
+      468.25,
+      163.5,
+      98.5
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "keys_007",
+   "file_path": "images/keys/keys_007.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "keys",
+   "objects": [
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      455,
+      265,
+      636,
+      404
+     ],
+     "bbox_source_coco_xywh": [
+      455,
+      265,
+      181,
+      139
+     ]
+    },
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      232.5,
+      424.75,
+      372.5,
+      517.25
+     ],
+     "bbox_source_coco_xywh": [
+      232.5,
+      424.75,
+      140,
+      92.5
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "keys_008",
+   "file_path": "images/keys/keys_008.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "keys",
+   "objects": [
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      446,
+      142,
+      640,
+      246
+     ],
+     "bbox_source_coco_xywh": [
+      446,
+      142,
+      194,
+      104
+     ]
+    },
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      397.5,
+      338.25,
+      536.5,
+      551.75
+     ],
+     "bbox_source_coco_xywh": [
+      397.5,
+      338.25,
+      139,
+      213.5
+     ]
+    },
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      0,
+      245,
+      176,
+      462
+     ],
+     "bbox_source_coco_xywh": [
+      0,
+      245,
+      176,
+      217
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "keys_009",
+   "file_path": "images/keys/keys_009.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "keys",
+   "objects": [
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      297.5,
+      294,
+      371.5,
+      385
+     ],
+     "bbox_source_coco_xywh": [
+      297.5,
+      294,
+      74,
+      91
+     ]
+    },
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      73,
+      482.75,
+      219,
+      609.25
+     ],
+     "bbox_source_coco_xywh": [
+      73,
+      482.75,
+      146,
+      126.5
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "keys_010",
+   "file_path": "images/keys/keys_010.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "keys",
+   "objects": [
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      139.25,
+      141.75,
+      270.75,
+      329.25
+     ],
+     "bbox_source_coco_xywh": [
+      139.25,
+      141.75,
+      131.5,
+      187.5
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "keys_011",
+   "file_path": "images/keys/keys_011.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "keys",
+   "objects": [
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      321,
+      67.75,
+      358,
+      255.25
+     ],
+     "bbox_source_coco_xywh": [
+      321,
+      67.75,
+      37,
+      187.5
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "keys_012",
+   "file_path": "images/keys/keys_012.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "keys",
+   "objects": [
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      27.75,
+      178,
+      170.25,
+      324
+     ],
+     "bbox_source_coco_xywh": [
+      27.75,
+      178,
+      142.5,
+      146
+     ]
+    },
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      210.75,
+      50.75,
+      308.25,
+      149.25
+     ],
+     "bbox_source_coco_xywh": [
+      210.75,
+      50.75,
+      97.5,
+      98.5
+     ]
+    },
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      154.25,
+      435,
+      452.75,
+      565
+     ],
+     "bbox_source_coco_xywh": [
+      154.25,
+      435,
+      298.5,
+      130
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "keys_013",
+   "file_path": "images/keys/keys_013.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "keys",
+   "objects": [
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      202.25,
+      259.25,
+      340.75,
+      395.75
+     ],
+     "bbox_source_coco_xywh": [
+      202.25,
+      259.25,
+      138.5,
+      136.5
+     ]
+    },
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      458,
+      86.5,
+      584,
+      152.5
+     ],
+     "bbox_source_coco_xywh": [
+      458,
+      86.5,
+      126,
+      66
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "keys_014",
+   "file_path": "images/keys/keys_014.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "keys",
+   "objects": [
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      179,
+      267.25,
+      360,
+      450.75
+     ],
+     "bbox_source_coco_xywh": [
+      179,
+      267.25,
+      181,
+      183.5
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "keys_015",
+   "file_path": "images/keys/keys_015.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "keys",
+   "objects": [
+    {
+     "source_label": "keys",
+     "category": "keys",
+     "bbox_xyxy": [
+      268,
+      477.25,
+      340,
+      580.75
+     ],
+     "bbox_source_coco_xywh": [
+      268,
+      477.25,
+      72,
+      103.5
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "glasses_001",
+   "file_path": "images/glasses/glasses_001.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "glasses",
+   "objects": [
+    {
+     "source_label": "glasses-sunglasses",
+     "category": "glasses",
+     "bbox_xyxy": [
+      67,
+      201.5,
+      457,
+      282.5
+     ],
+     "bbox_source_coco_xywh": [
+      67,
+      201.5,
+      390,
+      81
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "glasses_002",
+   "file_path": "images/glasses/glasses_002.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "glasses",
+   "objects": [
+    {
+     "source_label": "glasses-sunglasses",
+     "category": "glasses",
+     "bbox_xyxy": [
+      254.25,
+      60.75,
+      323.75,
+      83.25
+     ],
+     "bbox_source_coco_xywh": [
+      254.25,
+      60.75,
+      69.5,
+      22.5
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "glasses_003",
+   "file_path": "images/glasses/glasses_003.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "glasses",
+   "objects": [
+    {
+     "source_label": "glasses-sunglasses",
+     "category": "glasses",
+     "bbox_xyxy": [
+      29.75,
+      0.25,
+      608.25,
+      591.75
+     ],
+     "bbox_source_coco_xywh": [
+      29.75,
+      0.25,
+      578.5,
+      591.5
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "glasses_004",
+   "file_path": "images/glasses/glasses_004.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "glasses",
+   "objects": [
+    {
+     "source_label": "glasses-sunglasses",
+     "category": "glasses",
+     "bbox_xyxy": [
+      214.5,
+      324.5,
+      451.5,
+      439.5
+     ],
+     "bbox_source_coco_xywh": [
+      214.5,
+      324.5,
+      237,
+      115
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "glasses_005",
+   "file_path": "images/glasses/glasses_005.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "glasses",
+   "objects": [
+    {
+     "source_label": "glasses-sunglasses",
+     "category": "glasses",
+     "bbox_xyxy": [
+      107.75,
+      46.5,
+      323.25,
+      172.5
+     ],
+     "bbox_source_coco_xywh": [
+      107.75,
+      46.5,
+      215.5,
+      126
+     ]
+    },
+    {
+     "source_label": "glasses-sunglasses",
+     "category": "glasses",
+     "bbox_xyxy": [
+      212.5,
+      307.75,
+      422.5,
+      554.25
+     ],
+     "bbox_source_coco_xywh": [
+      212.5,
+      307.75,
+      210,
+      246.5
+     ]
+    },
+    {
+     "source_label": "glasses-sunglasses",
+     "category": "glasses",
+     "bbox_xyxy": [
+      121.75,
+      282.5,
+      211.25,
+      639.5
+     ],
+     "bbox_source_coco_xywh": [
+      121.75,
+      282.5,
+      89.5,
+      357
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "glasses_006",
+   "file_path": "images/glasses/glasses_006.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "glasses",
+   "objects": [
+    {
+     "source_label": "glasses-sunglasses",
+     "category": "glasses",
+     "bbox_xyxy": [
+      90,
+      190.5,
+      546,
+      485.5
+     ],
+     "bbox_source_coco_xywh": [
+      90,
+      190.5,
+      456,
+      295
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "glasses_007",
+   "file_path": "images/glasses/glasses_007.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "glasses",
+   "objects": [
+    {
+     "source_label": "glasses-sunglasses",
+     "category": "glasses",
+     "bbox_xyxy": [
+      234.5,
+      203.5,
+      375.5,
+      270.5
+     ],
+     "bbox_source_coco_xywh": [
+      234.5,
+      203.5,
+      141,
+      67
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "glasses_008",
+   "file_path": "images/glasses/glasses_008.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "glasses",
+   "objects": [
+    {
+     "source_label": "glasses-sunglasses",
+     "category": "glasses",
+     "bbox_xyxy": [
+      123.25,
+      237.25,
+      429.75,
+      500.75
+     ],
+     "bbox_source_coco_xywh": [
+      123.25,
+      237.25,
+      306.5,
+      263.5
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "glasses_009",
+   "file_path": "images/glasses/glasses_009.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "glasses",
+   "objects": [
+    {
+     "source_label": "glasses-sunglasses",
+     "category": "glasses",
+     "bbox_xyxy": [
+      185.75,
+      222,
+      416.25,
+      510
+     ],
+     "bbox_source_coco_xywh": [
+      185.75,
+      222,
+      230.5,
+      288
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "glasses_010",
+   "file_path": "images/glasses/glasses_010.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "glasses",
+   "objects": [
+    {
+     "source_label": "glasses-sunglasses",
+     "category": "glasses",
+     "bbox_xyxy": [
+      364,
+      74.75,
+      491,
+      349.25
+     ],
+     "bbox_source_coco_xywh": [
+      364,
+      74.75,
+      127,
+      274.5
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "glasses_011",
+   "file_path": "images/glasses/glasses_011.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "glasses",
+   "objects": [
+    {
+     "source_label": "glasses-sunglasses",
+     "category": "glasses",
+     "bbox_xyxy": [
+      57.5,
+      195.5,
+      552.5,
+      380.5
+     ],
+     "bbox_source_coco_xywh": [
+      57.5,
+      195.5,
+      495,
+      185
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "glasses_012",
+   "file_path": "images/glasses/glasses_012.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "glasses",
+   "objects": [
+    {
+     "source_label": "glasses-sunglasses",
+     "category": "glasses",
+     "bbox_xyxy": [
+      291,
+      0,
+      617,
+      550
+     ],
+     "bbox_source_coco_xywh": [
+      291,
+      0,
+      326,
+      550
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "glasses_013",
+   "file_path": "images/glasses/glasses_013.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "glasses",
+   "objects": [
+    {
+     "source_label": "glasses-sunglasses",
+     "category": "glasses",
+     "bbox_xyxy": [
+      147.5,
+      252,
+      308.5,
+      388
+     ],
+     "bbox_source_coco_xywh": [
+      147.5,
+      252,
+      161,
+      136
+     ]
+    },
+    {
+     "source_label": "glasses-sunglasses",
+     "category": "glasses",
+     "bbox_xyxy": [
+      413,
+      239,
+      511,
+      435
+     ],
+     "bbox_source_coco_xywh": [
+      413,
+      239,
+      98,
+      196
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "glasses_014",
+   "file_path": "images/glasses/glasses_014.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "glasses",
+   "objects": [
+    {
+     "source_label": "glasses-sunglasses",
+     "category": "glasses",
+     "bbox_xyxy": [
+      256,
+      154,
+      416,
+      232
+     ],
+     "bbox_source_coco_xywh": [
+      256,
+      154,
+      160,
+      78
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "glasses_015",
+   "file_path": "images/glasses/glasses_015.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "glasses",
+   "objects": [
+    {
+     "source_label": "glasses-sunglasses",
+     "category": "glasses",
+     "bbox_xyxy": [
+      134,
+      86,
+      250,
+      170
+     ],
+     "bbox_source_coco_xywh": [
+      134,
+      86,
+      116,
+      84
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "remote_control_001",
+   "file_path": "images/remote_control/remote_control_001.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "remote_control",
+   "objects": [
+    {
+     "source_label": "remote-control",
+     "category": "remote_control",
+     "bbox_xyxy": [
+      6,
+      2,
+      640,
+      637
+     ],
+     "bbox_source_coco_xywh": [
+      6,
+      2,
+      634,
+      635
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "remote_control_002",
+   "file_path": "images/remote_control/remote_control_002.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "remote_control",
+   "objects": [
+    {
+     "source_label": "remote-control",
+     "category": "remote_control",
+     "bbox_xyxy": [
+      8.96,
+      209.95,
+      583.29,
+      433.29
+     ],
+     "bbox_source_coco_xywh": [
+      8.96,
+      209.95,
+      574.33,
+      223.34
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "remote_control_003",
+   "file_path": "images/remote_control/remote_control_003.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "remote_control",
+   "objects": [
+    {
+     "source_label": "remote-control",
+     "category": "remote_control",
+     "bbox_xyxy": [
+      27.26,
+      49.78,
+      437.33,
+      444.45
+     ],
+     "bbox_source_coco_xywh": [
+      27.26,
+      49.78,
+      410.07,
+      394.67
+     ]
+    },
+    {
+     "source_label": "remote-control",
+     "category": "remote_control",
+     "bbox_xyxy": [
+      198.94,
+      193.78,
+      611.38,
+      599.11
+     ],
+     "bbox_source_coco_xywh": [
+      198.94,
+      193.78,
+      412.44,
+      405.33
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "remote_control_004",
+   "file_path": "images/remote_control/remote_control_004.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "remote_control",
+   "objects": [
+    {
+     "source_label": "remote-control",
+     "category": "remote_control",
+     "bbox_xyxy": [
+      3.08,
+      178.69,
+      566.16,
+      480.33
+     ],
+     "bbox_source_coco_xywh": [
+      3.08,
+      178.69,
+      563.08,
+      301.64
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "remote_control_005",
+   "file_path": "images/remote_control/remote_control_005.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "remote_control",
+   "objects": [
+    {
+     "source_label": "remote-control",
+     "category": "remote_control",
+     "bbox_xyxy": [
+      26.25,
+      93.02,
+      615.0,
+      514.73
+     ],
+     "bbox_source_coco_xywh": [
+      26.25,
+      93.02,
+      588.75,
+      421.71
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "remote_control_006",
+   "file_path": "images/remote_control/remote_control_006.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "remote_control",
+   "objects": [
+    {
+     "source_label": "remote-control",
+     "category": "remote_control",
+     "bbox_xyxy": [
+      90.78,
+      58.67,
+      272.0,
+      620.45
+     ],
+     "bbox_source_coco_xywh": [
+      90.78,
+      58.67,
+      181.22,
+      561.78
+     ]
+    },
+    {
+     "source_label": "remote-control",
+     "category": "remote_control",
+     "bbox_xyxy": [
+      385.78,
+      40.89,
+      561.78,
+      600.89
+     ],
+     "bbox_source_coco_xywh": [
+      385.78,
+      40.89,
+      176,
+      560
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "remote_control_007",
+   "file_path": "images/remote_control/remote_control_007.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "remote_control",
+   "objects": [
+    {
+     "source_label": "remote-control",
+     "category": "remote_control",
+     "bbox_xyxy": [
+      37.5,
+      254.17,
+      632.81,
+      500.0
+     ],
+     "bbox_source_coco_xywh": [
+      37.5,
+      254.17,
+      595.31,
+      245.83
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "remote_control_008",
+   "file_path": "images/remote_control/remote_control_008.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "remote_control",
+   "objects": [
+    {
+     "source_label": "remote-control",
+     "category": "remote_control",
+     "bbox_xyxy": [
+      218.75,
+      18.75,
+      453.25,
+      602.25
+     ],
+     "bbox_source_coco_xywh": [
+      218.75,
+      18.75,
+      234.5,
+      583.5
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "remote_control_009",
+   "file_path": "images/remote_control/remote_control_009.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "remote_control",
+   "objects": [
+    {
+     "source_label": "remote-control",
+     "category": "remote_control",
+     "bbox_xyxy": [
+      34.46,
+      323.96,
+      613.35,
+      433.75
+     ],
+     "bbox_source_coco_xywh": [
+      34.46,
+      323.96,
+      578.89,
+      109.79
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "remote_control_010",
+   "file_path": "images/remote_control/remote_control_010.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "remote_control",
+   "objects": [
+    {
+     "source_label": "remote-control",
+     "category": "remote_control",
+     "bbox_xyxy": [
+      240.42,
+      39.45,
+      513.48,
+      547.93
+     ],
+     "bbox_source_coco_xywh": [
+      240.42,
+      39.45,
+      273.06,
+      508.48
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "remote_control_011",
+   "file_path": "images/remote_control/remote_control_011.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "remote_control",
+   "objects": [
+    {
+     "source_label": "remote-control",
+     "category": "remote_control",
+     "bbox_xyxy": [
+      164.1,
+      79.99,
+      364.04,
+      401.68
+     ],
+     "bbox_source_coco_xywh": [
+      164.1,
+      79.99,
+      199.94,
+      321.69
+     ]
+    },
+    {
+     "source_label": "remote-control",
+     "category": "remote_control",
+     "bbox_xyxy": [
+      266.15,
+      214.29,
+      469.07,
+      536.62
+     ],
+     "bbox_source_coco_xywh": [
+      266.15,
+      214.29,
+      202.92,
+      322.33
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "remote_control_012",
+   "file_path": "images/remote_control/remote_control_012.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "remote_control",
+   "objects": [
+    {
+     "source_label": "remote-control",
+     "category": "remote_control",
+     "bbox_xyxy": [
+      166.25,
+      14,
+      383.75,
+      608
+     ],
+     "bbox_source_coco_xywh": [
+      166.25,
+      14,
+      217.5,
+      594
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "remote_control_013",
+   "file_path": "images/remote_control/remote_control_013.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "remote_control",
+   "objects": [
+    {
+     "source_label": "remote-control",
+     "category": "remote_control",
+     "bbox_xyxy": [
+      211.75,
+      21,
+      426.25,
+      615
+     ],
+     "bbox_source_coco_xywh": [
+      211.75,
+      21,
+      214.5,
+      594
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "remote_control_014",
+   "file_path": "images/remote_control/remote_control_014.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "remote_control",
+   "objects": [
+    {
+     "source_label": "remote-control",
+     "category": "remote_control",
+     "bbox_xyxy": [
+      212.75,
+      90.5,
+      435.25,
+      530.5
+     ],
+     "bbox_source_coco_xywh": [
+      212.75,
+      90.5,
+      222.5,
+      440
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "remote_control_015",
+   "file_path": "images/remote_control/remote_control_015.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "remote_control",
+   "objects": [
+    {
+     "source_label": "remote-control",
+     "category": "remote_control",
+     "bbox_xyxy": [
+      155.5,
+      10.5,
+      458.5,
+      631.5
+     ],
+     "bbox_source_coco_xywh": [
+      155.5,
+      10.5,
+      303,
+      621
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "negative_001",
+   "file_path": "images/negative/negative_001.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "negative",
+   "objects": [
+    {
+     "source_label": "backpack-bag",
+     "category": null,
+     "bbox_xyxy": [
+      111.5,
+      60,
+      532.5,
+      619
+     ],
+     "bbox_source_coco_xywh": [
+      111.5,
+      60,
+      421,
+      559
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "negative_002",
+   "file_path": "images/negative/negative_002.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "negative",
+   "objects": [
+    {
+     "source_label": "backpack-bag",
+     "category": null,
+     "bbox_xyxy": [
+      111.25,
+      52.25,
+      537.75,
+      565.75
+     ],
+     "bbox_source_coco_xywh": [
+      111.25,
+      52.25,
+      426.5,
+      513.5
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "negative_003",
+   "file_path": "images/negative/negative_003.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "negative",
+   "objects": [
+    {
+     "source_label": "earphone",
+     "category": null,
+     "bbox_xyxy": [
+      96,
+      0,
+      502,
+      640
+     ],
+     "bbox_source_coco_xywh": [
+      96,
+      0,
+      406,
+      640
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "negative_004",
+   "file_path": "images/negative/negative_004.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "negative",
+   "objects": [
+    {
+     "source_label": "casual-shoes",
+     "category": null,
+     "bbox_xyxy": [
+      0.5,
+      157.75,
+      372.5,
+      559.25
+     ],
+     "bbox_source_coco_xywh": [
+      0.5,
+      157.75,
+      372,
+      401.5
+     ]
+    },
+    {
+     "source_label": "casual-shoes",
+     "category": null,
+     "bbox_xyxy": [
+      316.5,
+      164,
+      628.5,
+      521
+     ],
+     "bbox_source_coco_xywh": [
+      316.5,
+      164,
+      312,
+      357
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "negative_005",
+   "file_path": "images/negative/negative_005.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "negative",
+   "objects": [
+    {
+     "source_label": "backpack-bag",
+     "category": null,
+     "bbox_xyxy": [
+      138.25,
+      22,
+      506.75,
+      580
+     ],
+     "bbox_source_coco_xywh": [
+      138.25,
+      22,
+      368.5,
+      558
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "negative_006",
+   "file_path": "images/negative/negative_006.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "negative",
+   "objects": [
+    {
+     "source_label": "earphone",
+     "category": null,
+     "bbox_xyxy": [
+      324.5,
+      8.25,
+      625.5,
+      634.75
+     ],
+     "bbox_source_coco_xywh": [
+      324.5,
+      8.25,
+      301,
+      626.5
+     ]
+    },
+    {
+     "source_label": "earphone",
+     "category": null,
+     "bbox_xyxy": [
+      17,
+      13,
+      277,
+      640
+     ],
+     "bbox_source_coco_xywh": [
+      17,
+      13,
+      260,
+      627
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "negative_007",
+   "file_path": "images/negative/negative_007.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "negative",
+   "objects": [
+    {
+     "source_label": "casual-shoes",
+     "category": null,
+     "bbox_xyxy": [
+      0,
+      133,
+      313,
+      522
+     ],
+     "bbox_source_coco_xywh": [
+      0,
+      133,
+      313,
+      389
+     ]
+    },
+    {
+     "source_label": "casual-shoes",
+     "category": null,
+     "bbox_xyxy": [
+      320.5,
+      149.5,
+      635.5,
+      510.5
+     ],
+     "bbox_source_coco_xywh": [
+      320.5,
+      149.5,
+      315,
+      361
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "negative_008",
+   "file_path": "images/negative/negative_008.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "negative",
+   "objects": [
+    {
+     "source_label": "earphone",
+     "category": null,
+     "bbox_xyxy": [
+      0.25,
+      0,
+      473.75,
+      640
+     ],
+     "bbox_source_coco_xywh": [
+      0.25,
+      0,
+      473.5,
+      640
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "negative_009",
+   "file_path": "images/negative/negative_009.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "negative",
+   "objects": [
+    {
+     "source_label": "casual-shoes",
+     "category": null,
+     "bbox_xyxy": [
+      19,
+      125.5,
+      619,
+      580.5
+     ],
+     "bbox_source_coco_xywh": [
+      19,
+      125.5,
+      600,
+      455
+     ]
+    }
+   ]
+  },
+  {
+   "image_id": "negative_010",
+   "file_path": "images/negative/negative_010.jpg",
+   "width": 640,
+   "height": 640,
+   "target_category": "negative",
+   "objects": [
+    {
+     "source_label": "earphone",
+     "category": null,
+     "bbox_xyxy": [
+      0,
+      0,
+      640,
+      640
+     ],
+     "bbox_source_coco_xywh": [
+      0,
+      0,
+      640,
+      640
+     ]
+    }
+   ]
+  }
+ ]
+}

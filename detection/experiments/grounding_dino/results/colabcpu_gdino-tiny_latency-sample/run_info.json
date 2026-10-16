@@ -1,0 +1,38 @@
+{
+  "run_name": "colabcpu_gdino-tiny_latency-sample",
+  "created_at": "2026-10-15T21:03:22+00:00",
+  "model": {
+    "family": "Grounding DINO (Hugging Face transformers, zero-shot, no fine-tuning)",
+    "model_id": "IDEA-Research/grounding-dino-tiny",
+    "revision": null
+  },
+  "prompts": {
+    "remote_control": "remote control."
+  },
+  "inference_settings": {
+    "box_threshold": 0.05,
+    "text_threshold": 0.25,
+    "device": "cpu",
+    "warmup_queries": 1,
+    "queries_per_image": 1,
+    "half_precision": false,
+    "input": "RGB PIL image read with Pillow"
+  },
+  "timing_notes": "wall_ms[category] = one detect() call (preprocess + inference + post-process) with that category's prompt; image file reading is excluded.",
+  "dataset": {
+    "manifest": "tests/dataset/manifest_cpu_sample.csv",
+    "manifest_sha256": "37bb4d8546711efa2882e5cae7a1add90598585406c3fd2a5f67b57865cc3a51",
+    "num_images": 10
+  },
+  "environment": {
+    "python": "3.13.15",
+    "torch": "2.11.0+cu130",
+    "transformers": "5.18.0",
+    "pillow": "11.3.0",
+    "cuda_available": true,
+    "gpu": null,
+    "peak_vram_mb": null,
+    "cpu": "x86_64",
+    "os": "Linux-6.6.122+-x86_64-with-glibc2.39"
+  }
+}
