@@ -51,7 +51,7 @@ detection/experiments/grounding_dino/
 │   ├── model.json      # Checkpoint, device, box/text thresholds
 │   └── prompts.json    # CakGo category -> prompt phrases
 ├── results/            # One folder per run
-└── tests/              # Unit tests (fake model, YOLO-evaluator parity) + opt-in real-model smoke test
+└── tests/              # Unit tests (fake model, pinned YOLO-evaluator reference numbers) + opt-in real-model smoke test
 ```
 
 ## Setup & Usage
@@ -73,7 +73,7 @@ detection/experiments/grounding_dino/
   python detection/experiments/grounding_dino/run_inference.py             # default: all 4 categories, saves conf >= 0.05
   python detection/experiments/grounding_dino/evaluate.py --run <run_name> # scores at box_threshold (0.35) unless --conf-threshold
   ```
-  Each image is queried once per CakGo category (the app asks for one target at a time), so every category is scored on every image, like YOLO's classes. `evaluate.py` uses the same matching, metrics and output layout as `detection/experiments/yolo/evaluate.py` (per category TP/FP/FN, precision, recall, AP50, target-image detection rate, negative images with a false positive); `tests/test_gdino_evaluate.py` checks the numbers against the YOLO evaluator. Latency is `wall_ms_per_query`: one `detect()` call (pre-processing, inference, post-processing) after warm-up, image reading excluded. Use `--device cpu` to measure CPU latency.
+  Each image is queried once per CakGo category (the app asks for one target at a time), so every category is scored on every image, like YOLO's classes. `evaluate.py` uses the same matching, metrics and output layout as `detection/experiments/yolo/evaluate.py` at PR #1 (per category TP/FP/FN, precision, recall, AP50, target-image detection rate, negative images with a false positive). The scoring functions are copied, not imported, so this folder never reads the YOLO folder; `tests/test_gdino_evaluate.py` pins the numbers the YOLO evaluator produced for a test fixture. Latency is `wall_ms_per_query`: one `detect()` call (pre-processing, inference, post-processing) after warm-up, image reading excluded. Use `--device cpu` to measure CPU latency.
 - **Outputs (`results/<run_name>/`):** `predictions.jsonl` (per image: detections of every category query and ms per query), `run_info.json` (model revision, prompts, thresholds, versions, GPU, peak VRAM, manifest sha256), `metrics.json` / `metrics.md`.
 - **Tests:** `pytest tests` runs the unit tests with a fake model (no download). The real-model smoke test on a synthetic drawing is opt-in: `GDINO_SMOKE=1 pytest tests/test_gdino_smoke.py`.
 

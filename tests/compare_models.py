@@ -1,13 +1,14 @@
 """Compare the YOLO and Grounding DINO runs on the shared evaluation set (Day 3 benchmark).
 
-Both runs are scored with the same function (grounding_dino/evaluate.py `score_category`,
-which tests/test_gdino_evaluate.py checks against yolo/evaluate.py), and the YOLO numbers are
-cross-checked against the YOLO run's own metrics.json. Prints the Markdown tables used in
-tests/results/model_comparison_report.md.
+Both runs are scored with the same function (grounding_dino/evaluate.py `score_category`, whose
+numbers tests/test_gdino_evaluate.py pins to what yolo/evaluate.py produced), and the YOLO
+numbers are cross-checked against the YOLO run's own metrics.json. Prints the Markdown tables
+used in tests/results/model_comparison_report.md.
 
-YOLO run folders are read from tests/results/yolo_reference_runs/ by default (Member 4's
-reference runs of Member 1's scripts); pass --yolo-results-dir to use other runs. The YOLO
-experiment folder is only read (target_mapping.json), never written.
+YOLO run folders and the COCO-to-CakGo label mapping are read from tests/results/yolo_reference_runs/
+by default (Member 4's reference runs of Member 1's scripts, plus a copy of target_mapping.json from
+PR #1). Nothing under detection/experiments/yolo/ is imported or read; pass --yolo-results-dir and
+--yolo-mapping to compare other YOLO runs.
 
 Example (from the repository root):
   python tests/compare_models.py --yolo-run t4_yolo26s_conf0.001 --yolo-latency-run t4_yolo26s_conf0.25 \
@@ -23,7 +24,6 @@ import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-YOLO_DIR = REPO_ROOT / "detection" / "experiments" / "yolo"
 GDINO_DIR = REPO_ROOT / "detection" / "experiments" / "grounding_dino"
 GROUND_TRUTH_PATH = REPO_ROOT / "tests" / "dataset" / "annotations" / "ground_truth.json"
 YOLO_REFERENCE_RUNS = REPO_ROOT / "tests" / "results" / "yolo_reference_runs"
@@ -54,9 +54,9 @@ def read_jsonl(path: Path) -> dict:
         return {p["image_id"]: p for p in map(json.loads, f)}
 
 
-def yolo_predictions(run_dir: Path) -> tuple[dict, dict]:
+def yolo_predictions(run_dir: Path, mapping_path: Path) -> tuple[dict, dict]:
     """YOLO detections relabelled to CakGo categories (supported categories only)."""
-    mapping = json.loads((YOLO_DIR / "target_mapping.json").read_text(encoding="utf-8"))["categories"]
+    mapping = json.loads(mapping_path.read_text(encoding="utf-8"))["categories"]
     to_category = {label: c for c, m in mapping.items() if m["supported"] for label in m["coco_classes"]}
     preds = read_jsonl(run_dir / "predictions.jsonl")
     for p in preds.values():
@@ -136,13 +136,16 @@ def main() -> None:
     parser.add_argument("--gdino-conf", type=float, default=0.35, help="Grounding DINO operating confidence")
     parser.add_argument("--yolo-results-dir", type=Path, default=YOLO_REFERENCE_RUNS,
                         help="folder that holds the YOLO run folders (default: tests/results/yolo_reference_runs)")
+    parser.add_argument("--yolo-mapping", type=Path,
+                        help="YOLO target_mapping.json (default: the one inside --yolo-results-dir)")
     args = parser.parse_args()
 
     ground_truth = json.loads(GROUND_TRUTH_PATH.read_text(encoding="utf-8"))
     categories = ground_truth["categories"]
     gt_all = {g["image_id"]: g for g in ground_truth["images"]}
     gt_clean = {i: g for i, g in gt_all.items() if i not in GT_ISSUES}
-    yolo, yolo_supported = yolo_predictions(args.yolo_results_dir / args.yolo_run)
+    yolo, yolo_supported = yolo_predictions(args.yolo_results_dir / args.yolo_run,
+                                            args.yolo_mapping or args.yolo_results_dir / "target_mapping.json")
     gdino = read_jsonl(GDINO_DIR / "results" / args.gdino_run / "predictions.jsonl")
 
     # Cross-check: our scoring of the YOLO run must equal the YOLO run's own metrics.json.

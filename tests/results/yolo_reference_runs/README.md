@@ -7,7 +7,10 @@ same `tests/dataset/manifest.csv` (sha256 `ca73e2c1…5bde4b`) as Grounding DINO
 
 They are kept here so that `detection/experiments/yolo/` stays untouched. Member 1 can confirm these
 numbers or replace them with an own run on the same manifest; `tests/compare_models.py
---yolo-results-dir <folder>` compares any set of YOLO run folders.
+--yolo-results-dir <folder> --yolo-mapping <target_mapping.json>` compares any set of YOLO run folders.
+
+`target_mapping.json` here is an unchanged copy of Member 1's file from PR #1 (commit `d299bb4`), the
+mapping these runs were scored with. `compare_models.py` reads this copy, so it never reads the YOLO folder.
 
 | Run | How it was made |
 |---|---|

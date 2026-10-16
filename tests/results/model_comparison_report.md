@@ -49,7 +49,7 @@ Prepared by Member 4 on 2026-10-16.
 | Software | Python 3.13.15, torch 2.11.0+cu130; ultralytics 8.4.177; transformers 5.18.0 |
 | YOLO | Member 1's scripts from PR #1, unmodified, run by Member 4. `yolo26s.pt` (sha256 `646f8bc3…db384a1b`), imgsz 640, NMS IoU 0.7. Accuracy from run `t4_yolo26s_conf0.001` (untruncated AP), latency from `t4_yolo26s_conf0.25` (default settings); run folders in `tests/results/yolo_reference_runs/` |
 | Grounding DINO | `IDEA-Research/grounding-dino-tiny` (revision `a2bb814d`, read from the VM cache after the run), text threshold 0.25, boxes saved from 0.05. One query per image per category (280 queries), because the app asks for one target at a time. Prompts, chosen before the run: `wallet.`, `keys.`, `glasses. sunglasses.`, `remote control.` |
-| Scoring | Same code for both: per category, greedy matching at IoU ≥ 0.5 across all 70 images, all-point AP50. `tests/compare_models.py` reproduces YOLO's own `metrics.json` exactly, and `tests/test_gdino_evaluate.py` checks the Grounding DINO evaluator against YOLO's |
+| Scoring | Same code for both: per category, greedy matching at IoU ≥ 0.5 across all 70 images, all-point AP50. `tests/compare_models.py` reproduces YOLO's own `metrics.json` exactly, and `tests/test_gdino_evaluate.py` pins the Grounding DINO evaluator to the numbers YOLO's evaluator produced. Neither imports or reads `detection/experiments/yolo/` |
 | Operating thresholds | YOLO 0.25 (Member 1's default), Grounding DINO 0.35 (provisional config). Sweeps below show both models across thresholds |
 
 **Top-1 correct** is the app's view: on each target image, is the single highest-confidence box (at or above the
@@ -171,7 +171,8 @@ python tests/compare_models.py --yolo-run t4_yolo26s_conf0.001 --yolo-latency-ru
 ```
 
 The YOLO scripts write their run folders to `detection/experiments/yolo/results/`. For this report those folders
-were moved unchanged to `tests/results/yolo_reference_runs/`, which `compare_models.py` reads by default. To
-compare other YOLO runs, pass `--yolo-results-dir detection/experiments/yolo/results`.
+were moved unchanged to `tests/results/yolo_reference_runs/` (with a copy of PR #1's `target_mapping.json`),
+which `compare_models.py` reads by default. To compare other YOLO runs, pass `--yolo-results-dir <folder>` and
+`--yolo-mapping <target_mapping.json>`.
 The `metrics_conf<t>.json` files in each run folder come from re-running the evaluator with `--conf-threshold <t>`.
 The CPU runs used a 10-image manifest (two images per bucket), which is saved next to their predictions.

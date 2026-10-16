@@ -1,10 +1,11 @@
 """Evaluate a Grounding DINO run against the shared ground truth in tests/dataset/annotations/.
 
-Scoring is the same as detection/experiments/yolo/evaluate.py: per CakGo category,
-predictions are matched to that category's ground-truth boxes across ALL evaluation images
-(greedy, by confidence, IoU >= --iou-threshold), with the same metrics and output layout
-(tests/test_gdino_evaluate.py checks the numbers against the YOLO evaluator). Every
-category is supported through its text prompt.
+Scoring follows the rules of detection/experiments/yolo/evaluate.py as of PR #1 (commit d299bb4):
+per CakGo category, predictions are matched to that category's ground-truth boxes across ALL
+evaluation images (greedy, by confidence, IoU >= --iou-threshold), with the same metrics and
+output layout. The scoring functions are copied, not imported, so this folder does not depend
+on the YOLO folder; tests/test_gdino_evaluate.py pins the numbers the YOLO evaluator produced
+for a test fixture. Every category is supported through its text prompt.
 
 Writes results/<run>/metrics.json and results/<run>/metrics.md.
 
@@ -28,7 +29,7 @@ GROUND_TRUTH_PATH = REPO_ROOT / "tests" / "dataset" / "annotations" / "ground_tr
 RESULTS_DIR = EXPERIMENT_DIR / "results"
 
 
-# iou, match, average_precision and latency_stats are kept identical to yolo/evaluate.py.
+# iou, match, average_precision and latency_stats are copies of yolo/evaluate.py (commit d299bb4).
 def iou(a: list[float], b: list[float]) -> float:
     ix = max(0.0, min(a[2], b[2]) - max(a[0], b[0]))
     iy = max(0.0, min(a[3], b[3]) - max(a[1], b[1]))

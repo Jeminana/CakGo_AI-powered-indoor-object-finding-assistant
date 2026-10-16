@@ -1,13 +1,9 @@
-import importlib.util
 import json
 import sys
-from pathlib import Path
 
 import pytest
 
 import evaluate as gd_eval
-
-YOLO_EVALUATE = Path(__file__).resolve().parents[2] / "yolo" / "evaluate.py"
 
 GT_IMAGES = [
     {"image_id": "remote_control_001", "target_category": "remote_control", "objects": [
@@ -31,6 +27,27 @@ DETECTIONS = {
 }
 
 
+# What detection/experiments/yolo/evaluate.py (PR #1, commit d299bb4) printed for this fixture, captured once on
+# 2026-10-16. Pinned so this folder never imports the YOLO folder; if the shared scoring rules change, re-capture
+# these numbers and update both evaluators together.
+YOLO_REFERENCE = {
+    (0.3, 0.5): {"status": "evaluated", "num_gt_boxes": 4, "num_predictions": 5, "true_positives": 2,
+                 "false_positives": 3, "false_negatives": 2, "precision": 0.4, "recall": 0.5, "ap50": 0.625,
+                 "num_target_images": 2, "target_images_detected": 1, "image_level_detection_rate": 0.5,
+                 "negative_images": 1, "negative_images_with_false_positive": 1},
+    (0.1, 0.5): {"status": "evaluated", "num_gt_boxes": 4, "num_predictions": 7, "true_positives": 3,
+                 "false_positives": 4, "false_negatives": 1, "precision": 0.4286, "recall": 0.75, "ap50": 0.625,
+                 "num_target_images": 2, "target_images_detected": 1, "image_level_detection_rate": 0.5,
+                 "negative_images": 1, "negative_images_with_false_positive": 1},
+    (0.5, 0.75): {"status": "evaluated", "num_gt_boxes": 4, "num_predictions": 4, "true_positives": 2,
+                  "false_positives": 2, "false_negatives": 2, "precision": 0.5, "recall": 0.5, "ap50": 0.625,
+                  "num_target_images": 2, "target_images_detected": 1, "image_level_detection_rate": 0.5,
+                  "negative_images": 1, "negative_images_with_false_positive": 1},
+}
+YOLO_REFERENCE_LATENCY = ([12.0, 3.5, 7.25, 30.0, 9.0],
+                          {"mean": 12.35, "median": 9.0, "p95": 30.0, "min": 3.5, "max": 30.0})
+
+
 def detections(image_id):
     return [{"label": "remote_control", "confidence": c, "bbox": b} for c, b in DETECTIONS[image_id]]
 
@@ -38,13 +55,6 @@ def detections(image_id):
 def write_jsonl(path, records):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("".join(json.dumps(r) + "\n" for r in records), encoding="utf-8")
-
-
-def load_yolo_evaluate():
-    spec = importlib.util.spec_from_file_location("yolo_evaluate", YOLO_EVALUATE)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
 
 
 @pytest.fixture
@@ -66,32 +76,20 @@ def test_hand_computed_metrics():
     assert m["negative_images_with_false_positive"] == 1
 
 
-def test_scores_match_the_yolo_evaluator(tmp_path, ground_truth, monkeypatch):
-    """The same predictions through both evaluators must give identical numbers."""
-    yolo = load_yolo_evaluate()
-    mapping = tmp_path / "target_mapping.json"
-    mapping.write_text(json.dumps({"categories": {"remote_control": {
-        "supported": True, "coco_classes": ["remote_control"], "note": ""}}}), encoding="utf-8")
-    run_dir = tmp_path / "yolo_results" / "run"
-    write_jsonl(run_dir / "predictions.jsonl",
-                [{"image_id": i, "detections": detections(i), "timing": {"wall_ms": 10.0}} for i in DETECTIONS])
-    (run_dir / "run_info.json").write_text(json.dumps(
-        {"model": {"weights": "fake.pt"}, "inference_settings": {"conf": 0.001}}), encoding="utf-8")
-    monkeypatch.setattr(yolo, "GROUND_TRUTH_PATH", ground_truth)
-    monkeypatch.setattr(yolo, "TARGET_MAPPING_PATH", mapping)
-    monkeypatch.setattr(yolo, "RESULTS_DIR", tmp_path / "yolo_results")
-    monkeypatch.setattr(sys, "argv", ["evaluate.py", "--run", "run", "--conf-threshold", "0.3"])
-    yolo.main()
-    yolo_metrics = json.loads((run_dir / "metrics.json").read_text())["categories"]["remote_control"]
-
+@pytest.mark.parametrize(("conf_thr", "iou_thr"), list(YOLO_REFERENCE))
+def test_scores_match_the_yolo_evaluator_reference(conf_thr, iou_thr):
+    """Same predictions, same rules: our numbers equal what the YOLO evaluator produced."""
     predictions = {i: {"detections": detections(i)} for i in DETECTIONS}
     gt_images = {g["image_id"]: g for g in GT_IMAGES}
-    ours = gd_eval.score_category("remote_control", predictions, gt_images, conf_thr=0.3, iou_thr=0.5)
 
-    yolo_metrics.pop("model_classes")
-    assert ours == yolo_metrics
-    values = [12.0, 3.5, 7.25, 30.0, 9.0]
-    assert gd_eval.latency_stats(values) == yolo.latency_stats(values)
+    ours = gd_eval.score_category("remote_control", predictions, gt_images, conf_thr, iou_thr)
+
+    assert ours == YOLO_REFERENCE[(conf_thr, iou_thr)]
+
+
+def test_latency_stats_match_the_yolo_evaluator_reference():
+    values, expected = YOLO_REFERENCE_LATENCY
+    assert gd_eval.latency_stats(values) == expected
 
 
 def test_main_writes_metrics_and_per_query_latency(tmp_path, ground_truth, monkeypatch):
