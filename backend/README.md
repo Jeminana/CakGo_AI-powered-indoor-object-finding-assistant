@@ -1,5 +1,31 @@
 # Backend Server — Member 3
 
+## Implemented backend (상싱위)
+
+From the repository root: `python -m pip install -r backend/requirements.txt`, then
+`python -m uvicorn backend.app:app --port 8000`. Open `/voice-demo` for speech and
+image-upload checks, or `/docs` for the API. See [中文运行说明](RUN_GUIDE_ZH.md).
+
+The default `CAKGO_DETECTOR=mock` is an explicit integration fixture, not real
+inference. `CAKGO_MOCK_POSITION` selects `left`, `center`, `right`, or `missing`.
+The response header `X-CakGo-Detector` identifies the active mode without changing
+the shared JSON contract. For the existing YOLO experiment use
+`CAKGO_DETECTOR=yolo` after installing that component's dependencies. For a team
+detector use `CAKGO_DETECTOR=custom CAKGO_DETECTOR_FACTORY=module:factory`.
+The factory returns an object with `detect(RGB_Pillow_image, target)`; the result
+must contain target-matched `detections` in original-image coordinates.
+
+Uploads: JPEG/PNG, maximum 5 MiB and 16 megapixels. Images are not intentionally
+saved by application code; Starlette may spool multipart uploads temporarily to
+disk before endpoint handling, and files are closed immediately after reading.
+Position boundaries match the shared contract. Multiple matches are returned,
+with guidance based on highest confidence. Request logs exclude image contents,
+targets and identifiers. `CAKGO_CORS_ORIGINS` is a comma-separated origin list;
+default origins are localhost:5173 and 127.0.0.1:5173.
+
+Run tests: `python -m pytest backend/test_backend.py -q`. Real-model integration,
+load testing, HTTPS hosting and mobile-device audio checks remain outstanding.
+
 ## Component Purpose
 The `backend/` component provides the REST API server (FastAPI/Python) that receives camera frames from the frontend, coordinates with the `detection/` engine, calculates the relative spatial position of the target item, composes guidance messages, and returns a structured response to the mobile client.
 
