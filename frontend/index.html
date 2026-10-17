@@ -196,6 +196,8 @@
   
 <button id="startBtn">Start Camera</button>
 <button id="stopBtn">Stop Camera</button>
+<button id="voiceBtn" type="button" aria-pressed="true">Voice guidance: on</button>
+<p id="voiceStatus" lang="ko" role="status" aria-live="polite"></p>
 
 <div class="viewer">
     <video id="camera" autoplay playsinline muted
@@ -214,6 +216,7 @@
     Test mode: the server returns fixed mock boxes, not real detection.
 </p>
 
+<script src="/voice/guidance.js"></script>
 <script>
     const video = document.getElementById("camera");
     const statusText = document.getElementById("status");
@@ -228,6 +231,18 @@
     const boxes = document.getElementById("boxes");
     const resultText = document.getElementById("result");
     const modeText = document.getElementById("mode");
+    const voiceButton = document.getElementById("voiceBtn");
+    const voiceStatus = document.getElementById("voiceStatus");
+    const voice = typeof window.CakGoVoice === "function"
+        ? new window.CakGoVoice({onStatus: text => setText(voiceStatus, text)}) : null;
+    let voiceWanted = true;
+    let cameraActive = false;
+    if (!voice) {
+        voiceButton.disabled = true;
+        voiceButton.setAttribute("aria-pressed", "false");
+        voiceButton.textContent = "Voice guidance unavailable";
+        setText(voiceStatus, "음성 모듈을 불러오지 못했습니다. 화면 안내를 확인해 주세요.");
+    }
     const canvas = document.createElement("canvas");
     let scanId = 0;  // bumped on start/stop so a late answer from an old scan is dropped
 
@@ -266,7 +281,7 @@
         }
     }
 
-    // Voice guidance (voice/guidance.js) can hook in here with voice.guide(result).
+    // Speech follows the same current-frame response as the displayed detection boxes.
     function showResult(result) {
         boxes.setAttribute("viewBox", `0 0 ${result.image_width} ${result.image_height}`);
         boxes.replaceChildren(...result.detections.map((detection, index) => {
@@ -283,11 +298,17 @@
         }));
         setText(resultText, result.message);
         setText(statusText, "Camera is running.");
+        if (voice && voiceWanted && cameraActive) {
+            voice.guide(result);
+        }
     }
 
     function showError(message) {
         clearResult();
         setText(statusText, message);
+        if (voice && voiceWanted && cameraActive) {
+            voice.error("network");
+        }
     }
 
     async function detectOnce(id) {
@@ -304,7 +325,7 @@
                 showError(data.error || `Server error (${response.status}).`);
             }
         } catch (error) {
-            if (id === scanId) {
+            if (id === scanId && target === targetSelect.value) {
                 showError(error.name === "AbortError"
                     ? "The server took too long to answer." : "Cannot reach the server.");
             }
@@ -320,41 +341,82 @@
         }
     }
 
-    targetSelect.onchange = clearResult;
+    targetSelect.onchange = function() {
+        clearResult();
+        if (voice) {
+            voice.stop(); // Cancel guidance for the previous target immediately.
+            if (voiceWanted && cameraActive) voice.enable();
+        }
+    };
+
+    voiceButton.onclick = function() {
+        if (!voice) return;
+        voiceWanted = !voiceWanted;
+        voiceButton.setAttribute("aria-pressed", String(voiceWanted));
+        voiceButton.textContent = `Voice guidance: ${voiceWanted ? "on" : "off"}`;
+        if (voiceWanted && cameraActive) {
+            voice.enable(); // Direct user gesture required by mobile speech synthesis.
+        } else {
+            voice.stop();
+            setText(voiceStatus, voiceWanted
+                ? "카메라 시작 버튼을 누르면 음성 안내가 시작됩니다."
+                : "음성 안내가 꺼졌습니다.");
+        }
+    };
 
     document.getElementById("startBtn").onclick = async function() {
+        const id = ++scanId;
+        cameraActive = false;
+        if (voice) {
+            voice.stop();
+            // Must run before awaiting camera permission, while the click is active.
+            if (voiceWanted) voice.enable();
+        }
         try {
             if (!navigator.mediaDevices ||
                 !navigator.mediaDevices.getUserMedia) {
                 statusText.textContent =
                     "Camera requires a secure connection.";
+                if (voice && voiceWanted) voice.error("camera");
                 return;
             }
 
             if (stream) {
-                scanId++;  // the old scan must not keep sending the last frozen frame
                 clearResult();
                 stream.getTracks().forEach(track => track.stop());
+                stream = null;
             }
 
-            stream = await navigator.mediaDevices.getUserMedia({
+            const openedStream = await navigator.mediaDevices.getUserMedia({
                 video: { facingMode: "environment" },
                 audio: false
             });
+            if (id !== scanId) { // Stop/restart was pressed while permission was pending.
+                openedStream.getTracks().forEach(track => track.stop());
+                return;
+            }
+            stream = openedStream;
+            cameraActive = true;
 
             video.srcObject = stream;
             statusText.textContent = "Camera is running.";
             clearResult();
-            scan(++scanId);
+            scan(id);
         } catch (error) {
+            if (id !== scanId) return;
+            cameraActive = false;
             statusText.textContent =
                 "Cannot open camera. Check camera permission.";
             console.error(error);
+            if (voice && voiceWanted) voice.error("camera");
         }
     };
 
     document.getElementById("stopBtn").onclick = function() {
         scanId++;
+        cameraActive = false;
+        if (voice) voice.stop();
+        if (voice) setText(voiceStatus, "카메라와 음성 안내가 중지되었습니다.");
         clearResult();
         modeText.hidden = true;
         if (stream) {
@@ -364,6 +426,9 @@
         video.srcObject = null;
         statusText.textContent = "Camera stopped.";
     };
+
+    // Leaving the page must not leave speech or camera tracks running.
+    window.addEventListener("pagehide", () => document.getElementById("stopBtn").onclick());
 </script>
 
 
