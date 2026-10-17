@@ -1,0 +1,10 @@
+{
+  "description": "Category mapping for YOLO weights fine-tuned by train.py on the 4 CakGo classes. The key name coco_classes is kept so tests/compare_models.py and evaluate.py can read every mapping file the same way; here it lists the fine-tuned model's own class names.",
+  "model_label_set": "CakGo 4-class fine-tuned model (class ids 0-3 in the order below)",
+  "categories": {
+    "wallet":         {"supported": true, "coco_classes": ["wallet"],         "note": "fine-tuned class 0"},
+    "keys":           {"supported": true, "coco_classes": ["keys"],           "note": "fine-tuned class 1"},
+    "glasses":        {"supported": true, "coco_classes": ["glasses"],        "note": "fine-tuned class 2"},
+    "remote_control": {"supported": true, "coco_classes": ["remote_control"], "note": "fine-tuned class 3"}
+  }
+}

@@ -20,7 +20,7 @@ If `manifest.csv` is missing, the subset has not been built yet; follow `tests/d
 
 ## Model and supported categories
 - **Model:** Ultralytics `yolo26s.pt` by default (pretrained on COCO-80). Choose another with `--weights`, e.g. `yolo11s.pt`.
-- **No training or fine-tuning** is done at this stage.
+- The pretrained model is used as-is for the baseline. A fine-tuned 4-class model can be trained separately; see [Fine-tuning](#fine-tuning-on-the-4-cakgo-classes).
 - Category support is defined in [`target_mapping.json`](target_mapping.json). Only exact semantic matches count:
 
 | CakGo category | COCO class | Status |
@@ -60,17 +60,61 @@ Useful options: `--weights`, `--imgsz`, `--conf` (use `0.001` for an untruncated
 Timing: `wall_ms` is the `model.predict()` call (preprocess, inference and NMS) after the warm-up passes.
 Image file reading is excluded. Results are produced only by actually running these scripts; nothing is pre-filled.
 
+## Fine-tuning on the 4 CakGo classes
+The pretrained model cannot detect wallets, keys or glasses, so we fine-tune it on the Objects In House
+**train split** (6,912 images, unused by the shared evaluation) with 4 classes: `wallet`, `keys`, `glasses`,
+`remote_control`.
+
+```bash
+# 1. Raw export (once; needs ROBOFLOW_API_KEY, see tests/dataset/README.md)
+python tests/dataset/prepare_dataset.py download
+# 2. Build the YOLO-format training set -> detection/experiments/yolo/data/cakgo4/ (gitignored)
+python detection/experiments/yolo/prepare_finetune_data.py
+# 3. Quick check that training runs on your machine, then the real run
+python detection/experiments/yolo/train.py --epochs 1 --name smoke_test
+python detection/experiments/yolo/train.py
+# 4. Evaluate on the SAME 70 shared images as the pretrained YOLO and Grounding DINO
+python detection/experiments/yolo/run_inference.py --weights detection/experiments/yolo/training_runs/<name>/weights/best.pt \
+    --mapping target_mapping_finetuned.json --conf 0.001 --run-name ft_<name>
+python detection/experiments/yolo/evaluate.py --run ft_<name>
+```
+
+How the training data is built (`prepare_finetune_data.py`):
+- **train** = export train split; **val** = export valid split (early stopping and threshold tuning). The test split is not used.
+- **No leakage:** the 70 shared evaluation images, other crops of the same original photo, and near-duplicates (dHash) are removed from train and val. The shared evaluation stays a true held-out test.
+- Images with only non-target labels (bag, broom, shoes, earphone) are kept as **background images**, which teach the model what is *not* a target and should reduce false alarms.
+- Images with an unmapped label (`remote-control-ac`, AC remotes) or with no annotations are dropped as ambiguous.
+- Counts per split and class are written to `data/cakgo4/dataset_stats.json` and copied into `training_info.json`.
+
+Settings are in [`finetune.yaml`](finetune.yaml): `yolo26s.pt` start, 60 epochs, early-stop patience 15, imgsz 640,
+batch 16 (use `--batch 8` if the GPU runs out of memory), seed 0, deterministic, default Ultralytics augmentation.
+Each run writes `training_runs/<name>/` with `training_info.json` (settings, versions, dataset stats, best-weights
+sha256), `results.csv` and plots. These can be committed; `weights/` is gitignored. An interrupted run continues with
+`train.py --resume training_runs/<name>/weights/last.pt`.
+
+Caveats:
+- The training labels have the same gaps as the evaluation labels; for example, sunglasses visible but unlabeled
+  in keys photos (see `tests/dataset/dataset_info.md`). The model may learn to ignore some real targets.
+- Train and test images come from the same dataset, so the 70-image score will be optimistic. Confirm on real
+  phone photos before choosing the final model.
+
 ## Structure
 ```text
 detection/experiments/yolo/
-├── README.md            # This guide
-├── requirements.txt     # Pinned ultralytics version
-├── target_mapping.json  # CakGo category -> COCO class(es), unsupported classes documented
-├── detector.py          # YoloDetector: predict() + detect(image, target) per API contract
-├── run_inference.py     # Runs the model on tests/dataset/manifest.csv, saves predictions + run info
-├── evaluate.py          # Scores predictions against tests/dataset/annotations/ground_truth.json
-├── results/             # One folder per run
-└── weights/             # Downloaded weights (gitignored)
+├── README.md                     # This guide
+├── requirements.txt              # Pinned ultralytics version
+├── target_mapping.json           # Pretrained: CakGo category -> COCO class(es), unsupported classes documented
+├── target_mapping_finetuned.json # Fine-tuned: CakGo category -> the model's own 4 classes
+├── detector.py                   # YoloDetector: predict() + detect(image, target) per API contract
+├── run_inference.py              # Runs a model on tests/dataset/manifest.csv, saves predictions + run info
+├── evaluate.py                   # Scores predictions against tests/dataset/annotations/ground_truth.json
+├── prepare_finetune_data.py      # Builds the YOLO training set from the export's train/valid splits
+├── finetune.yaml                 # Training settings
+├── train.py                      # Fine-tunes YOLO and records training_info.json
+├── results/                      # One folder per inference run
+├── training_runs/                # One folder per training run (weights/ gitignored)
+├── data/                         # Generated training set (gitignored)
+└── weights/                      # Downloaded pretrained weights (gitignored)
 ```
 
 ## Expected Inputs & Outputs
@@ -89,6 +133,6 @@ detection/experiments/yolo/
 
 ## Instructions for AI Coding Agents
 1. Work exclusively inside `detection/experiments/yolo/`; read data from `tests/dataset/` without modifying or copying it.
-2. Do not train or fine-tune, and do not invent test metrics. Results must come from `run_inference.py` and `evaluate.py`.
+2. Do not invent test metrics. Results must come from `run_inference.py` and `evaluate.py`. Never train on, or tune thresholds with, the 70 shared evaluation images.
 3. Keep the detection interface compatible with [`docs/API_CONTRACT.md`](../../../docs/API_CONTRACT.md).
 4. Do not commit weights, datasets or API keys.

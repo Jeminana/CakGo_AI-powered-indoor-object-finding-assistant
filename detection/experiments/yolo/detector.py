@@ -16,6 +16,7 @@ from ultralytics import YOLO
 EXPERIMENT_DIR = Path(__file__).resolve().parent
 WEIGHTS_DIR = EXPERIMENT_DIR / "weights"
 TARGET_MAPPING_PATH = EXPERIMENT_DIR / "target_mapping.json"
+FINETUNED_MAPPING_PATH = EXPERIMENT_DIR / "target_mapping_finetuned.json"
 DEFAULT_WEIGHTS = "yolo26s.pt"
 
 
@@ -34,13 +35,25 @@ def resolve_weights(weights: str) -> Path:
 
 class YoloDetector:
     def __init__(self, weights: str = DEFAULT_WEIGHTS, device: str | None = None,
-                 imgsz: int = 640, conf: float = 0.25, iou: float = 0.7, max_det: int = 300):
+                 imgsz: int = 640, conf: float = 0.25, iou: float = 0.7, max_det: int = 300,
+                 mapping_path: Path | None = None):
         self.weights_path = resolve_weights(weights)
         self.model = YOLO(str(self.weights_path))
         self.device = device
         self.settings = {"imgsz": imgsz, "conf": conf, "iou": iou, "max_det": max_det}
-        with open(TARGET_MAPPING_PATH, encoding="utf-8") as f:
-            self.target_mapping = json.load(f)["categories"]
+        # No mapping given (e.g. from the backend): use the first one whose classes this model has.
+        candidates = [mapping_path] if mapping_path else [TARGET_MAPPING_PATH, FINETUNED_MAPPING_PATH]
+        for path in candidates:
+            with open(path, encoding="utf-8") as f:
+                mapping = json.load(f)["categories"]
+            unknown = {c for m in mapping.values() for c in m["coco_classes"]} - set(self.names.values())
+            if not unknown:
+                self.mapping_path, self.target_mapping = path, mapping
+                break
+        else:
+            raise ValueError(f"{candidates[-1].name} lists classes this model does not have: {sorted(unknown)}. "
+                             "Use target_mapping.json for COCO weights or target_mapping_finetuned.json "
+                             "for weights from train.py.")
 
     @property
     def names(self) -> dict[int, str]:

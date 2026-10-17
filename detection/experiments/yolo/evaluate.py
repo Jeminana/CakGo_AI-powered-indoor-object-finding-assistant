@@ -87,6 +87,7 @@ def main() -> None:
     parser.add_argument("--run", required=True, help="folder name under results/")
     parser.add_argument("--conf-threshold", type=float, default=0.25)
     parser.add_argument("--iou-threshold", type=float, default=0.5)
+    parser.add_argument("--mapping", help="mapping file in this folder (default: the one recorded in run_info.json)")
     args = parser.parse_args()
 
     run_dir = RESULTS_DIR / args.run
@@ -100,10 +101,11 @@ def main() -> None:
         predictions = {p["image_id"]: p for p in map(json.loads, f)}
     with open(GROUND_TRUTH_PATH, encoding="utf-8") as f:
         gt_images = {g["image_id"]: g for g in json.load(f)["images"]}
-    with open(TARGET_MAPPING_PATH, encoding="utf-8") as f:
-        mapping = json.load(f)["categories"]
     with open(run_dir / "run_info.json", encoding="utf-8") as f:
         run_info = json.load(f)
+    mapping_name = args.mapping or run_info["model"].get("target_mapping", TARGET_MAPPING_PATH.name)
+    with open(EXPERIMENT_DIR / mapping_name, encoding="utf-8") as f:
+        mapping = json.load(f)["categories"]
 
     missing = set(gt_images) - set(predictions)
     if missing:
@@ -160,12 +162,15 @@ def main() -> None:
     metrics = {
         "run": args.run,
         "model": run_info["model"]["weights"],
+        "fine_tuned": run_info["model"].get("fine_tuned", False),
+        "training_run": run_info["model"].get("training_run"),
+        "target_mapping": mapping_name,
         "thresholds": {"confidence": args.conf_threshold, "iou": args.iou_threshold,
                        "inference_min_confidence": run_info["inference_settings"]["conf"]},
         "notes": [
             "AP50 only uses predictions saved at confidence >= inference_min_confidence; "
             "re-run inference with --conf 0.001 for an un-truncated AP.",
-            "Unsupported categories are not scored; a COCO-pretrained model has no class for them.",
+            "Unsupported categories are not scored; the model has no class for them.",
         ],
         "num_images": len(gt_images),
         "categories": per_category,
@@ -175,7 +180,9 @@ def main() -> None:
         json.dump(metrics, f, indent=2)
 
     lines = [f"# YOLO evaluation - {args.run}", "",
-             f"- Model: `{metrics['model']}` (pretrained, no fine-tuning)",
+             f"- Model: `{metrics['model']}` "
+             + (f"(fine-tuned, training run `{metrics['training_run']}`)" if metrics["fine_tuned"]
+                else "(pretrained, no fine-tuning)"),
              f"- Images: {metrics['num_images']}; confidence >= {args.conf_threshold}; IoU >= {args.iou_threshold}",
              "", "| Category | Status | GT boxes | TP | FP | FN | Precision | Recall | AP50 | Target images detected |",
              "|---|---|---|---|---|---|---|---|---|---|"]
