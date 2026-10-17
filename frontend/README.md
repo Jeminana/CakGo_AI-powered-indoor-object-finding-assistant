@@ -1,5 +1,41 @@
 # Smartphone Frontend — Member 2
 
+## Backend connection (Member 4)
+
+While the camera is on, `index.html` captures one frame (JPEG, long side at most
+1280 px), posts it with the selected target to `POST /api/detect`, and pauses 1 s
+after each answer before the next frame (30 s timeout). Every returned box is drawn
+over the preview in original-image coordinates scaled to the screen; the thicker box
+is the highest-confidence one, which the guidance message is based on. The Korean
+`message` appears under the preview. A note says when the backend runs in mock mode
+(`X-CakGo-Detector: mock`), because those boxes are fixtures, not detections.
+
+The page calls the API on its own origin. `dev_server.py` (Python standard library
+only) serves this folder and forwards `/api/` and `/voice/` to the backend, so no
+CORS setup is needed and one HTTPS tunnel covers a phone. From the repository root,
+in two terminals (backend dependencies: see [`backend/README.md`](../backend/README.md)):
+
+```bash
+python -m uvicorn backend.app:app --port 8000   # mock detector by default
+python frontend/dev_server.py                   # http://localhost:5173
+```
+
+Open http://localhost:5173 on the computer (localhost may use the camera without
+HTTPS), choose a target and press Start Camera. Start the backend with
+`CAKGO_MOCK_POSITION=left|center|right|missing` to check each case, or point the dev
+server at another backend with `--backend https://<host>`.
+
+Phone: the camera needs HTTPS. Expose the dev server through an HTTPS tunnel, for
+example `cloudflared tunnel --url http://localhost:5173` or `ngrok http 5173`, and
+open the printed https URL on the phone. Anyone with that URL can use the page and
+the backend while the tunnel runs, so stop it after testing.
+
+Tests: `python -m pytest frontend/test_dev_server.py -q` (proxy and static serving).
+Not yet checked: real phones (iOS Safari, Android Chrome), the real Grounding DINO
+backend, and voice guidance (`voice.guide(result)` belongs in `showResult` in
+`index.html`). The target list, the 1 s pace and HTTPS hosting are still open team
+decisions ("Day 1 decisions to confirm" in [`docs/API_CONTRACT.md`](../docs/API_CONTRACT.md)).
+
 ## Component Purpose
 The `frontend/` component provides an accessible, mobile-first web interface that allows users (including those with low vision) to capture video frames using their smartphone's rear camera, select a target indoor object, submit frames for detection, and visualize detection boxes.
 
