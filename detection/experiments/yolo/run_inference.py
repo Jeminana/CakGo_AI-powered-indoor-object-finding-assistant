@@ -43,7 +43,11 @@ def sha256_file(path: Path) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--manifest", type=Path, default=DATASET_DIR / "manifest.csv")
-    parser.add_argument("--weights", default=DEFAULT_WEIGHTS, help="Ultralytics pretrained weights name or path")
+    parser.add_argument("--weights", default=DEFAULT_WEIGHTS,
+                        help="pretrained weights name (e.g. yolo26s.pt) or path to fine-tuned best.pt")
+    parser.add_argument("--mapping", default=None,
+                        help="category mapping file in this folder (default: picked automatically from the "
+                             "model's classes; target_mapping_finetuned.json for weights from train.py)")
     parser.add_argument("--imgsz", type=int, default=640)
     parser.add_argument("--conf", type=float, default=0.25, help="minimum confidence kept in predictions")
     parser.add_argument("--iou", type=float, default=0.7, help="NMS IoU threshold")
@@ -64,7 +68,8 @@ def main() -> None:
                  "Run: python tests/dataset/prepare_dataset.py fetch")
 
     detector = YoloDetector(args.weights, device=args.device, imgsz=args.imgsz,
-                            conf=args.conf, iou=args.iou, max_det=args.max_det)
+                            conf=args.conf, iou=args.iou, max_det=args.max_det,
+                            mapping_path=EXPERIMENT_DIR / args.mapping if args.mapping else None)
     model_name = detector.weights_path.stem
     run_name = args.run_name or f"{datetime.now():%Y%m%d_%H%M%S}_{model_name}_img{args.imgsz}"
     out_dir = RESULTS_DIR / run_name
@@ -91,14 +96,21 @@ def main() -> None:
             }) + "\n")
 
     cuda = torch.cuda.is_available() and args.device != "cpu"
+    # Weights produced by train.py live in training_runs/<name>/weights/ next to training_info.json.
+    training_info = detector.weights_path.resolve().parent.parent / "training_info.json"
+    fine_tuned = training_info.exists()
     run_info = {
         "run_name": run_name,
         "created_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "model": {
-            "family": "Ultralytics YOLO (pretrained COCO-80 detection, no fine-tuning)",
+            "family": ("Ultralytics YOLO fine-tuned on the CakGo classes (see training_run)" if fine_tuned
+                       else "Ultralytics YOLO (pretrained COCO-80 detection, no fine-tuning)"),
+            "fine_tuned": fine_tuned,
+            "training_run": training_info.parent.name if fine_tuned else None,
             "weights": detector.weights_path.name,
             "weights_sha256": sha256_file(detector.weights_path),
             "num_classes": len(detector.names),
+            "target_mapping": detector.mapping_path.name,
         },
         "inference_settings": {**detector.settings, "device_arg": args.device, "warmup_passes": args.warmup,
                                "half_precision": False, "input": "BGR numpy array read with cv2.imread"},

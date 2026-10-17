@@ -1,0 +1,15 @@
+# Fine-tuning settings for the CakGo 4-class YOLO model (Member 1).
+# Read by train.py; any key here is passed straight to ultralytics model.train().
+# Command-line flags of train.py (--epochs, --batch, ...) override these values.
+
+model: yolo26s.pt        # COCO-pretrained starting weights (downloaded into weights/)
+epochs: 60
+patience: 15             # stop early if val mAP does not improve for this many epochs
+imgsz: 640               # Objects In House v5 images are already 640x640
+batch: 16                # lower to 8 if you run out of GPU memory (RTX 4050 6 GB: 16 fits for yolo26s)
+workers: 4
+seed: 0
+deterministic: true
+optimizer: auto
+close_mosaic: 10
+# Augmentation: Ultralytics defaults (mosaic, HSV, flip-lr, scale, translate) are kept on purpose.

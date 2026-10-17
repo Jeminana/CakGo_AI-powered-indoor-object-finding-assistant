@@ -1,0 +1,39 @@
+{
+  "run_name": "ft_yolo26s_cakgo4_v1_conf0.001",
+  "created_at": "2026-10-17T03:03:27+00:00",
+  "model": {
+    "family": "Ultralytics YOLO fine-tuned on the CakGo classes (see training_run)",
+    "fine_tuned": true,
+    "training_run": "yolo26s_cakgo4_v1",
+    "weights": "best.pt",
+    "weights_sha256": "09d41cb206f3a46be6cfe04aaec766c8194a5b63bec2680932341e9d954ec4e3",
+    "num_classes": 4,
+    "target_mapping": "target_mapping_finetuned.json"
+  },
+  "inference_settings": {
+    "imgsz": 640,
+    "conf": 0.001,
+    "iou": 0.7,
+    "max_det": 300,
+    "device_arg": null,
+    "warmup_passes": 3,
+    "half_precision": false,
+    "input": "BGR numpy array read with cv2.imread"
+  },
+  "timing_notes": "wall_ms = model.predict() call (preprocess + inference + NMS); image file reading is excluded. *_ms fields are Ultralytics' own per-stage timings.",
+  "dataset": {
+    "manifest": "tests/dataset/manifest.csv",
+    "manifest_sha256": "ca73e2c1f12464df03b1f2b3824109cd237ea1e9dbba46fa8d5ac4c6db5bde4b",
+    "num_images": 70
+  },
+  "environment": {
+    "python": "3.12.10",
+    "ultralytics": "8.4.177",
+    "torch": "2.11.0+cu128",
+    "opencv": "5.0.0",
+    "cuda_available": true,
+    "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU",
+    "cpu": "AMD64 Family 25 Model 68 Stepping 1, AuthenticAMD",
+    "os": "Windows-11-10.0.26200-SP0"
+  }
+}

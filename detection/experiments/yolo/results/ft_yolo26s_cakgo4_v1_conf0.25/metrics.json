@@ -1,0 +1,125 @@
+{
+  "run": "ft_yolo26s_cakgo4_v1_conf0.25",
+  "model": "best.pt",
+  "fine_tuned": true,
+  "training_run": "yolo26s_cakgo4_v1",
+  "target_mapping": "target_mapping_finetuned.json",
+  "thresholds": {
+    "confidence": 0.25,
+    "iou": 0.5,
+    "inference_min_confidence": 0.25
+  },
+  "notes": [
+    "AP50 only uses predictions saved at confidence >= inference_min_confidence; re-run inference with --conf 0.001 for an un-truncated AP.",
+    "Unsupported categories are not scored; the model has no class for them."
+  ],
+  "num_images": 70,
+  "categories": {
+    "wallet": {
+      "status": "evaluated",
+      "model_classes": [
+        "wallet"
+      ],
+      "num_gt_boxes": 17,
+      "num_predictions": 16,
+      "true_positives": 11,
+      "false_positives": 5,
+      "false_negatives": 6,
+      "precision": 0.6875,
+      "recall": 0.6471,
+      "ap50": 0.5916,
+      "num_target_images": 15,
+      "target_images_detected": 10,
+      "image_level_detection_rate": 0.6667,
+      "negative_images": 10,
+      "negative_images_with_false_positive": 0
+    },
+    "keys": {
+      "status": "evaluated",
+      "model_classes": [
+        "keys"
+      ],
+      "num_gt_boxes": 32,
+      "num_predictions": 32,
+      "true_positives": 31,
+      "false_positives": 1,
+      "false_negatives": 1,
+      "precision": 0.9688,
+      "recall": 0.9688,
+      "ap50": 0.9678,
+      "num_target_images": 15,
+      "target_images_detected": 14,
+      "image_level_detection_rate": 0.9333,
+      "negative_images": 10,
+      "negative_images_with_false_positive": 0
+    },
+    "glasses": {
+      "status": "evaluated",
+      "model_classes": [
+        "glasses"
+      ],
+      "num_gt_boxes": 18,
+      "num_predictions": 17,
+      "true_positives": 17,
+      "false_positives": 0,
+      "false_negatives": 1,
+      "precision": 1.0,
+      "recall": 0.9444,
+      "ap50": 0.9444,
+      "num_target_images": 15,
+      "target_images_detected": 14,
+      "image_level_detection_rate": 0.9333,
+      "negative_images": 10,
+      "negative_images_with_false_positive": 0
+    },
+    "remote_control": {
+      "status": "evaluated",
+      "model_classes": [
+        "remote_control"
+      ],
+      "num_gt_boxes": 18,
+      "num_predictions": 17,
+      "true_positives": 17,
+      "false_positives": 0,
+      "false_negatives": 1,
+      "precision": 1.0,
+      "recall": 0.9444,
+      "ap50": 0.9444,
+      "num_target_images": 15,
+      "target_images_detected": 14,
+      "image_level_detection_rate": 0.9333,
+      "negative_images": 10,
+      "negative_images_with_false_positive": 0
+    }
+  },
+  "latency_ms": {
+    "wall_ms": {
+      "mean": 15.22,
+      "median": 15.29,
+      "p95": 16.12,
+      "min": 13.86,
+      "max": 16.86
+    },
+    "preprocess_ms": {
+      "mean": 0.93,
+      "median": 0.92,
+      "p95": 1.1,
+      "min": 0.76,
+      "max": 1.36
+    },
+    "inference_ms": {
+      "mean": 12.53,
+      "median": 12.48,
+      "p95": 13.16,
+      "min": 12.04,
+      "max": 13.4
+    },
+    "postprocess_ms": {
+      "mean": 1.4,
+      "median": 1.48,
+      "p95": 1.93,
+      "min": 0.54,
+      "max": 2.27
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "run_name": "yolo26s_cakgo4_v1",
+  "started_at": "2026-10-17T00:49:34+00:00",
+  "finished_at": "2026-10-17T03:02:58+00:00",
+  "start_weights": "yolo26s.pt",
+  "start_weights_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+  "train_settings": {
+    "epochs": 60,
+    "patience": 15,
+    "imgsz": 640,
+    "batch": 16,
+    "workers": 4,
+    "seed": 0,
+    "deterministic": true,
+    "optimizer": "auto",
+    "close_mosaic": 10
+  },
+  "data_yaml": "D:\\hy-edu-2026\\CakGo_AI-powered-indoor-object-finding-assistant\\detection\\experiments\\yolo\\data\\cakgo4\\data.yaml",
+  "dataset_stats": {
+    "generated_at": "2026-10-17T00:40:45+00:00",
+    "source": "Objects In House v5",
+    "classes": [
+      "wallet",
+      "keys",
+      "glasses",
+      "remote_control"
+    ],
+    "splits": {
+      "train": {
+        "roboflow_split": "train",
+        "candidates": 6912,
+        "dropped_unannotated": 227,
+        "images": 6514,
+        "images_with_targets": 3208,
+        "background_images": 3306,
+        "dropped_eval_near_duplicate": 54,
+        "dropped_unmapped_label": 80,
+        "dropped_eval_same_photo": 37,
+        "boxes_per_class": {
+          "wallet": 1445,
+          "keys": 1297,
+          "glasses": 1437,
+          "remote_control": 158
+        }
+      },
+      "val": {
+        "roboflow_split": "valid",
+        "candidates": 1965,
+        "dropped_eval_same_photo": 67,
+        "images": 1536,
+        "images_with_targets": 791,
+        "dropped_unannotated": 288,
+        "background_images": 745,
+        "dropped_eval_near_duplicate": 54,
+        "dropped_unmapped_label": 20,
+        "boxes_per_class": {
+          "wallet": 291,
+          "keys": 123,
+          "glasses": 371,
+          "remote_control": 212
+        }
+      }
+    }
+  },
+  "best_weights": "training_runs/yolo26s_cakgo4_v1/weights/best.pt",
+  "best_weights_sha256": "09d41cb206f3a46be6cfe04aaec766c8194a5b63bec2680932341e9d954ec4e3",
+  "environment": {
+    "python": "3.12.10",
+    "ultralytics": "8.4.177",
+    "torch": "2.11.0+cu128",
+    "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU",
+    "os": "Windows-11-10.0.26200-SP0"
+  },
+  "notes": "Validation metrics in results.csv are on the export's valid split (minus the shared evaluation images), not on tests/dataset. Use run_inference.py + evaluate.py for the comparable held-out result."
+}
