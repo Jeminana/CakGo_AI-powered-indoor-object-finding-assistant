@@ -1,5 +1,31 @@
 # Smartphone Frontend — Member 2
 
+## Korean voice connected (상싱위, 2026-10-17)
+
+The page loads `/voice/guidance.js` from the same origin. **Start Camera** enables
+Korean speech directly inside the user's click (before waiting for camera access).
+Each current detection response is passed to `voice.guide(result)` after the boxes
+and Korean text are displayed. **Voice guidance: on/off** independently mutes or
+reenables speech; **Stop Camera** and leaving the page cancel speech and camera
+tracks. Changing targets cancels old speech, and stale responses are ignored.
+The shared voice module retains its four-second duplicate cooldown and prevents
+overlapping utterances. Network/camera failures call the module's error cues.
+
+If the module fails to load, detection and screen text still work and the voice
+button reports it unavailable. If browser synthesis fails, Korean status text is
+retained. A Korean device voice is recommended; audio/device compatibility must
+still be checked on real iOS Safari and Android Chrome (the automated tests below
+do not prove audible phone output).
+
+Automated wiring checks (no camera permission or model download):
+`node frontend/test_voice_integration.cjs`. Existing module checks:
+`node voice/test_guidance.cjs`.
+
+Manual phone acceptance: open the frontend via HTTPS, tap Start Camera, confirm
+audible Korean directions and missing-target guidance, check mute/unmute, repeated
+frames, target change, Stop Camera, and a backend disconnect. Test both iOS Safari
+and Android Chrome; record device/browser, detector mode and observed results.
+
 ## Backend connection (Member 4)
 
 While the camera is on, `index.html` captures one frame (JPEG, long side at most
@@ -31,9 +57,9 @@ open the printed https URL on the phone. Anyone with that URL can use the page a
 the backend while the tunnel runs, so stop it after testing.
 
 Tests: `python -m pytest frontend/test_dev_server.py -q` (proxy and static serving).
-Not yet checked: real phones (iOS Safari, Android Chrome), the real Grounding DINO
-backend, and voice guidance (`voice.guide(result)` belongs in `showResult` in
-`index.html`). The target list, the 1 s pace and HTTPS hosting are still open team
+Not yet checked on real devices: iOS Safari, Android Chrome, and the real Grounding DINO
+backend with audible speech. Frontend voice wiring is implemented above. The target
+list, the 1 s pace and HTTPS hosting are still open team
 decisions ("Day 1 decisions to confirm" in [`docs/API_CONTRACT.md`](../docs/API_CONTRACT.md)).
 
 ## Component Purpose
