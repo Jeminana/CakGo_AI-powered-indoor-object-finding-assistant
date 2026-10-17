@@ -118,3 +118,6 @@ if __name__ == "__main__":
     if len(sys.argv) != 3:
         sys.exit("usage: python detector.py IMAGE_PATH TARGET")
     print(json.dumps(detect(Image.open(sys.argv[1]), sys.argv[2]), ensure_ascii=False, indent=2))
+
+def create_detector():
+    return GroundingDinoDetector.from_config()
