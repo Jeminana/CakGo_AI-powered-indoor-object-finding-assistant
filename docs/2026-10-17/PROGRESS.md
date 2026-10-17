@@ -14,7 +14,7 @@ Documentation owner: **상싱위 / Thehxliday68**.
 ## Additional round
 
 | Task | Owner | Due | Status |
-|---|---|---|
+|---|---|---|---|
 | Connect voice to frontend | 상싱위 | 18 October | PR #8 open at preparation. Implementation and automated checks complete. Team review and real-phone audible tests pending. |
 | Collect real-phone test photos | Other three teammates, according to team message | 19 October | Planned: 28 per person, 84 total. Upload completion and test results not verified. |
 
