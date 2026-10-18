@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 from PIL import Image
 
-from detector import GroundingDinoDetector, load_json, prompt_text
+from detector import GroundingDinoDetector, keep_target_boxes, load_json, phrase_token_spans, prompt_text
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
 
@@ -94,3 +94,66 @@ def test_prompts_cover_the_shared_dataset_categories():
 def test_config_overrides_ignore_none():
     assert GroundingDinoDetector.from_config(device="cpu").device == "cpu"
     assert GroundingDinoDetector.from_config(device=None).device == "auto"
+
+
+# --- prompt_mode "multi": all targets + look-alikes in one prompt ---------------------------------
+
+def test_box_goes_to_its_best_phrase_and_look_alikes_are_dropped():
+    categories = ["remote_control", "glasses", "glasses", None]  # remote control, glasses, sunglasses, mouse
+    scores = [
+        [0.40, 0.05, 0.02, 0.70],  # best phrase is the look-alike "computer mouse" -> dropped
+        [0.62, 0.10, 0.01, 0.20],  # remote control wins -> kept
+        [0.30, 0.10, 0.02, 0.05],  # remote control wins but below the threshold -> dropped
+        [0.10, 0.20, 0.55, 0.01],  # "sunglasses" also counts for glasses
+    ]
+    boxes = [[0, 0, 1, 1], [1, 1, 2, 2], [2, 2, 3, 3], [3, 3, 4, 4]]
+
+    assert keep_target_boxes(scores, categories, boxes, "remote_control", 0.35) == [(0.62, [1, 1, 2, 2])]
+    assert keep_target_boxes(scores, categories, boxes, "glasses", 0.35) == [(0.55, [3, 3, 4, 4])]
+    assert keep_target_boxes(scores, categories, boxes, "keys", 0.35) == []
+
+
+def test_phrase_token_spans_follow_character_offsets():
+    prompt = "remote control. computer mouse."
+    offsets = [(0, 0), (0, 6), (7, 14), (14, 15), (16, 24), (25, 30), (30, 31), (0, 0)]
+
+    assert phrase_token_spans(prompt, ["remote control", "computer mouse"], offsets) == [[1, 2], [4, 5]]
+
+
+class FakeMultiDetector(GroundingDinoDetector):
+    def __init__(self):
+        super().__init__(model_id="fake", prompts={"keys": ["keys"]}, prompt_mode="multi", look_alikes=["pen"])
+        self.calls = []
+
+    def _predict(self, image, phrases):
+        self.calls.append(("single", phrases))
+        return []
+
+    def _predict_multi(self, image, target):
+        self.calls.append(("multi", target))
+        return [(0.5, [1, 1, 5, 5])]
+
+
+def test_multi_mode_is_used_for_configured_targets_and_free_text_stays_single():
+    detector = FakeMultiDetector()
+
+    assert detector.detect(Image.new("RGB", (8, 8)), "Keys")["detections"][0]["label"] == "Keys"
+    detector.detect(Image.new("RGB", (8, 8)), "umbrella")
+
+    assert detector.calls == [("multi", "keys"), ("single", ["umbrella"])]
+    assert detector.prompt_for("keys") == "keys. pen."
+    assert detector.prompt_for("umbrella") == "umbrella."
+
+
+def test_unknown_prompt_mode_is_rejected():
+    with pytest.raises(ValueError):
+        GroundingDinoDetector(model_id="fake", prompt_mode="all")
+
+
+def test_config_uses_multi_mode_with_look_alikes_that_are_not_targets():
+    detector = GroundingDinoDetector.from_config()
+    target_phrases = {p.lower() for phrases in detector.prompts.values() for p in phrases}
+
+    assert detector.prompt_mode == "multi"
+    assert detector.look_alikes and not target_phrases & {p.lower() for p in detector.look_alikes}
+    assert GroundingDinoDetector.from_config(prompt_mode="single").prompt_for("glasses") == "glasses. sunglasses."

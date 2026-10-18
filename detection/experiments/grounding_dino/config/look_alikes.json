@@ -1,0 +1,5 @@
+{
+  "description": "Look-alike phrases added to the prompt in prompt_mode 'multi'. A box only counts for the requested object if that object is the phrase it matches best, so e.g. a mouse goes to 'computer mouse' instead of 'remote control'. Tuned on validation images (not the 70 shared test images); see ../MULTI_PROMPT.md. Do not add words that describe a target itself: 'card', 'bag', 'book', 'box', 'paper' and 'mobile phone' took boxes away from real wallets during tuning.",
+  "phrases": ["computer mouse", "laptop", "keyboard", "pen", "bottle", "can", "cup",
+              "microphone", "cable", "charger", "nail clipper", "coin"]
+}
