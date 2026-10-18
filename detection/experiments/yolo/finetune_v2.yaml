@@ -1,0 +1,20 @@
+# v2: fight wallet overfitting (v1 found 100% of training wallets but only 63% of
+# validation wallets, while keys/glasses/remote stayed at 94-99%). More varied
+# training images instead of just more epochs. Same data and seed as v1.
+# Run: python detection/experiments/yolo/train.py --config detection/experiments/yolo/finetune_v2.yaml
+
+model: yolo26s.pt
+epochs: 120
+patience: 30
+imgsz: 640
+batch: 16
+workers: 4
+seed: 0
+deterministic: true
+optimizer: auto
+close_mosaic: 15
+# Augmentation changes vs v1 (Ultralytics defaults in brackets)
+hsv_v: 0.5        # brightness variation [0.4]; also helps dim-light photos
+degrees: 10.0     # rotation [0.0]; wallets lie at any angle
+scale: 0.6        # zoom variation [0.5]; small / far wallets
+mixup: 0.1        # blend two images [0.0]; reduces memorisation

@@ -98,6 +98,27 @@ Caveats:
 - Train and test images come from the same dataset, so the 70-image score will be optimistic. Confirm on real
   phone photos before choosing the final model.
 
+### Results so far
+| Run | Change | Validation mAP50 / wallet recall | 70 shared images: top-1 correct (wallet / keys / glasses / remote) | False alarms on the 10 negatives |
+|---|---|---|---|---|
+| `yolo26s_cakgo4_v1` | `finetune.yaml`, 60 epochs | 0.917 / 0.63 | 8 / 14 / 14 / 14 of 15 | 0 |
+| `yolo26s_cakgo4_v2` | `finetune_v2.yaml`: 120 epochs + rotation, mixup, more brightness/zoom variation | 0.932 / 0.69 | 7 / 14 / 14 / 14 of 15 | 0 |
+
+- **Wallet overfitting (v1):** 100 % of training wallets found but only 63 % of validation wallets (keys, glasses
+  and remote: 94–99 %). It is not about box size, confidence threshold or duplicate labels: about a quarter of
+  validation wallets get no wallet box even at confidence 0.01. v2 tried more image variation instead of only
+  more epochs; validation improved slightly, but the 70 shared images did not (a 2-image difference, within
+  noise). **v1 stays the default.**
+- **Real iPhone frames (phone test, 2026-10-19): fine-tuned YOLO does not generalise.** On 4 real photos of
+  cluttered desks, v1 found 1 of 4 targets and v2 found 0 of 4; Grounding DINO found 4 of 4. Likely causes:
+  - the training images are stretched to 640×640 (Objects In House v5) and are mostly stock-style close-ups
+  - `remote-control-ac` (air-conditioner remotes) was dropped from training, so the user's AC remote was never
+    a training example
+
+  The 70-image scores above are therefore not representative of phone use.
+- Ideas not tried yet: count `remote-control-ac` as `remote_control`, freeze the backbone (`freeze`) to keep
+  COCO's real-world features, and add real-home images (e.g. the secondary Home item detection dataset).
+
 ## Structure
 ```text
 detection/experiments/yolo/
@@ -109,7 +130,8 @@ detection/experiments/yolo/
 ├── run_inference.py              # Runs a model on tests/dataset/manifest.csv, saves predictions + run info
 ├── evaluate.py                   # Scores predictions against tests/dataset/annotations/ground_truth.json
 ├── prepare_finetune_data.py      # Builds the YOLO training set from the export's train/valid splits
-├── finetune.yaml                 # Training settings
+├── finetune.yaml                 # Training settings (v1)
+├── finetune_v2.yaml              # v2 experiment: longer training + stronger augmentation
 ├── train.py                      # Fine-tunes YOLO and records training_info.json
 ├── results/                      # One folder per inference run
 ├── training_runs/                # One folder per training run (weights/ gitignored)
