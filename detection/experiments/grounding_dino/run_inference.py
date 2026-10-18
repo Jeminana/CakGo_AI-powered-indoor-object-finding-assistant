@@ -29,7 +29,7 @@ from pathlib import Path
 
 from PIL import Image
 
-from detector import GroundingDinoDetector, load_json, prompt_text
+from detector import GroundingDinoDetector, load_json
 
 EXPERIMENT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = EXPERIMENT_DIR.parents[2]
@@ -82,6 +82,9 @@ def main() -> None:
     parser.add_argument("--manifest", type=Path, default=DATASET_DIR / "manifest.csv")
     parser.add_argument("--categories", nargs="+", help="CakGo categories to query (default: all in class_mapping.json)")
     parser.add_argument("--box-threshold", type=float, default=0.05, help="minimum confidence kept in predictions")
+    parser.add_argument("--prompt-mode", choices=["single", "multi"], default=None,
+                        help="override config/model.json: 'single' = only the target's phrases, "
+                             "'multi' = all targets + look-alikes (see MULTI_PROMPT.md)")
     parser.add_argument("--device", default=None, help="override the config device, e.g. cpu or cuda")
     parser.add_argument("--warmup", type=int, default=3, help="untimed warm-up queries before measuring")
     parser.add_argument("--run-name", default=None)
@@ -98,7 +101,8 @@ def main() -> None:
                  "Run: python tests/dataset/prepare_dataset.py fetch")
     categories = args.categories or list(load_json(dataset_dir / "class_mapping.json")["categories"])
 
-    detector = GroundingDinoDetector.from_config(device=args.device, box_threshold=args.box_threshold)
+    detector = GroundingDinoDetector.from_config(device=args.device, box_threshold=args.box_threshold,
+                                                 prompt_mode=args.prompt_mode)
     run_name = args.run_name or f"{datetime.now():%Y%m%d_%H%M%S}_{detector.model_id.split('/')[-1]}"
     out_dir = RESULTS_DIR / run_name
     out_dir.mkdir(parents=True, exist_ok=False)
@@ -134,10 +138,12 @@ def main() -> None:
             "model_id": detector.model_id,
             "revision": model_revision(detector.model_id),
         },
-        "prompts": {category: prompt_text(detector.phrases_for(category)) for category in categories},
+        "prompts": {category: detector.prompt_for(category) for category in categories},
         "inference_settings": {
+            "prompt_mode": detector.prompt_mode,
+            "look_alikes": detector.look_alikes if detector.prompt_mode == "multi" else [],
             "box_threshold": detector.box_threshold,
-            "text_threshold": detector.text_threshold,
+            "text_threshold": detector.text_threshold if detector.prompt_mode == "single" else None,
             "device": detector.device,
             "warmup_queries": args.warmup,
             "queries_per_image": len(categories),

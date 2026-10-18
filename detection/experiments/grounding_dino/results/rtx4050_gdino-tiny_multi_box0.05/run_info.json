@@ -1,0 +1,56 @@
+{
+  "run_name": "rtx4050_gdino-tiny_multi_box0.05",
+  "created_at": "2026-10-18T18:17:30+00:00",
+  "model": {
+    "family": "Grounding DINO (Hugging Face transformers, zero-shot, no fine-tuning)",
+    "model_id": "IDEA-Research/grounding-dino-tiny",
+    "revision": "a2bb814dd30d776dcf7e30523b00659f4f141c71"
+  },
+  "prompts": {
+    "wallet": "wallet. keys. glasses. sunglasses. remote control. computer mouse. laptop. keyboard. pen. bottle. can. cup. microphone. cable. charger. nail clipper. coin.",
+    "keys": "wallet. keys. glasses. sunglasses. remote control. computer mouse. laptop. keyboard. pen. bottle. can. cup. microphone. cable. charger. nail clipper. coin.",
+    "glasses": "wallet. keys. glasses. sunglasses. remote control. computer mouse. laptop. keyboard. pen. bottle. can. cup. microphone. cable. charger. nail clipper. coin.",
+    "remote_control": "wallet. keys. glasses. sunglasses. remote control. computer mouse. laptop. keyboard. pen. bottle. can. cup. microphone. cable. charger. nail clipper. coin."
+  },
+  "inference_settings": {
+    "prompt_mode": "multi",
+    "look_alikes": [
+      "computer mouse",
+      "laptop",
+      "keyboard",
+      "pen",
+      "bottle",
+      "can",
+      "cup",
+      "microphone",
+      "cable",
+      "charger",
+      "nail clipper",
+      "coin"
+    ],
+    "box_threshold": 0.05,
+    "text_threshold": null,
+    "device": "cuda",
+    "warmup_queries": 3,
+    "queries_per_image": 4,
+    "half_precision": false,
+    "input": "RGB PIL image read with Pillow"
+  },
+  "timing_notes": "wall_ms[category] = one detect() call (preprocess + inference + post-process) with that category's prompt; image file reading is excluded.",
+  "dataset": {
+    "manifest": "tests/dataset/manifest.csv",
+    "manifest_sha256": "ca73e2c1f12464df03b1f2b3824109cd237ea1e9dbba46fa8d5ac4c6db5bde4b",
+    "num_images": 70
+  },
+  "environment": {
+    "python": "3.12.10",
+    "torch": "2.11.0+cu128",
+    "transformers": "5.10.2",
+    "pillow": "12.2.0",
+    "cuda_available": true,
+    "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU",
+    "peak_vram_mb": 1508.5,
+    "cpu": "AMD64 Family 25 Model 68 Stepping 1, AuthenticAMD",
+    "os": "Windows-11-10.0.26200-SP0"
+  }
+}
