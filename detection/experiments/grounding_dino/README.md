@@ -8,13 +8,11 @@ This directory houses the experimentation, benchmarking, and wrapper implementat
   - **Initial Responsibility:** Grounding DINO testing, setup, prompt tuning, and comparative evaluation.
   - **Post-Testing Responsibility:** Documentation, evaluation reports, and testing (`tests/`, `docs/`).
 
-## Dataset Selection Status
-> **Dataset selection pending team discussion and confirmation.**
-> We are currently considering several options, including the Microsoft ORBIT Dataset and other datasets containing everyday household objects. The final dataset will be selected later after discussion and confirmation with team members.
->
-> - **Do not download any dataset or create actual evaluation annotations at this time.**
-> - Once confirmed, **Member 4 (Grounding DINO)** and **Member 1 (YOLO)** will evaluate both models on the **identical dataset**.
-> - Proposed object categories, number of test images, and test conditions remain provisional until confirmed.
+## Dataset & Model Status
+- **Dataset (confirmed):** *Objects In House* v5 (CC0); 70 shared test images in [`tests/dataset/`](../../../tests/dataset/README.md). Microsoft ORBIT remains a future option.
+- **Real-photo test:** 94 team phone photos, same photos for every model: [`COMPARISON.md`](../../../tests/results/real_photos/COMPARISON.md).
+- **Chosen model: Grounding DINO multi-prompt** (`prompt_mode: "multi"`, threshold 0.35). Fine-tuned YOLO missed most objects on real phone photos.
+- **Demo:** `scripts\start_demo.cmd` ([`scripts/README.md`](../../../scripts/README.md)).
 
 ## Tasks & Development Priorities
 1. **Environment & Model Setup:** Prepare Grounding DINO environment (PyTorch, transformers, groundingdino package) and config files.

@@ -20,19 +20,19 @@
 | **Member 3** | Backend and voice guidance (`backend/`, `voice/`) | Backend, API, and voice integration (`backend/`, `voice/`) |
 | **Member 4** | Grounding DINO testing (`detection/experiments/grounding_dino/`) | Documentation, evaluation reports, and testing (`tests/`, `docs/`) |
 
-- **Model Evaluation:** Member 1 and Member 4 will compare their respective models using the **same dataset** once it has been confirmed.
+- **Model Evaluation (done):** Member 1 (YOLO) and Member 4 (Grounding DINO) compared their models on the same shared dataset and on the team's real phone photos. See [Dataset & Model Status](#dataset--model-status).
 - **Independent Development:** Members 2 and 3 can develop and test frontend and voice/backend features independently using mock detection results specified in [`docs/API_CONTRACT.md`](docs/API_CONTRACT.md).
 
-## Dataset Status
-> **Dataset selection pending team discussion and confirmation.**
-> We are currently considering several options, including the Microsoft ORBIT Dataset and other datasets containing everyday household objects. The final dataset will be selected later after discussion and confirmation with team members.
->
-> **Guidelines for all developers and AI agents:**
-> - Do not select or finalize any dataset prematurely.
-> - Do not download datasets or upload large binary dataset files to git.
-> - Do not automatically assume ORBIT or any other specific dataset is finalized.
-> - Do not create provisional evaluation images or annotations until the team confirms the dataset.
-> - Keep the dataset folder structure (`tests/dataset/`) prepared for future use.
+## Dataset & Model Status
+- **Dataset (confirmed):** *Objects In House* v5 (Roboflow Universe, CC0). The 70 shared test images (wallet, keys, glasses, remote control, and target-absent) are reproduced locally with `tests/dataset/prepare_dataset.py`. See [`tests/dataset/README.md`](tests/dataset/README.md) and [`dataset_info.md`](tests/dataset/dataset_info.md). Microsoft ORBIT remains a future option.
+- **Real-photo test:** 94 phone photos taken by the team. YOLO and Grounding DINO were scored on exactly the same photos: [`tests/results/real_photos/COMPARISON.md`](tests/results/real_photos/COMPARISON.md).
+- **Chosen model: Grounding DINO with the multi-prompt** (`detection/experiments/grounding_dino/`, `prompt_mode: "multi"`, threshold 0.35). Fine-tuned YOLO looked good on the stock-style test images but missed most objects in real phone photos. Details: [`MULTI_PROMPT.md`](detection/experiments/grounding_dino/MULTI_PROMPT.md) and the YOLO README.
+- **Run the demo:** `scripts\start_demo.cmd` starts the backend with the chosen model, the frontend and the HTTPS phone link ([`scripts/README.md`](scripts/README.md)). It needs an NVIDIA GPU for real-time use.
+
+**Guidelines for all developers and AI agents:**
+- Never commit dataset images, model weights, API keys, or the team's private phone photos (`tests/real_photos/` is gitignored).
+- Download data only with the documented scripts (`prepare_dataset.py`); keep the Roboflow API key in an environment variable.
+- Changing the model, prompts or thresholds requires re-running the real-photo test (`tests/real_photos/`) and updating `COMPARISON.md`.
 
 ## Repository Structure
 ```text
@@ -55,7 +55,10 @@ CakGo/
 ├── tests/
 │   ├── README.md
 │   ├── dataset/
+│   ├── real_photos/
 │   └── results/
+├── scripts/
+│   └── start_demo.cmd
 └── docs/
     ├── README.md
     ├── API_CONTRACT.md
@@ -71,7 +74,7 @@ CakGo/
 1. First read this `README.md`, your assigned component's `README.md`, and [`docs/API_CONTRACT.md`](docs/API_CONTRACT.md).
 2. Keep edits strictly scoped within your assigned component directory.
 3. Adhere to the shared API contract for inputs and outputs; do not change endpoint contracts unilaterally.
-4. **Do not assume a finalized dataset**; respect the pending dataset status banner.
+4. Follow the [Dataset & Model Status](#dataset--model-status): the dataset and the model (Grounding DINO multi-prompt) are decided; don't change them without re-running the real-photo test.
 5. Provide reproducible test instructions and clean, verifiable code. Human review is required before merging.
 
-**Status:** Repository scaffold and development guidelines initialized. Application development and model benchmarking commence upon dataset confirmation and mock integration.
+**Status (2026-10-20):** End-to-end MVP working on a real phone (camera → backend → Grounding DINO multi-prompt → boxes → Korean voice with two-frame confirmation). Remaining: second real-phone test, final report and presentation.

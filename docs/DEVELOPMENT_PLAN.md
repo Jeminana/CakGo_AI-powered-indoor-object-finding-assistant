@@ -9,13 +9,11 @@
 | **Member 3** | Backend and voice guidance (`backend/`, `voice/`) | Backend, API, and voice integration (`backend/`, `voice/`) |
 | **Member 4** | Grounding DINO testing (`detection/experiments/grounding_dino/`) | Documentation, evaluation reports, and testing (`tests/`, `docs/`) |
 
-## Dataset Status Notice
-> **Dataset selection pending team discussion and confirmation.**
-> We are currently considering several options, including the Microsoft ORBIT Dataset and other datasets containing everyday household objects. The final dataset will be selected later after discussion and confirmation with the team members.
->
-> - **Member 1** and **Member 4** will compare the models using the **same dataset** once it has been confirmed.
-> - Proposed object categories, test sample counts, and evaluation conditions remain provisional.
-> - The team will provide confirmed dataset details later.
+## Dataset & Model Status
+- **Dataset (confirmed):** *Objects In House* v5 (CC0); 70 shared test images in [`tests/dataset/`](../tests/dataset/README.md). Microsoft ORBIT remains a future option.
+- **Real-photo test:** 94 team phone photos, same photos for every model: [`COMPARISON.md`](../tests/results/real_photos/COMPARISON.md).
+- **Chosen model: Grounding DINO multi-prompt** (`prompt_mode: "multi"`, threshold 0.35). Fine-tuned YOLO missed most objects on real phone photos.
+- **Demo:** `scripts\start_demo.cmd` ([`scripts/README.md`](../scripts/README.md)).
 
 ## Independent vs. Dependent Work
 - **Independent Work:**

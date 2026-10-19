@@ -8,26 +8,19 @@ The `tests/` directory manages quality assurance, test data organization, compar
   - **Initial Responsibility:** Grounding DINO testing (`detection/experiments/grounding_dino/`).
   - **Post-Testing Responsibility:** Documentation, evaluation reports, integration QA, and final testing (`tests/`, `docs/`).
 
-## Dataset Selection Status
-> **Dataset selection pending team discussion and confirmation.**
-> We have not finalized which dataset to use for comparing YOLO and Grounding DINO. We are currently considering several options, including the Microsoft ORBIT Dataset and other datasets containing everyday household objects. However, the final dataset will be selected later, after discussion and confirmation with the team members.
->
-> **Mandatory Guidelines for Testing:**
-> - **Do not select or finalize any dataset prematurely.**
-> - **Do not download datasets.**
-> - **Do not automatically use ORBIT or any other dataset.**
-> - **Do not create actual evaluation images or annotations.**
-> - Keep the dataset folder structure (`tests/dataset/`) prepared for future use.
-> - The two members responsible for model evaluation (**Member 1** for YOLO and **Member 4** for Grounding DINO) will use the **same dataset** once it has been confirmed.
-> - The proposed number of images, object categories, and evaluation conditions should remain provisional.
-> - The team will provide the confirmed dataset details later.
+## Dataset & Model Status
+- **Dataset (confirmed):** *Objects In House* v5 (CC0); 70 shared test images in [`tests/dataset/`](../tests/dataset/README.md). Microsoft ORBIT remains a future option.
+- **Real-photo test:** 94 team phone photos, same photos for every model: [`COMPARISON.md`](../tests/results/real_photos/COMPARISON.md).
+- **Chosen model: Grounding DINO multi-prompt** (`prompt_mode: "multi"`, threshold 0.35). Fine-tuned YOLO missed most objects on real phone photos.
+- **Demo:** `scripts\start_demo.cmd` ([`scripts/README.md`](../scripts/README.md)).
 
 ## Directory Structure
 ```text
 tests/
 ├── README.md           # This document
-├── dataset/            # Prepared directory for the evaluation dataset once confirmed
-│   └── README.md       # Dataset guidelines & pending notice
+├── dataset/            # Shared evaluation dataset (Objects In House v5, 70 images; images not committed)
+│   └── README.md       # How to download, build, fetch and verify the dataset
+├── real_photos/        # Real phone photo test: scoring script (team photos are gitignored)
 └── results/            # Benchmark logs, latency logs, and comparative evaluation metrics
     └── README.md       # Results documentation
 ```
@@ -48,6 +41,6 @@ When the team confirms the dataset:
 - **Accessibility & Edge Cases:** Camera denied, server timeout, missing target object, low network bandwidth.
 
 ## Instructions for AI Coding Agents
-1. Do not download external datasets or invent fake benchmark data.
-2. Maintain the separation between `tests/dataset/` (pending confirmation) and `tests/results/`.
+1. Get data only through the documented scripts (`tests/dataset/prepare_dataset.py`, the team Drive for real photos); never invent benchmark data or commit images.
+2. Maintain the separation between `tests/dataset/` (inputs) and `tests/results/` (outputs).
 3. Provide reproducible, automated pytest or benchmark scripts.

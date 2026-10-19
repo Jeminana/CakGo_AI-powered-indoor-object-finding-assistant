@@ -11,7 +11,7 @@ the images into `detection/experiments/yolo/` or `detection/experiments/groundin
 | Source datasets | Confirmed (primary: Objects In House v5; secondary: Home item detection v1). See [dataset_info.md](dataset_info.md). |
 | Source metadata (classes, versions, license) | Verified on 2026-10-16 from the public Roboflow Universe pages |
 | Download access | **Needs a Roboflow API key** (free account). Anonymous download is not possible. |
-| Evaluation subset (`manifest.csv`, `annotations/`) | **Not built yet.** It will exist after the dataset owner runs `build` (below) and commits the outputs. |
+| Evaluation subset (`manifest.csv`, `annotations/`) | **Built on 2026-10-16** (70 images: 15 per object + 10 target-absent, seed `cakgo-eval-v1`, no shortfalls) and committed. Teammates run `download` + `fetch` + `verify` (section 2b), or unzip the team Drive copy. |
 | Microsoft ORBIT | Future dataset, intentionally **not** downloaded at this stage |
 
 ## Folder layout

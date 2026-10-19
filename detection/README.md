@@ -10,13 +10,11 @@ The `detection/` component provides the core visual object detection capability 
 - **Post-Comparison Phase:**
   - **Member 1:** Final model selection, implementation, adapter optimization, and continuous improvement.
 
-## Dataset Selection Status
-> **Dataset selection pending team discussion and confirmation.**
-> We are currently considering several options, including the Microsoft ORBIT Dataset and other datasets containing everyday household objects. The final dataset will be selected later after discussion and confirmation with the team members.
-> 
-> - **Do not download datasets or generate mock evaluation annotations yet.**
-> - Member 1 and Member 4 will evaluate both YOLO and Grounding DINO on the **exact same dataset** once confirmed by the team.
-> - Proposed test categories, sample counts, and evaluation metrics remain provisional until confirmation.
+## Dataset & Model Status
+- **Dataset (confirmed):** *Objects In House* v5 (CC0); 70 shared test images in [`tests/dataset/`](../tests/dataset/README.md). Microsoft ORBIT remains a future option.
+- **Real-photo test:** 94 team phone photos, same photos for every model: [`COMPARISON.md`](../tests/results/real_photos/COMPARISON.md).
+- **Chosen model: Grounding DINO multi-prompt** (`prompt_mode: "multi"`, threshold 0.35). Fine-tuned YOLO missed most objects on real phone photos.
+- **Demo:** `scripts\start_demo.cmd` ([`scripts/README.md`](../scripts/README.md)).
 
 ## Planned Structure
 ```text
@@ -70,5 +68,5 @@ In accordance with [`docs/API_CONTRACT.md`](../docs/API_CONTRACT.md):
 1. Read the root `README.md`, this file, and [`docs/API_CONTRACT.md`](../docs/API_CONTRACT.md).
 2. For YOLO-specific tasks, operate strictly within `detection/experiments/yolo/`.
 3. For Grounding DINO-specific tasks, operate strictly within `detection/experiments/grounding_dino/`.
-4. Do not download or assume a dataset until the team explicitly provides the confirmed dataset details.
+4. The dataset and model are decided (see Dataset & Model Status). Changing the model, prompts or thresholds requires re-running the real-photo test in `tests/real_photos/`.
 5. Ensure bounding box outputs always match the `[x1, y1, x2, y2]` pixel coordinate convention.

@@ -8,9 +8,11 @@ The `docs/` directory maintains project-wide specifications, interface contracts
   - **Initial Responsibility:** Grounding DINO testing (`detection/experiments/grounding_dino/`).
   - **Post-Testing Responsibility:** Documentation, evaluation reports, and testing (`tests/`, `docs/`).
 
-## Dataset Selection Status
-> **Dataset selection pending team discussion and confirmation.**
-> Dataset options (including Microsoft ORBIT and everyday household object collections) remain under consideration. No dataset has been finalized or downloaded. Specifications involving dataset size, image counts, and object classes are provisional until confirmed by the team.
+## Dataset & Model Status
+- **Dataset (confirmed):** *Objects In House* v5 (CC0); 70 shared test images in [`tests/dataset/`](../tests/dataset/README.md). Microsoft ORBIT remains a future option.
+- **Real-photo test:** 94 team phone photos, same photos for every model: [`COMPARISON.md`](../tests/results/real_photos/COMPARISON.md).
+- **Chosen model: Grounding DINO multi-prompt** (`prompt_mode: "multi"`, threshold 0.35). Fine-tuned YOLO missed most objects on real phone photos.
+- **Demo:** `scripts\start_demo.cmd` ([`scripts/README.md`](../scripts/README.md)).
 
 ## Main Documents
 - [`API_CONTRACT.md`](API_CONTRACT.md): Shared REST API specification and coordinate conventions. Must remain consistent across all components.
