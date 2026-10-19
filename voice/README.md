@@ -6,8 +6,17 @@
 `new CakGoVoice({onStatus: text => { /* update UI text */ }})`, and call `enable()`
 inside a user click. Pass each successful detection response to `guide(result)`.
 Call `stop()` to disable audio and cancel queued speech; call `error('camera')`
-or `error('network')` for failures. The same target/direction is throttled for
-four seconds and speech is never queued over an active utterance.
+or `error('network')` for failures. Detection speech requires the same target and
+answer (left/center/right/not found) in two consecutive successful responses.
+Text still updates immediately. A changed answer or target starts confirmation
+again; an error, stop, or enable also resets confirmation. This suppresses
+single-frame spoken alerts, but cannot rule out persistent false detections.
+
+Repeated found directions retain the four-second cooldown. Not-found speech
+repeats at most every ten seconds per target in a scan, even if another answer
+or error intervenes. Stop clears this history for the next scan. The optional
+`missingCooldownMs` constructor setting defaults to `10000`. Startup and error
+cues remain immediate, and speech is never queued over an active utterance.
 
 Browser Web Speech synthesis avoids a server TTS dependency and generated audio
 storage. A ko-KR voice is selected when available; otherwise the browser default
@@ -15,6 +24,7 @@ voice is used. Text status survives disabled/failed audio. No distance estimate
 is announced. Open the backend's `/voice-demo` for manual checks.
 
 Automated logic checks: `node voice/test_guidance.cjs` (Node.js required).
+Frontend lifecycle checks: `node frontend/test_voice_integration.cjs`.
 Actual Korean speech on iOS Safari and Android Chrome still requires testing;
 the automated checks do not establish device compatibility or audio quality.
 
