@@ -1,3 +1,5 @@
 # Teammates' real photos show their homes - never commit them or the box pictures made from them.
+# "real_photos" is the name of the Drive folder, so a plain download lands there.
 photos/
+real_photos/
 sheets/

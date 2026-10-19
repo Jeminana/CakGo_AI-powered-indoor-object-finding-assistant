@@ -25,6 +25,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
 import importlib.util
 import json
 import re
@@ -40,13 +41,18 @@ RESULTS_DIR = REPO_ROOT / "tests" / "results" / "real_photos"
 SHEETS_DIR = Path(__file__).resolve().parent / "sheets"  # gitignored: contains the private photos
 CATEGORIES = ["wallet", "keys", "glasses", "remote_control"]
 FOLDERS = CATEGORIES + ["none"]
+FOLDER_ALIASES = {"empty": "none", "remote controller": "remote_control", "remote": "remote_control"}
 CONDITIONS = {  # photo code -> condition, from the photo instructions
     "A1": "easy", "A2": "cluttered", "A3": "partly hidden",
     "B1": "far", "B2": "dim", "B3": "cluttered",
     "N1": "look-alikes", "N2": "open bag", "N3": "dim", "N4": "far",
 }
-CODE = re.compile(r"_([ABN][0-9])$", re.I)
+# Photo code anywhere in the name, e.g. "keys_najmi_A1", "wallet Image_A1_768_2", "glasses _B5_2".
+# Codes outside the plan (A4, B5, C1, D2, ...) are kept with condition "unknown".
+CODE = re.compile(r"(?:^|[_\s])([A-DN][0-9])(?=$|[_\s])", re.I)
 IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".heic", ".heif"}
+# PNG files in the shared folder are small screenshots of web images, not phone photos.
+SCREENSHOT_SUFFIXES = {".png"}
 MAX_SIDE = 1280      # same as frontend/index.html
 SAVE_MIN_CONF = 0.05  # keep low-confidence boxes so thresholds can be swept afterwards
 SWEEP = [0.25, 0.35, 0.5]
@@ -102,22 +108,52 @@ MODELS = {
 }
 
 
-def find_photos(root: Path) -> list[dict]:
-    photos = []
+def folder_category(name: str) -> str | None:
+    name = name.lower().strip()
+    name = FOLDER_ALIASES.get(name, name)
+    return name if name in FOLDERS else None
+
+
+def person_from_name(stem: str, code_match) -> str:
+    """'keys_najmi_A1' -> 'najmi'; names without a person token (e.g. 'Weixin Image_...') -> '?'."""
+    if not code_match:
+        return "?"
+    tokens = [t for t in re.split(r"[_\s]+", stem[:code_match.start(1)]) if t]
+    item_words = {"wallet", "key", "keys", "glasses", "remote", "control", "none", "image", "weixin"}
+    return tokens[-1].lower() if len(tokens) >= 2 and tokens[-1].isalpha() and tokens[-1].lower() not in item_words else "?"
+
+
+def find_photos(root: Path, include_screenshots: bool) -> tuple[list[dict], list[Path]]:
+    photos, skipped = [], []
     for path in sorted(root.rglob("*")):
-        if path.suffix.lower() not in IMAGE_SUFFIXES or path.parent.name.lower() not in FOLDERS:
+        truth = folder_category(path.parent.name)
+        if path.suffix.lower() not in IMAGE_SUFFIXES or truth is None:
+            continue
+        if path.suffix.lower() in SCREENSHOT_SUFFIXES and not include_screenshots:
+            skipped.append(path)
             continue
         match = CODE.search(path.stem)
         code = match.group(1).upper() if match else "?"
-        parts = path.stem.split("_")
+        person = person_from_name(path.stem, match)
         photos.append({
             "path": path,
-            "truth": path.parent.name.lower(),
+            "truth": truth,
             "code": code,
-            "condition": CONDITIONS.get(code, "unknown"),
-            "person": parts[-2] if match and len(parts) >= 3 else "?",
+            # Only names in the planned "item_name_code" form are trusted to follow the condition plan.
+            "condition": CONDITIONS.get(code, "unknown") if person != "?" else "unknown",
+            "person": person,
         })
-    return photos
+    return photos, skipped
+
+
+def photo_set_fingerprint(photos: list[dict]) -> tuple[str, list[dict]]:
+    """sha256 of every photo plus one combined hash, so separate runs can prove they used the same set."""
+    entries = []
+    for p in photos:
+        digest = hashlib.sha256(p["path"].read_bytes()).hexdigest()
+        entries.append({"file": f"{p['path'].parent.name}/{p['path'].name}", "sha256": digest})
+    combined = hashlib.sha256("\n".join(sorted(e["sha256"] for e in entries)).encode()).hexdigest()
+    return combined, entries
 
 
 def open_photo(path: Path) -> Image.Image:
@@ -169,11 +205,21 @@ def summarise(photos, results, model_names, thresholds):
     return summary
 
 
-def markdown(summary, photos, run_name):
+def markdown(summary, photos, run_name, fingerprint, skipped):
     counts = {f: sum(p["truth"] == f for p in photos) for f in FOLDERS}
+    people = {}
+    for p in photos:
+        people[p["person"]] = people.get(p["person"], 0) + 1
     lines = [f"# Real phone photos - {run_name}", "",
              f"Photos: {len(photos)} (" + ", ".join(f"{f} {n}" for f, n in counts.items()) + "). "
              "Each model is asked about all 4 objects in every photo.", "",
+             "By person (from the file name; `?` = no name in the file name): "
+             + ", ".join(f"{k} {v}" for k, v in sorted(people.items())) + ".", "",
+             f"Photo set fingerprint: `{fingerprint}`. Runs with the same fingerprint used exactly the same photos.", ""]
+    if skipped:
+        lines += [f"Excluded: {len(skipped)} screenshot PNGs (not phone photos): "
+                  + ", ".join(f"`{p.parent.name}/{p.name}`" for p in skipped) + ".", ""]
+    lines += [
              "**Found** = photos of the object where the model returned a box. "
              "**False alarms** = photos without the object where it still returned one. "
              "No ground-truth boxes: check box positions with `--sheets`.", "",
@@ -227,16 +273,23 @@ def main() -> None:
     parser.add_argument("--photos", type=Path, required=True, help="folder with wallet/ keys/ glasses/ remote_control/ none/")
     parser.add_argument("--models", nargs="+", choices=list(MODELS), default=["gdino_multi", "gdino_single", "yolo_v1"])
     parser.add_argument("--run-name", default=None)
+    parser.add_argument("--include-screenshots", action="store_true",
+                        help="also score .png files (by default they are excluded: screenshots, not phone photos)")
     parser.add_argument("--sheets", action="store_true",
                         help=f"draw each model's top box per photo into {SHEETS_DIR.relative_to(REPO_ROOT)} (gitignored)")
     args = parser.parse_args()
 
-    photos = find_photos(args.photos)
+    photos, skipped = find_photos(args.photos, args.include_screenshots)
     if not photos:
-        sys.exit(f"No photos found under {args.photos} in subfolders {', '.join(FOLDERS)}.")
+        sys.exit(f"No photos found under {args.photos} in subfolders {', '.join(FOLDERS)} "
+                 f"(or {', '.join(FOLDER_ALIASES)}).")
+    if skipped:
+        print(f"[info] excluded {len(skipped)} screenshot PNGs (use --include-screenshots to keep them)")
     unnamed = [p["path"].name for p in photos if p["code"] == "?"]
     if unnamed:
         print(f"[warn] {len(unnamed)} file names have no photo code (A1-B3, N1-N4), condition unknown: {unnamed[:5]}")
+    fingerprint, photo_hashes = photo_set_fingerprint(photos)
+    print(f"[info] {len(photos)} photos, photo set fingerprint {fingerprint[:16]}…")
     run_name = args.run_name or f"{datetime.now():%Y%m%d_%H%M%S}_real_photos"
     out_dir = RESULTS_DIR / run_name
     out_dir.mkdir(parents=True, exist_ok=False)
@@ -255,10 +308,12 @@ def main() -> None:
         del model
 
     summary = summarise(photos, results, args.models, thresholds)
-    (out_dir / "summary.md").write_text(markdown(summary, photos, run_name), encoding="utf-8")
+    (out_dir / "summary.md").write_text(markdown(summary, photos, run_name, fingerprint, skipped), encoding="utf-8")
     with open(out_dir / "summary.json", "w", encoding="utf-8") as f:
         json.dump({"run_name": run_name, "created_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-                   "num_photos": len(photos), "max_side_px": MAX_SIDE, "models": summary}, f, indent=2)
+                   "num_photos": len(photos), "max_side_px": MAX_SIDE, "photo_set_sha256": fingerprint,
+                   "excluded_screenshots": [f"{p.parent.name}/{p.name}" for p in skipped],
+                   "models": summary, "photos": photo_hashes}, f, indent=2, ensure_ascii=False)
     with open(out_dir / "per_photo.csv", "w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
         writer.writerow(["photo", "person", "code", "condition", "truth"] +
@@ -278,7 +333,7 @@ def main() -> None:
             asked = p["truth"] if p["truth"] != "none" else "keys"  # for "none" photos show the keys query
             boxes = {m: (top_boxes[(i, m, asked)] if top_boxes[(i, m, asked)] and
                          top_boxes[(i, m, asked)]["confidence"] >= thresholds[m] else None) for m in args.models}
-            draw_sheet(images[i], boxes, sheet_dir / f"{p['path'].stem}.jpg", f"asked: {asked}")
+            draw_sheet(images[i], boxes, sheet_dir / f"{p['truth']}__{p['path'].stem}.jpg", f"asked: {asked}")
         print(f"[ok] box pictures: {sheet_dir}")
 
     print((out_dir / "summary.md").read_text(encoding="utf-8"))

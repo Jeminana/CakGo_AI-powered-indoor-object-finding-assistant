@@ -19,7 +19,17 @@ tests/real_photos/photos/
 
 The folder gives the object in the photo (one per photo; `none` = none of the four). The code at the end of
 the file name gives the condition: A1 easy, A2 cluttered, A3 partly hidden, B1 far, B2 dim, B3 cluttered,
-N1–N4 none photos. JPG, PNG and iPhone HEIC are accepted (HEIC needs `pip install pillow-heif`).
+N1–N4 none photos. JPG and iPhone HEIC/HEIF are accepted (HEIC needs `pip install pillow-heif`).
+
+The script is tolerant of how the shared Drive folder actually looks:
+- `empty/` counts as `none/`, and `remote controller/` counts as `remote_control/`.
+- The downloaded `real_photos/` folder can be used directly with `--photos tests/real_photos/real_photos`.
+  It is gitignored too.
+- **PNG files are excluded by default.** In the shared folder they are small screenshots of web images, not
+  phone photos. They are listed in the summary; `--include-screenshots` keeps them.
+- Codes outside the plan (C1, D2, A4, B5, …) and names without a person's name get condition `unknown`.
+- Every run records a **photo set fingerprint** (sha256 over all photos). Separate runs with the same
+  fingerprint used exactly the same photos.
 
 ## 2. Run (from the repository root)
 
