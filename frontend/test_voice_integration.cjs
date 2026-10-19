@@ -59,6 +59,9 @@ function setup(withModule = true) {
   assert.match(page.utterances[0].text,/시작/);
   page.finishSpeech();
   await page.run('detectOnce(scanId)');
+  assert.equal(page.utterances.length,1,'first frame updates text without detection speech');
+  assert.equal(page.element('result').textContent,'찾는 물건이 화면 왼쪽에 보입니다.');
+  await page.run('detectOnce(scanId)');
   assert.match(page.utterances.at(-1).text,/왼쪽/);
   assert.equal(page.element('result').textContent,'찾는 물건이 화면 왼쪽에 보입니다.');
   page.finishSpeech();
@@ -73,6 +76,8 @@ function setup(withModule = true) {
   page.element('voiceBtn').onclick();
   page.finishSpeech();
   await page.run('detectOnce(scanId)');
+  assert.match(page.utterances.at(-1).text,/시작/,'unmute needs fresh confirmation');
+  await page.run('detectOnce(scanId)');
   assert.match(page.utterances.at(-1).text,/왼쪽/);
 
   page.element('targetObject').value='wallet';
@@ -84,6 +89,8 @@ function setup(withModule = true) {
     target:'wallet',detected:false,position:null,image_width:300,image_height:200,
     detections:[],message:'현재 카메라 화면에서 찾는 물건이 보이지 않습니다.',
   })}));
+  await page.run('detectOnce(scanId)');
+  assert.match(page.utterances.at(-1).text,/시작/,'new target needs fresh confirmation');
   await page.run('detectOnce(scanId)');
   assert.match(page.utterances.at(-1).text,/보이지 않습니다/);
   page.finishSpeech();
