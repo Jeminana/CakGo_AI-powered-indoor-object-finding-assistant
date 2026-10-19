@@ -15,6 +15,8 @@ The `docs/` directory maintains project-wide specifications, interface contracts
 - **Demo:** `scripts\start_demo.cmd` ([`scripts/README.md`](../scripts/README.md)).
 
 ## Main Documents
+- [`2026-10-20/`](2026-10-20/README.md): **Final results**: how the model was chosen, presentation plan, progress.
+- [`2026-10-17/`](2026-10-17/README.md): Earlier documentation package and slide deck (before the phone tests).
 - [`API_CONTRACT.md`](API_CONTRACT.md): Shared REST API specification and coordinate conventions. Must remain consistent across all components.
 - [`DEVELOPMENT_PLAN.md`](DEVELOPMENT_PLAN.md): 7-day development plan, member ownership, integration checkpoints, and collaboration workflow.
 - [`REPORT.md`](REPORT.md): Official IC-PBL Team Activity Report (preserved).
