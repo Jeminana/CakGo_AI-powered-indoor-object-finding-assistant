@@ -1,8 +1,8 @@
 # Dataset Information — CakGo Shared Evaluation Set
 
-Verified on **2026-10-16** from the public Roboflow Universe pages listed below. Download itself was **not**
-performed during verification because Roboflow requires an account API key, and none was available in that
-environment. Fields marked *after build* are filled in by the dataset owner once `prepare_dataset.py build` has run.
+Verified on **2026-10-16** from the public Roboflow Universe pages listed below. The evaluation subset was built
+the same day with `prepare_dataset.py build` (Roboflow API key required for the download); section 4 has the
+final counts.
 
 ## 1. Sources
 
@@ -78,7 +78,7 @@ Original labels are kept unchanged in `annotations/ground_truth.json`; the mappi
 Not mapped (kept as-is, treated as non-target): `backpack-bag`, `broom`, `casual-shoes`, `earphone`,
 `box for eye glasses`, `pills blisters`, `pills bottles`, `pills boxes`.
 
-## 4. Evaluation subset (after build)
+## 4. Evaluation subset (built 2026-10-16)
 
 | Category | Target | Selected | Shortfall / notes |
 |---|---|---|---|
