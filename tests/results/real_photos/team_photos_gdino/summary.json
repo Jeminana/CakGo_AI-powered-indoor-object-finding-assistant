@@ -1,0 +1,634 @@
+{
+  "run_name": "team_photos_gdino",
+  "created_at": "2026-10-19T12:58:39+00:00",
+  "num_photos": 94,
+  "max_side_px": 1280,
+  "photo_set_sha256": "01d7103be4d5ddf863418214b63b173a53213f001f4f139fb3e584043127b985",
+  "excluded_screenshots": [
+    "glasses/glasses 2026-10-19 185850.png",
+    "glasses/glasses 2026-10-19 191026.png",
+    "keys/屏幕截图 2026-10-19 192935.png",
+    "keys/屏幕截图 2026-10-19 193003.png",
+    "keys/屏幕截图 2026-10-19 193119.png",
+    "keys/屏幕截图 2026-10-19 193206.png",
+    "keys/屏幕截图 2026-10-19 193236.png",
+    "keys/屏幕截图 2026-10-19 193307.png",
+    "keys/屏幕截图 2026-10-19 193407.png",
+    "remote controller/屏幕截图 2026-10-19 192333.png",
+    "remote controller/屏幕截图 2026-10-19 192420.png",
+    "remote controller/屏幕截图 2026-10-19 192547.png",
+    "remote controller/屏幕截图 2026-10-19 192642.png",
+    "remote controller/屏幕截图 2026-10-19 192722.png",
+    "remote controller/屏幕截图 2026-10-19 192809.png"
+  ],
+  "models": {
+    "gdino_multi": {
+      "threshold": 0.35,
+      "categories": {
+        "wallet": {
+          "found": 12,
+          "photos_with_object": 24,
+          "false_alarms": 8,
+          "photos_without_object": 70,
+          "false_alarms_on_none": 2,
+          "sweep": {
+            "0.25": {
+              "found": 16,
+              "false_alarms": 12
+            },
+            "0.35": {
+              "found": 12,
+              "false_alarms": 8
+            },
+            "0.5": {
+              "found": 3,
+              "false_alarms": 2
+            }
+          }
+        },
+        "keys": {
+          "found": 10,
+          "photos_with_object": 20,
+          "false_alarms": 11,
+          "photos_without_object": 74,
+          "false_alarms_on_none": 0,
+          "sweep": {
+            "0.25": {
+              "found": 13,
+              "false_alarms": 22
+            },
+            "0.35": {
+              "found": 10,
+              "false_alarms": 11
+            },
+            "0.5": {
+              "found": 0,
+              "false_alarms": 2
+            }
+          }
+        },
+        "glasses": {
+          "found": 12,
+          "photos_with_object": 24,
+          "false_alarms": 2,
+          "photos_without_object": 70,
+          "false_alarms_on_none": 1,
+          "sweep": {
+            "0.25": {
+              "found": 15,
+              "false_alarms": 8
+            },
+            "0.35": {
+              "found": 12,
+              "false_alarms": 2
+            },
+            "0.5": {
+              "found": 7,
+              "false_alarms": 0
+            }
+          }
+        },
+        "remote_control": {
+          "found": 11,
+          "photos_with_object": 12,
+          "false_alarms": 17,
+          "photos_without_object": 82,
+          "false_alarms_on_none": 3,
+          "sweep": {
+            "0.25": {
+              "found": 12,
+              "false_alarms": 40
+            },
+            "0.35": {
+              "found": 11,
+              "false_alarms": 17
+            },
+            "0.5": {
+              "found": 8,
+              "false_alarms": 3
+            }
+          }
+        }
+      },
+      "found_by_condition": {
+        "cluttered": {
+          "found": 15,
+          "photos": 16
+        },
+        "dim": {
+          "found": 4,
+          "photos": 8
+        },
+        "easy": {
+          "found": 7,
+          "photos": 8
+        },
+        "far": {
+          "found": 2,
+          "photos": 8
+        },
+        "partly hidden": {
+          "found": 7,
+          "photos": 8
+        },
+        "unknown": {
+          "found": 10,
+          "photos": 32
+        }
+      }
+    },
+    "gdino_single": {
+      "threshold": 0.35,
+      "categories": {
+        "wallet": {
+          "found": 23,
+          "photos_with_object": 24,
+          "false_alarms": 35,
+          "photos_without_object": 70,
+          "false_alarms_on_none": 4,
+          "sweep": {
+            "0.25": {
+              "found": 23,
+              "false_alarms": 50
+            },
+            "0.35": {
+              "found": 23,
+              "false_alarms": 35
+            },
+            "0.5": {
+              "found": 18,
+              "false_alarms": 12
+            }
+          }
+        },
+        "keys": {
+          "found": 20,
+          "photos_with_object": 20,
+          "false_alarms": 63,
+          "photos_without_object": 74,
+          "false_alarms_on_none": 9,
+          "sweep": {
+            "0.25": {
+              "found": 20,
+              "false_alarms": 74
+            },
+            "0.35": {
+              "found": 20,
+              "false_alarms": 63
+            },
+            "0.5": {
+              "found": 13,
+              "false_alarms": 41
+            }
+          }
+        },
+        "glasses": {
+          "found": 23,
+          "photos_with_object": 24,
+          "false_alarms": 37,
+          "photos_without_object": 70,
+          "false_alarms_on_none": 2,
+          "sweep": {
+            "0.25": {
+              "found": 24,
+              "false_alarms": 58
+            },
+            "0.35": {
+              "found": 23,
+              "false_alarms": 37
+            },
+            "0.5": {
+              "found": 17,
+              "false_alarms": 12
+            }
+          }
+        },
+        "remote_control": {
+          "found": 12,
+          "photos_with_object": 12,
+          "false_alarms": 76,
+          "photos_without_object": 82,
+          "false_alarms_on_none": 12,
+          "sweep": {
+            "0.25": {
+              "found": 12,
+              "false_alarms": 82
+            },
+            "0.35": {
+              "found": 12,
+              "false_alarms": 76
+            },
+            "0.5": {
+              "found": 11,
+              "false_alarms": 46
+            }
+          }
+        }
+      },
+      "found_by_condition": {
+        "cluttered": {
+          "found": 16,
+          "photos": 16
+        },
+        "dim": {
+          "found": 7,
+          "photos": 8
+        },
+        "easy": {
+          "found": 8,
+          "photos": 8
+        },
+        "far": {
+          "found": 7,
+          "photos": 8
+        },
+        "partly hidden": {
+          "found": 8,
+          "photos": 8
+        },
+        "unknown": {
+          "found": 32,
+          "photos": 32
+        }
+      }
+    }
+  },
+  "photos": [
+    {
+      "file": "empty/none Image_20261019193859_802_2.jpg",
+      "sha256": "bbfc63dfe0418da8e7da75de57fe70e42076ddb5f935ffe950302b9c7b06643d"
+    },
+    {
+      "file": "empty/none_ Image_20261019193858_801_2.jpg",
+      "sha256": "0acbbc71662472bf9a86a3076acc8cbd9a1877a0279bbf2d7cec9d622b1b8218"
+    },
+    {
+      "file": "empty/none_20261019193900_803_2.jpg",
+      "sha256": "a5086a51621ded6018739e064ff04143bf22e778b8019428d90526a912bfb6b2"
+    },
+    {
+      "file": "empty/none_20261019193901_804_2.jpg",
+      "sha256": "2e73e38f298038cdb20c6862987ce685bd90ca3e7374b3fd7a0c58f518713106"
+    },
+    {
+      "file": "empty/none_20261019193903_805_2.jpg",
+      "sha256": "e360e9e5c8031097fb43769177ea6c355bc56510091dd353562bce313bbd5934"
+    },
+    {
+      "file": "empty/none_20261019193904_806_2.jpg",
+      "sha256": "f1be71ea2ccb2e36d44b1a4a7f7e43536fdc25565b155e4719877a1f59df25df"
+    },
+    {
+      "file": "empty/none_cheolyeon_N1.jpg",
+      "sha256": "ad082053c8e6598308b466f2d441cf55ac4344b0ca7a2539fe56cdb7f0e23143"
+    },
+    {
+      "file": "empty/none_cheolyeon_N2.jpg",
+      "sha256": "4f46a5b2d7f2c51ca6dea13336a72b7f4fda398fe93150204ad150a4a1507588"
+    },
+    {
+      "file": "empty/none_cheolyeon_N3.jpg",
+      "sha256": "e8f1279d1b1e52a9c6c86aeb1dd4a35d55cd1b9a5c2adba14149af625b23964c"
+    },
+    {
+      "file": "empty/none_cheolyeon_N4.jpg",
+      "sha256": "9c88ace1a4f588b015b0370ecbdfde42095cb03aad72f513c78c1c95f706c02b"
+    },
+    {
+      "file": "empty/None_najmi_n1.heif",
+      "sha256": "f920f43f6c625fd87064affbba15ece72b5cadf00aef57482e5d9d4df485a2b9"
+    },
+    {
+      "file": "empty/none_najmi_N2.heif",
+      "sha256": "05be515318e646662596bc51609375f406fb71b20ae7c05f4979f3467cf7231c"
+    },
+    {
+      "file": "empty/None_najmi_n3.heif",
+      "sha256": "e494db40b1207d81f3992a0b169be103eb1053f904a75fa5c890c54b8e37f876"
+    },
+    {
+      "file": "empty/none_najmi_N4.jpg",
+      "sha256": "06f0f6e0583362a610e94777e3f8e2298c83f7b5574efe84509b89f5a78ebd19"
+    },
+    {
+      "file": "glasses/glasses _B5_2.jpg",
+      "sha256": "0d077ed04eb8271b77ce55fedbca9369fec597bd20a6b6d98690808257b8c8ac"
+    },
+    {
+      "file": "glasses/glasses Image_B6_774_2.jpg",
+      "sha256": "90f1455930836d3199c7ac144ce3989157e4545627ac7ac9c1aabec4b5ce1863"
+    },
+    {
+      "file": "glasses/glasses Image_B7_773_2.jpg",
+      "sha256": "21af9aaac7f706ca80d870c7eaa7f14961a594eda4733b29761304948f18e514"
+    },
+    {
+      "file": "glasses/glasses_B4_.jpg",
+      "sha256": "55d31afea701dcf7882fcfbe50ae9c7874971ef98d2d373d49d9a72d89f94cd1"
+    },
+    {
+      "file": "glasses/glasses_cheolyeon_A1.jpg",
+      "sha256": "0ce671bbfc1b4c795e3d114f5e95672376f1cfbd7c6ae3e6303ab89a75368bf1"
+    },
+    {
+      "file": "glasses/glasses_cheolyeon_A2.jpg",
+      "sha256": "b50921b51044153894134acf0709d6a8eabe69d59e1c06a2dbf16187ab1c843b"
+    },
+    {
+      "file": "glasses/glasses_cheolyeon_A3.jpg",
+      "sha256": "5a9fb383437497f6525e2781d119fd15c0be2e92bf3a0b0d2484ea3307ef6ce3"
+    },
+    {
+      "file": "glasses/glasses_cheolyeon_B1.jpg",
+      "sha256": "f99abc80b09f785a2327a423cfa628c1d7098b7236af1bcf35908ceaf8af1a01"
+    },
+    {
+      "file": "glasses/glasses_cheolyeon_B2.jpg",
+      "sha256": "dab6c17919482a7aad90ea86925345dc8e32f5f922c81cf5d8625c29eb3267b2"
+    },
+    {
+      "file": "glasses/glasses_cheolyeon_B3.jpg",
+      "sha256": "20381cb56efa2866e97a42222cc8dde7437586910eff3c67ed6a1f0af3e9a79c"
+    },
+    {
+      "file": "glasses/glasses_najmi_A1.HEIC",
+      "sha256": "ba9ed3f5e300155e783f9496b95aa7b23c591cf50e39332e4fe7723e17f040d2"
+    },
+    {
+      "file": "glasses/glasses_najmi_A2.HEIC",
+      "sha256": "68f45f05b940d392fb6cd14e27bca5e98929c413b6a132635e7ea6c176c958de"
+    },
+    {
+      "file": "glasses/glasses_najmi_A3.HEIC",
+      "sha256": "3f7f183e729af350ff11bc68b482d99a062a4acf5fa8e838b2ae80e87eb89a95"
+    },
+    {
+      "file": "glasses/glasses_najmi_B1.heif",
+      "sha256": "b41eb4ed9f82315c172d605f7d7ee8dc3f32372e59850d96f8786316fbf561b4"
+    },
+    {
+      "file": "glasses/glasses_najmi_B2.heif",
+      "sha256": "e606c60a3e6ce0bb28fd17e2e8b1a8ec7eb88233759cea961d9f66d4d7702125"
+    },
+    {
+      "file": "glasses/glasses_najmi_B3.heif",
+      "sha256": "2d6558a67d79edff20b07b27bcce8a234b41cf45e818bc11c0c182c9bd1fa22b"
+    },
+    {
+      "file": "glasses/Weixin Image_20261019190546_785_2.jpg",
+      "sha256": "d1a9aba6216384d9c1a29b26b2a58622b673ba841a25bc13c405225f44e8bb8e"
+    },
+    {
+      "file": "glasses/Weixin Image_20261019190547_786_2.jpg",
+      "sha256": "369a2cc3dacb1a0f56f58f59d1ec806f7970e83e9fe69a26b5c4c6e54869b459"
+    },
+    {
+      "file": "glasses/Weixin Image_20261019190558_787_2.jpg",
+      "sha256": "a92f4c2f663ce3d70c111c85710109e30f2f26632d2bb22aa2c06f8ab21b64db"
+    },
+    {
+      "file": "glasses/Weixin Image_20261019190559_788_2.jpg",
+      "sha256": "3d5b0dce02a79baab1d8b1ff00f54f6bb3c61071a0cb1c765ac3156fd71338bc"
+    },
+    {
+      "file": "glasses/Weixin Image_20261019190603_790_2.jpg",
+      "sha256": "409e6c0b0e8ec4f2c5bd6c68f6575525292d27bbee0c26b3b6f55d432a99b3f4"
+    },
+    {
+      "file": "glasses/Weixin Image_20261019190604_791_2.jpg",
+      "sha256": "1b93adade5be37711df539accf0731009aa19b5ccab2c941ab2aca02340971a1"
+    },
+    {
+      "file": "glasses/Weixin Image_20261019191228_795_2.jpg",
+      "sha256": "f14b612f7ebbe91bfa4f416746974a3765e1c4f35d3d212c3eb377e915553899"
+    },
+    {
+      "file": "glasses/Weixin Image_20261019191239_796_2.jpg",
+      "sha256": "3b7a55bc8cfa4181bd6c4f7c11662cff57a99674549838bde19695ccdf7c0c15"
+    },
+    {
+      "file": "keys/Key_najmi_A1.jpg",
+      "sha256": "850cc0bab408763575f0993fe641d5b34422d26e0be119e3d1c8bc39883d2636"
+    },
+    {
+      "file": "keys/Key_najmi_A2.jpg",
+      "sha256": "4b2880c27161384d5e1e5d1edbcef40bcfef01d5851c79b71c12a26e78cbb747"
+    },
+    {
+      "file": "keys/Key_najmi_A3.jpg",
+      "sha256": "6a27d226c3a0ae5a52a007503288d61470e24f514e37f4e57fb18ef1a2bc2ae9"
+    },
+    {
+      "file": "keys/Key_najmi_B1.jpg",
+      "sha256": "b62553d4bef717e4d71007b8b2bcc9c91239e7b944c69dd34378da269af3096c"
+    },
+    {
+      "file": "keys/Key_najmi_B2.JPG",
+      "sha256": "028476cd7158db01ea37e26b1cc5abc6f1648a28fa447ebdaf1e7c696c43bcbd"
+    },
+    {
+      "file": "keys/Key_najmi_B3.JPG",
+      "sha256": "fecc6b3a94ef7912be3f07e98c6d826e83f275de2250ed8fdb7e94600f201a39"
+    },
+    {
+      "file": "keys/Key_najmi_C1.jpg",
+      "sha256": "51db587d34f960be37067e02559be794060e5531de0ce444b53a2d70ab3017d7"
+    },
+    {
+      "file": "keys/Key_najmi_C2.jpg",
+      "sha256": "f63a34128aa823254cc1c49d55dc256f9f21b19161a66ec64db282d327dbc516"
+    },
+    {
+      "file": "keys/Key_najmi_C3.jpg",
+      "sha256": "39152c86d7b8e94a315568eff1604a6b73da5b4b43ec5feeaed6938eefee162d"
+    },
+    {
+      "file": "keys/Key_najmi_C4.jpg",
+      "sha256": "939a7cb30cd6532d0dd797cbe664d10648b1e53c3da852cf41428669c7e38963"
+    },
+    {
+      "file": "keys/Key_najmi_D1.jpg",
+      "sha256": "ea5c0d86bbc1c21f265deb0e6d683f224149b1fcdc7d1ccb7ac558079442c7d8"
+    },
+    {
+      "file": "keys/Key_najmi_D2.jpg",
+      "sha256": "8a61d6984fc83462881fbde4b5acb8a755aa23458dd68e5104d7497fb8d3d23f"
+    },
+    {
+      "file": "keys/Key_najmi_D3.jpg",
+      "sha256": "0a2584f512e89c297a4bd74c63110ef4394081abad21c5147c06bcb46179520c"
+    },
+    {
+      "file": "keys/keys_A1_770_2.jpg",
+      "sha256": "e106fdde3cd7c4a58a44e3defdde42fb09fdfb22a1260f43ebcd5d51bc255002"
+    },
+    {
+      "file": "keys/keys_cheolyeon_A1.jpg",
+      "sha256": "0c306de87f48e63d428e284198204c866f7d27fcf6b97ee80f7e049af3c4d7b2"
+    },
+    {
+      "file": "keys/keys_cheolyeon_A2.jpg",
+      "sha256": "a8fb6122afcea6c7e58e8eb3dc3b9948d2c200f00ed4bd1af6e1afaa99dbeddf"
+    },
+    {
+      "file": "keys/keys_cheolyeon_A3.jpg",
+      "sha256": "3625db2dbb0e3024e620f39c6076dae724534afe9b478f411f33197748aafb01"
+    },
+    {
+      "file": "keys/keys_cheolyeon_B1.jpg",
+      "sha256": "68b4c5122bd1ad5b048fd4177a42e886e1d0e6eddda7cbad9176954a6a972f14"
+    },
+    {
+      "file": "keys/keys_cheolyeon_B2.jpg",
+      "sha256": "e183a1503c2b514816e755cd1fd976326fdb505a55b84e76ac1c50a7a2b5cd77"
+    },
+    {
+      "file": "keys/keys_cheolyeon_B3.jpg",
+      "sha256": "b5270b2fdc745542fd2fd6433e4483e8d5c176e27f864bbeef0b5a5d4ad73873"
+    },
+    {
+      "file": "remote controller/remote_control_cheolyeon_A1.jpg",
+      "sha256": "e0d03b150f775690edce53a6e3f0b135c22a6ddaed0537ed1811ee3ddfff9bc0"
+    },
+    {
+      "file": "remote controller/remote_control_cheolyeon_A2.jpg",
+      "sha256": "47c37d1cda543fc652549e9e6b2ec2063a53a9b0d9fed95d35228c9e9d798c3e"
+    },
+    {
+      "file": "remote controller/remote_control_cheolyeon_A3.jpg",
+      "sha256": "342a23430560a71cd38c2d6d0a83a416007bae4c9c1a7c047510652753d2554b"
+    },
+    {
+      "file": "remote controller/remote_control_cheolyeon_B1.jpg",
+      "sha256": "101e69f701db7957fbb8042d9d07d72c8fc04dbfaaca562137e17feecadb0b58"
+    },
+    {
+      "file": "remote controller/remote_control_cheolyeon_B2.jpg",
+      "sha256": "088fadc376728abb3da35a8833787b9bffe4cf685d2fe6817abf72be66d054e4"
+    },
+    {
+      "file": "remote controller/remote_control_cheolyeon_B3.jpg",
+      "sha256": "174a59bc01f717f7f286075e34153b0af2925d58802e93f38816b3357a0d3dbf"
+    },
+    {
+      "file": "remote controller/Remote_najmi_A1.heif",
+      "sha256": "faf443ee668a20b0b4433a62da21355030efc4f3f657928ccce1b406fd03fe33"
+    },
+    {
+      "file": "remote controller/Remote_najmi_A2.heif",
+      "sha256": "bd663029508243574222a4b7ad55cd81ae3b8b283cd409c5cb0ceb114c7e0b51"
+    },
+    {
+      "file": "remote controller/Remote_najmi_A3.heif",
+      "sha256": "14489ee1329bb4ef7aedc2beb63fc6cf72ba8d3d8ca4c96730042b53faeccedd"
+    },
+    {
+      "file": "remote controller/Remote_najmi_B1.heif",
+      "sha256": "ea6f4a66e1e5f27f322d2b8f9afdc8839284d5d1b83353d7fe622a33b74336ab"
+    },
+    {
+      "file": "remote controller/Remote_najmi_b2.heif",
+      "sha256": "e44b1a53ddb644fcb8a7b8cc2f0dc04bc420a4cdc2640d35b14c6fe354b2e0c6"
+    },
+    {
+      "file": "remote controller/Remote_najmi_b3.heif",
+      "sha256": "40b2755ec30c0cf7886cd8aa3f8ba6715083cb883d88a20d7b3aa55f16aec7b8"
+    },
+    {
+      "file": "wallet/wallet Image_A1_768_2.jpg",
+      "sha256": "6bc759620eda3ba8e0f9919e3473c505993677298305ce67ee1101f9ad1f87c1"
+    },
+    {
+      "file": "wallet/wallet_A2_2.jpg",
+      "sha256": "ecb2c3dc58770f1058c631220b1564d8b0e8d30ee9fac5001d16106fbad39d9e"
+    },
+    {
+      "file": "wallet/Wallet_A3_2.jpg",
+      "sha256": "07433dca3b31bba79f40fabc230310bc53415a106c42546085ba795f565b6968"
+    },
+    {
+      "file": "wallet/Wallet_A4_780_2.jpg",
+      "sha256": "1f56e12d0ed8718bf9fa52441f6b8d30fa7ada46ce52ccc5ef954d3b08e50590"
+    },
+    {
+      "file": "wallet/wallet_cheolyeon_A1.jpg",
+      "sha256": "801e8531691e5100fcb6ffc3348e92883043d752b0edb14ad24383698b7ca118"
+    },
+    {
+      "file": "wallet/wallet_cheolyeon_A2.jpg",
+      "sha256": "3706988177570b47e3b403d015ddaec62493d7f33f51750bf92c481cf8735c6f"
+    },
+    {
+      "file": "wallet/wallet_cheolyeon_A3.jpg",
+      "sha256": "f9f4fe445c5ca7963996d460ac97a7b6fd560709f7e7b5b7bad02f667e400869"
+    },
+    {
+      "file": "wallet/wallet_cheolyeon_B1.jpg",
+      "sha256": "1cc06b51d6a0175486de94a8bdf09425c3b1058e42d97b429670a5cbe551b8ec"
+    },
+    {
+      "file": "wallet/wallet_cheolyeon_B2.jpg",
+      "sha256": "7dde25fc1232d65f6c959ab6ea00985791d3a41464ee5383fa5359aa9468db65"
+    },
+    {
+      "file": "wallet/wallet_cheolyeon_B3.jpg",
+      "sha256": "ec761615e7ce985a4e1d1b01a395497bef3006d6788a984329f45c0ad9378013"
+    },
+    {
+      "file": "wallet/wallet_najmi_a1.jpg",
+      "sha256": "1c4d4e7a3123a8b47cc5a0b1ec7b603a635450ca59a05f08da0fca13d0f6939f"
+    },
+    {
+      "file": "wallet/wallet_najmi_a2.jpg",
+      "sha256": "6f5e2ed50084d3b52eed29548ab1f5c756142bd0c5c147dc121f845d984c3467"
+    },
+    {
+      "file": "wallet/wallet_najmi_a3.jpg",
+      "sha256": "0a4703339d37216d3845ab2dde9ac5cce73b7aee06bb79e0c27655fb45c0240e"
+    },
+    {
+      "file": "wallet/wallet_najmi_a4.jpg",
+      "sha256": "91fddb5ed5f6ca1100e6e79b31206a8ba6217fe0a4b48ca9e1bd013f5cfa558d"
+    },
+    {
+      "file": "wallet/Wallet_najmi_B1.heif",
+      "sha256": "726f6968693dab647e1876caa108975dc4331354f362989deab14bde1ab2e22f"
+    },
+    {
+      "file": "wallet/Wallet_najmi_B2.heif",
+      "sha256": "c60a7b78f58b5387925939d33edc80b37029dc57e708826349abbb6289965351"
+    },
+    {
+      "file": "wallet/Wallet_najmi_B3.heif",
+      "sha256": "9195cc00b635ab6f74e1b852a2de8ed631880a17eb1543605f6cddd00bcc36cd"
+    },
+    {
+      "file": "wallet/Weixin Image_20261019190544_783_2.jpg",
+      "sha256": "0e4d806685a3c17c838edcf5426ee2a63e9723817598329d509dabcdbb172957"
+    },
+    {
+      "file": "wallet/Weixin Image_20261019190606_792_2.jpg",
+      "sha256": "097a4f67f46503889e1efa68f6ff482dda31bedcee52e06c7299f68460aa55b3"
+    },
+    {
+      "file": "wallet/Weixin Image_20261019190607_793_2.jpg",
+      "sha256": "e248d74d674c14458802d779ae145c139df15e211aa9865ea65eacd4ff365cb3"
+    },
+    {
+      "file": "wallet/Weixin Image_20261019190608_794_2.jpg",
+      "sha256": "d20965f7dc2886ba2d136648ba7fa0246fe39ac4b6fd7a2b2f90e493946a237b"
+    },
+    {
+      "file": "wallet/Weixin Image_20261019191931_797_2.jpg",
+      "sha256": "c9f2948d2f0c3d6c2bdf8fd8a67af7db8fdb0f017b7af575e3238dcd9a1dfbb4"
+    },
+    {
+      "file": "wallet/Weixin Image_20261019191932_798_2.jpg",
+      "sha256": "809f0a028d1c7a3bcf195b8f9201d338d247b00cf02e066c7d94a310e814364f"
+    },
+    {
+      "file": "wallet/Weixin Image_20261019191936_800_2.jpg",
+      "sha256": "3e2393ca3d65339cf726f4122444bf74b22ceabec7fa98f010a1dc7cbddfa603"
+    }
+  ]
+}
