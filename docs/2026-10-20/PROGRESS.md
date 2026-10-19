@@ -35,6 +35,6 @@ Follows [`../2026-10-17/PROGRESS.md`](../2026-10-17/PROGRESS.md). All PRs listed
 | Measure phone → spoken direction time | 나즈미 | During phone test 2; fill in `[after phone test 2]` in the slides |
 | Fix bugs found in phone test 2 | owner of each part | Keep a short list: what, phone, object |
 | Check Grounding DINO's box pictures from the real-photo run | 김철연 | So "found" is verified, as for YOLO (26/28) |
-| Update the slide deck from [`PRESENTATION_NOTES.md`](PRESENTATION_NOTES.md) | 상싱위 | Keep slides 1–6 and 11, replace the rest |
+| Update the slide deck in Korean from [`PRESENTATION_NOTES_KO.md`](PRESENTATION_NOTES_KO.md); choose the presenter; have a native speaker proofread | team | Keep slides 1–6 and 11, replace the rest |
 | Rehearse the demo; record a backup video; test the backup laptop with `start_demo.ps1 -Check` | team | Start the demo about 10 min early |
 | Optional: vibration or directional sound cues | 나즈미 | Personal extra after the presentation work |

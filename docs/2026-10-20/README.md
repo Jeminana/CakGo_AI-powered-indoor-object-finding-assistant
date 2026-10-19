@@ -6,7 +6,8 @@ Prepared by **나즈미 / Jeminana**. This package updates the 17 October packag
 ## Files
 
 - [Result analysis: how the final model was chosen](RESULT_ANALYSIS.md)
-- [Presentation plan and script: slide-by-slide changes to the 17 October deck](PRESENTATION_NOTES.md)
+- [**발표 자료 및 대본 (한국어)**: Korean slide text, speaker script and Q&A for the presentation](PRESENTATION_NOTES_KO.md)
+- [Presentation plan and script (English reference): slide-by-slide changes to the 17 October deck](PRESENTATION_NOTES.md)
 - [Progress since 17 October and remaining tasks](PROGRESS.md)
 - Demo: [`scripts/README.md`](../../scripts/README.md) replaces the manual start commands in the 17 October
   `DEMO_GUIDE.md`.

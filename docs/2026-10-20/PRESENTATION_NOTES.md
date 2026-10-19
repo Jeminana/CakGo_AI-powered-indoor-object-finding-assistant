@@ -1,6 +1,10 @@
 # Presentation plan and script: final version
 
-For the presenter (상싱위) and whoever edits the deck. Snapshot: 20 October 2026. Language: English.
+For whoever edits the deck. Snapshot: 20 October 2026. Presenter: to be decided.
+
+**The presentation is in Korean:** slide text, speaker script and Q&A in Korean are in
+[`PRESENTATION_NOTES_KO.md`](PRESENTATION_NOTES_KO.md). This English version is the reference for the written report
+and has the same slide structure.
 
 The 17 October deck ([`../2026-10-17/CakGo_Project_Update.pptx`](../2026-10-17/CakGo_Project_Update.pptx))
 was made before any phone test. Its story ("fine-tuned YOLO looks promising") no longer holds. The plan below
