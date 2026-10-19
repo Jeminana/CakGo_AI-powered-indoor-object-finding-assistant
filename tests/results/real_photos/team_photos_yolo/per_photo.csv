@@ -1,0 +1,95 @@
+photo,person,code,condition,truth,yolo_v1:wallet,yolo_v1:keys,yolo_v1:glasses,yolo_v1:remote_control
+none Image_20261019193859_802_2.jpg,?,?,unknown,none,0.101,0,0,0
+none_ Image_20261019193858_801_2.jpg,?,?,unknown,none,0,0,0,0
+none_20261019193900_803_2.jpg,?,?,unknown,none,0.083,0,0,0
+none_20261019193901_804_2.jpg,?,?,unknown,none,0,0,0,0
+none_20261019193903_805_2.jpg,?,?,unknown,none,0,0,0,0
+none_20261019193904_806_2.jpg,?,?,unknown,none,0,0,0,0
+none_cheolyeon_N1.jpg,cheolyeon,N1,look-alikes,none,0,0,0.159,0
+none_cheolyeon_N2.jpg,cheolyeon,N2,open bag,none,0,0,0.360,0
+none_cheolyeon_N3.jpg,cheolyeon,N3,dim,none,0,0,0.125,0
+none_cheolyeon_N4.jpg,cheolyeon,N4,far,none,0,0,0.073,0
+None_najmi_n1.heif,najmi,N1,look-alikes,none,0,0,0,0
+none_najmi_N2.heif,najmi,N2,open bag,none,0,0,0,0
+None_najmi_n3.heif,najmi,N3,dim,none,0,0,0,0
+none_najmi_N4.jpg,najmi,N4,far,none,0,0,0,0
+glasses _B5_2.jpg,?,B5,unknown,glasses,0,0,0.898,0
+glasses Image_B6_774_2.jpg,?,B6,unknown,glasses,0,0,0,0
+glasses Image_B7_773_2.jpg,?,B7,unknown,glasses,0,0,0.659,0
+glasses_B4_.jpg,?,B4,unknown,glasses,0,0,0.910,0
+glasses_cheolyeon_A1.jpg,cheolyeon,A1,easy,glasses,0,0,0.888,0
+glasses_cheolyeon_A2.jpg,cheolyeon,A2,cluttered,glasses,0,0,0,0
+glasses_cheolyeon_A3.jpg,cheolyeon,A3,partly hidden,glasses,0,0,0.060,0
+glasses_cheolyeon_B1.jpg,cheolyeon,B1,far,glasses,0,0,0.700,0
+glasses_cheolyeon_B2.jpg,cheolyeon,B2,dim,glasses,0,0,0.888,0
+glasses_cheolyeon_B3.jpg,cheolyeon,B3,cluttered,glasses,0,0,0,0
+glasses_najmi_A1.HEIC,najmi,A1,easy,glasses,0,0,0.292,0
+glasses_najmi_A2.HEIC,najmi,A2,cluttered,glasses,0,0,0,0
+glasses_najmi_A3.HEIC,najmi,A3,partly hidden,glasses,0,0,0.443,0
+glasses_najmi_B1.heif,najmi,B1,far,glasses,0,0,0.228,0
+glasses_najmi_B2.heif,najmi,B2,dim,glasses,0,0,0.129,0
+glasses_najmi_B3.heif,najmi,B3,cluttered,glasses,0,0,0.632,0
+Weixin Image_20261019190546_785_2.jpg,?,?,unknown,glasses,0,0,0,0
+Weixin Image_20261019190547_786_2.jpg,?,?,unknown,glasses,0.119,0.469,0,0
+Weixin Image_20261019190558_787_2.jpg,?,?,unknown,glasses,0.166,0,0,0
+Weixin Image_20261019190559_788_2.jpg,?,?,unknown,glasses,0,0,0.899,0
+Weixin Image_20261019190603_790_2.jpg,?,?,unknown,glasses,0,0,0.149,0
+Weixin Image_20261019190604_791_2.jpg,?,?,unknown,glasses,0,0,0,0
+Weixin Image_20261019191228_795_2.jpg,?,?,unknown,glasses,0,0,0.783,0
+Weixin Image_20261019191239_796_2.jpg,?,?,unknown,glasses,0,0,0,0
+Key_najmi_A1.jpg,najmi,A1,easy,keys,0,0,0.077,0
+Key_najmi_A2.jpg,najmi,A2,cluttered,keys,0,0,0,0
+Key_najmi_A3.jpg,najmi,A3,partly hidden,keys,0,0.468,0,0
+Key_najmi_B1.jpg,najmi,B1,far,keys,0,0,0,0
+Key_najmi_B2.JPG,najmi,B2,dim,keys,0,0,0,0
+Key_najmi_B3.JPG,najmi,B3,cluttered,keys,0,0,0,0
+Key_najmi_C1.jpg,najmi,C1,unknown,keys,0,0,0,0
+Key_najmi_C2.jpg,najmi,C2,unknown,keys,0,0.693,0,0
+Key_najmi_C3.jpg,najmi,C3,unknown,keys,0.263,0.059,0,0
+Key_najmi_C4.jpg,najmi,C4,unknown,keys,0,0.512,0,0
+Key_najmi_D1.jpg,najmi,D1,unknown,keys,0,0.505,0.074,0
+Key_najmi_D2.jpg,najmi,D2,unknown,keys,0,0,0,0
+Key_najmi_D3.jpg,najmi,D3,unknown,keys,0,0,0.881,0
+keys_A1_770_2.jpg,?,A1,unknown,keys,0,0.702,0,0
+keys_cheolyeon_A1.jpg,cheolyeon,A1,easy,keys,0.141,0.504,0,0
+keys_cheolyeon_A2.jpg,cheolyeon,A2,cluttered,keys,0,0,0,0
+keys_cheolyeon_A3.jpg,cheolyeon,A3,partly hidden,keys,0.064,0,0,0
+keys_cheolyeon_B1.jpg,cheolyeon,B1,far,keys,0,0,0.307,0
+keys_cheolyeon_B2.jpg,cheolyeon,B2,dim,keys,0,0,0.218,0
+keys_cheolyeon_B3.jpg,cheolyeon,B3,cluttered,keys,0,0,0.074,0
+remote_control_cheolyeon_A1.jpg,cheolyeon,A1,easy,remote_control,0,0,0,0.707
+remote_control_cheolyeon_A2.jpg,cheolyeon,A2,cluttered,remote_control,0,0,0,0.766
+remote_control_cheolyeon_A3.jpg,cheolyeon,A3,partly hidden,remote_control,0,0,0,0.884
+remote_control_cheolyeon_B1.jpg,cheolyeon,B1,far,remote_control,0,0.101,0.255,0
+remote_control_cheolyeon_B2.jpg,cheolyeon,B2,dim,remote_control,0,0,0,0
+remote_control_cheolyeon_B3.jpg,cheolyeon,B3,cluttered,remote_control,0.212,0,0,0.897
+Remote_najmi_A1.heif,najmi,A1,easy,remote_control,0,0,0,0.865
+Remote_najmi_A2.heif,najmi,A2,cluttered,remote_control,0,0,0,0.631
+Remote_najmi_A3.heif,najmi,A3,partly hidden,remote_control,0,0,0,0
+Remote_najmi_B1.heif,najmi,B1,far,remote_control,0,0,0.069,0
+Remote_najmi_b2.heif,najmi,B2,dim,remote_control,0,0,0.071,0.836
+Remote_najmi_b3.heif,najmi,B3,cluttered,remote_control,0,0,0,0
+wallet Image_A1_768_2.jpg,?,A1,unknown,wallet,0,0,0,0.298
+wallet_A2_2.jpg,?,A2,unknown,wallet,0,0,0,0
+Wallet_A3_2.jpg,?,A3,unknown,wallet,0,0,0,0
+Wallet_A4_780_2.jpg,?,A4,unknown,wallet,0,0,0,0
+wallet_cheolyeon_A1.jpg,cheolyeon,A1,easy,wallet,0,0,0,0
+wallet_cheolyeon_A2.jpg,cheolyeon,A2,cluttered,wallet,0,0,0.177,0
+wallet_cheolyeon_A3.jpg,cheolyeon,A3,partly hidden,wallet,0,0,0,0
+wallet_cheolyeon_B1.jpg,cheolyeon,B1,far,wallet,0,0,0.389,0
+wallet_cheolyeon_B2.jpg,cheolyeon,B2,dim,wallet,0,0,0.121,0
+wallet_cheolyeon_B3.jpg,cheolyeon,B3,cluttered,wallet,0,0,0,0
+wallet_najmi_a1.jpg,najmi,A1,easy,wallet,0.826,0,0,0
+wallet_najmi_a2.jpg,najmi,A2,cluttered,wallet,0,0,0.425,0
+wallet_najmi_a3.jpg,najmi,A3,partly hidden,wallet,0,0,0,0
+wallet_najmi_a4.jpg,najmi,A4,unknown,wallet,0.725,0,0,0
+Wallet_najmi_B1.heif,najmi,B1,far,wallet,0,0,0.445,0
+Wallet_najmi_B2.heif,najmi,B2,dim,wallet,0.350,0,0,0
+Wallet_najmi_B3.heif,najmi,B3,cluttered,wallet,0,0,0.120,0
+Weixin Image_20261019190544_783_2.jpg,?,?,unknown,wallet,0,0,0,0
+Weixin Image_20261019190606_792_2.jpg,?,?,unknown,wallet,0.519,0,0,0
+Weixin Image_20261019190607_793_2.jpg,?,?,unknown,wallet,0,0,0,0
+Weixin Image_20261019190608_794_2.jpg,?,?,unknown,wallet,0,0,0,0
+Weixin Image_20261019191931_797_2.jpg,?,?,unknown,wallet,0,0,0,0
+Weixin Image_20261019191932_798_2.jpg,?,?,unknown,wallet,0,0,0,0
+Weixin Image_20261019191936_800_2.jpg,?,?,unknown,wallet,0,0,0,0
