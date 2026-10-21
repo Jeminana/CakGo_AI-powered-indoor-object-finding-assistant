@@ -198,3 +198,18 @@ def test_dino_verify_crop_is_a_padded_square():
     c = dv.crop(Image.new("RGB", (100, 100), (255, 255, 255)), [10, 40, 50, 60])  # 40 x 20 box, 10% margin
     assert c.size == (48, 48)
     assert c.getpixel((0, 0)) == dv.MEAN_RGB and c.getpixel((24, 24)) == (255, 255, 255)
+
+
+def test_category_prompts_threshold_and_decisions():
+    import category_prompts_70 as cp
+
+    assert cp.percentile([0.1, 0.2, 0.3, 0.4, 0.5], 10) == 0.14  # numpy's linear interpolation
+    images = {"a": {}, "b": {}}
+    recs = [{"image_id": "a", "category": "keys", "tau": 0.3, "top_box": None, "top_sim": None,
+             "rr_box": [0, 0, 5, 5], "rr_sim": 0.4},
+            {"image_id": "b", "category": "keys", "tau": 0.5, "top_box": [1, 1, 2, 2], "top_sim": 0.45,
+             "rr_box": [1, 1, 2, 2], "rr_sim": 0.45}]
+    rerank = cp.as_predictions(recs, images, "rerank")  # each query's own threshold
+    assert rerank["a"]["detections"] == [{"label": "keys", "confidence": 1.0, "bbox": [0, 0, 5, 5]}]
+    assert rerank["b"]["detections"] == []
+    assert cp.as_predictions(recs, images, "filter", 0.4)["b"]["detections"][0]["bbox"] == [1, 1, 2, 2]

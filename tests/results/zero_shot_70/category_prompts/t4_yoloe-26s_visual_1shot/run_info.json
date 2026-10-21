@@ -1,0 +1,30 @@
+{
+  "model": {
+    "model_id": "yoloe-26s-seg.pt",
+    "family": "YOLOE-26 (Ultralytics, visual prompts, no fine-tuning)"
+  },
+  "inference_settings": {
+    "prompt_mode": "visual one-shot",
+    "box_threshold": 0.05,
+    "operating_threshold": 0.25,
+    "device": "cuda:0",
+    "same_object_iou": 0.7,
+    "imgsz": 640,
+    "agnostic_nms": true,
+    "note": "run k: the k-th image of each category is the example"
+  },
+  "prompts": {
+    "wallet": "visual",
+    "keys": "visual",
+    "glasses": "visual",
+    "remote_control": "visual"
+  },
+  "dataset": {
+    "manifest_sha256": "ca73e2c1f12464df03b1f2b3824109cd237ea1e9dbba46fa8d5ac4c6db5bde4b"
+  },
+  "environment": {
+    "python": "3.13.15",
+    "torch": "2.11.0+cu130",
+    "gpu": "Tesla T4"
+  }
+}

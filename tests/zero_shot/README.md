@@ -9,9 +9,12 @@ Exploratory tests, not a model decision. They ask two questions:
 
 - **Grounding DINO multi is still the best balance.** SAM 3 finds as much or more but is about 6× slower. YOLOE is
   fast but misses about half.
-- **Example photos never beat the object word.** Neither YOLOE visual prompts nor SAM 3 exemplars did.
+- **For a specific item, example photos never beat the object word.** Neither YOLOE visual prompts nor SAM 3
+  exemplars did. As category examples (14 per category), YOLOE visual prompts beat YOLOE's word prompt, not
+  Grounding DINO.
 - **Example photos work as a check.** Comparing Grounding DINO's boxes with the registration photos (DINOv3)
-  removed the false alarms without losing the item. Look-alikes were halved, not solved.
+  removed the false alarms without losing the item. Look-alikes were halved, not solved. On the 70 shared images
+  the same check removed the genuine false alarms at a cost of 8 of 60 correct answers.
 - **Small items are the main limit.** An earbud is about 37 px in a phone photo.
 
 ## Experiments
@@ -23,6 +26,7 @@ Exploratory tests, not a model decision. They ask two questions:
 | Valuables register-then-find: YOLOE one/four-shot, Grounding DINO, SAM 3 text and exemplars | `valuables_test.py`, `valuables_sam3.py` | [`few_shot/valuables.md`](../results/few_shot/valuables.md) |
 | YOLOE size follow-up: 1280 px input, example photos at several sizes | `valuables_yoloe_scale.py` | [`few_shot/valuables.md`](../results/few_shot/valuables.md#follow-up-does-closing-the-size-gap-help-yoloe) |
 | Grounding DINO + DINOv3 verification | `dino_verify.py` | [`few_shot/dino_verify.md`](../results/few_shot/dino_verify.md) |
+| Category examples on the 70 shared images: YOLOE visual prompts, Grounding DINO + DINOv3 check | `category_prompts_70.py` | [`zero_shot_70/category_prompts/SUMMARY.md`](../results/zero_shot_70/category_prompts/SUMMARY.md) |
 
 - **Shared code:** `detectors.py` holds the YOLOE-26 and SAM 3 adapters with the app's `detect(image, target)`
   result format.

@@ -138,3 +138,6 @@ python tests/zero_shot/compare_zero_shot.py --runs t4_gdino-tiny_multi t4_yoloe-
     --reference "Grounding DINO tiny single (Day 3, T4)=detection/experiments/grounding_dino/results/t4_gdino-tiny_box0.05" \
     --reproduce t4_gdino-tiny_multi=detection/experiments/grounding_dino/results/rtx4050_gdino-tiny_multi_box0.05
 ```
+
+**Follow-up with example photos** (YOLOE visual prompts as category examples, Grounding DINO + DINOv3 check):
+[`category_prompts/SUMMARY.md`](category_prompts/SUMMARY.md).
