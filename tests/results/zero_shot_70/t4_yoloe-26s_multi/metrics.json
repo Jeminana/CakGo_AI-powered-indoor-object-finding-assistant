@@ -1,0 +1,89 @@
+{
+  "run": "t4_yoloe-26s_multi",
+  "model": "/content/work/yoloe-26s-seg.pt",
+  "thresholds": {
+    "confidence": 0.25,
+    "iou": 0.5,
+    "inference_min_confidence": 0.05
+  },
+  "num_images": 70,
+  "categories": {
+    "wallet": {
+      "prompt": "wallet | keys | glasses | sunglasses | remote control | computer mouse | laptop | keyboard | pen | bottle | can | cup | microphone | cable | charger | nail clipper | coin",
+      "status": "evaluated",
+      "num_gt_boxes": 17,
+      "num_predictions": 6,
+      "true_positives": 4,
+      "false_positives": 2,
+      "false_negatives": 13,
+      "precision": 0.6667,
+      "recall": 0.2353,
+      "ap50": 0.201,
+      "num_target_images": 15,
+      "target_images_detected": 4,
+      "image_level_detection_rate": 0.2667,
+      "negative_images": 10,
+      "negative_images_with_false_positive": 0
+    },
+    "keys": {
+      "prompt": "wallet | keys | glasses | sunglasses | remote control | computer mouse | laptop | keyboard | pen | bottle | can | cup | microphone | cable | charger | nail clipper | coin",
+      "status": "evaluated",
+      "num_gt_boxes": 32,
+      "num_predictions": 6,
+      "true_positives": 6,
+      "false_positives": 0,
+      "false_negatives": 26,
+      "precision": 1.0,
+      "recall": 0.1875,
+      "ap50": 0.4626,
+      "num_target_images": 15,
+      "target_images_detected": 5,
+      "image_level_detection_rate": 0.3333,
+      "negative_images": 10,
+      "negative_images_with_false_positive": 0
+    },
+    "glasses": {
+      "prompt": "wallet | keys | glasses | sunglasses | remote control | computer mouse | laptop | keyboard | pen | bottle | can | cup | microphone | cable | charger | nail clipper | coin",
+      "status": "evaluated",
+      "num_gt_boxes": 18,
+      "num_predictions": 7,
+      "true_positives": 6,
+      "false_positives": 1,
+      "false_negatives": 12,
+      "precision": 0.8571,
+      "recall": 0.3333,
+      "ap50": 0.5413,
+      "num_target_images": 15,
+      "target_images_detected": 6,
+      "image_level_detection_rate": 0.4,
+      "negative_images": 10,
+      "negative_images_with_false_positive": 0
+    },
+    "remote_control": {
+      "prompt": "wallet | keys | glasses | sunglasses | remote control | computer mouse | laptop | keyboard | pen | bottle | can | cup | microphone | cable | charger | nail clipper | coin",
+      "status": "evaluated",
+      "num_gt_boxes": 18,
+      "num_predictions": 9,
+      "true_positives": 8,
+      "false_positives": 1,
+      "false_negatives": 10,
+      "precision": 0.8889,
+      "recall": 0.4444,
+      "ap50": 0.537,
+      "num_target_images": 15,
+      "target_images_detected": 7,
+      "image_level_detection_rate": 0.4667,
+      "negative_images": 10,
+      "negative_images_with_false_positive": 0
+    }
+  },
+  "latency_ms": {
+    "wall_ms_per_query": {
+      "mean": 23.04,
+      "median": 22.71,
+      "p95": 27.02,
+      "min": 20.05,
+      "max": 35.13
+    }
+  }
+}
