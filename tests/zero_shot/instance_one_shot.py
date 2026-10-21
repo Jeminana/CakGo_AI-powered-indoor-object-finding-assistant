@@ -13,7 +13,7 @@ boxes, a top box counts as "on the object" when its centre lies inside the gold 
 
 Example (from the repository root):
   python tests/zero_shot/instance_one_shot.py --photos tests/real_photos/photos \
-      --boxes tests/results/real_photos/instance_one_shot_cheolyeon/gold_boxes.json --device mps
+      --boxes tests/real_photos/private_results/one_shot_28_photos/gold_boxes.json --device mps
 """
 
 from __future__ import annotations
@@ -203,7 +203,7 @@ def main() -> None:
     parser.add_argument("--yoloe", nargs="+", default=["yoloe-26s-seg.pt", "yoloe-26x-seg.pt"])
     parser.add_argument("--weights-dir", type=Path, default=Path("."))
     parser.add_argument("--device", default="mps")
-    parser.add_argument("--out", type=Path, default=REPO_ROOT / "tests/results/real_photos/instance_one_shot_cheolyeon")
+    parser.add_argument("--out", type=Path, default=REPO_ROOT / "tests/real_photos/private_results/one_shot_28_photos")
     args = parser.parse_args()
 
     gold = {k: v["box"] for k, v in json.loads(args.boxes.read_text()).items() if not k.startswith("_")}

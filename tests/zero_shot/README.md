@@ -19,18 +19,19 @@ Exploratory tests, not a model decision. They ask two questions:
 | Experiment | Scripts | Results |
 |---|---|---|
 | Zero-shot on the 70 shared images | `run_zero_shot.py`, `compare_zero_shot.py`, `colab_job.sh` | [`zero_shot_70/COMPARISON.md`](../results/zero_shot_70/COMPARISON.md) |
-| One-shot registration on Member 4's 28 photos (YOLOE visual prompts), and why it fails | `instance_one_shot.py`, `diagnose_visual_prompt.py` | kept locally |
-| Valuables register-then-find: YOLOE one/four-shot, Grounding DINO, SAM 3 text and exemplars | `valuables_test.py`, `valuables_sam3.py` | kept locally |
-| YOLOE size follow-up: 1280 px input, example photos at several sizes | `valuables_yoloe_scale.py` | kept locally |
-| Grounding DINO + DINOv3 verification | `dino_verify.py` | kept locally |
+| One-shot registration on Member 4's 28 photos (YOLOE visual prompts), and why it fails | `instance_one_shot.py`, `diagnose_visual_prompt.py` | [`few_shot/one_shot_28_photos.md`](../results/few_shot/one_shot_28_photos.md) |
+| Valuables register-then-find: YOLOE one/four-shot, Grounding DINO, SAM 3 text and exemplars | `valuables_test.py`, `valuables_sam3.py` | [`few_shot/valuables.md`](../results/few_shot/valuables.md) |
+| YOLOE size follow-up: 1280 px input, example photos at several sizes | `valuables_yoloe_scale.py` | [`few_shot/valuables.md`](../results/few_shot/valuables.md#follow-up-does-closing-the-size-gap-help-yoloe) |
+| Grounding DINO + DINOv3 verification | `dino_verify.py` | [`few_shot/dino_verify.md`](../results/few_shot/dino_verify.md) |
 
 - **Shared code:** `detectors.py` holds the YOLOE-26 and SAM 3 adapters with the app's `detect(image, target)`
   result format.
 - **Tests:** `test_zero_shot.py` has model-free checks.
 
-**Photos.** The real-photo experiments use Member 4's own photos. The photos and everything derived from them
-(gold boxes, per-photo answers, summaries) stay on Member 4's machine and are not in the repository. The
-scripts expect those files at their default paths; the findings above are the aggregate results.
+**Photos.** The real-photo experiments use Member 4's own photos. The photos (`tests/real_photos/photos/`) and
+everything derived from them (gold boxes, per-photo answers; `tests/real_photos/private_results/`) are gitignored
+and stay on Member 4's machine. The scripts read the gold files from there. The repository holds the aggregate
+results only: [`tests/results/few_shot/`](../results/few_shot/README.md).
 
 ## 70-image zero-shot test: same conditions for every model
 

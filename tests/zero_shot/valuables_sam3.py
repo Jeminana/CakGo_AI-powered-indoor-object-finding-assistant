@@ -11,7 +11,7 @@ instance-segmentation path, without building masks). Default threshold 0.5 (tran
 
 Example (from the repository root; SAM 3 snapshot folder downloaded beforehand):
   python tests/zero_shot/valuables_sam3.py --photos tests/real_photos/photos/valuables \
-      --gold tests/results/real_photos/valuables_cheolyeon/gold.json --model-dir <sam3 snapshot> --dtype float16
+      --gold tests/real_photos/private_results/valuables/gold.json --model-dir <sam3 snapshot> --dtype float16
 """
 
 from __future__ import annotations

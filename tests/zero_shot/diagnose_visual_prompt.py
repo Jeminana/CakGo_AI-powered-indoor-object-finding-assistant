@@ -14,7 +14,7 @@ Uses only the documented path: `YOLOE.predict(..., refer_image=..., visual_promp
 
 Example (from the repository root):
   python tests/zero_shot/diagnose_visual_prompt.py --photos tests/real_photos/photos \
-      --boxes tests/results/real_photos/instance_one_shot_cheolyeon/gold_boxes.json --weights yoloe-26x-seg.pt
+      --boxes tests/real_photos/private_results/one_shot_28_photos/gold_boxes.json --weights yoloe-26x-seg.pt
 """
 
 from __future__ import annotations
@@ -66,7 +66,7 @@ def main() -> None:
     parser.add_argument("--boxes", type=Path, required=True)
     parser.add_argument("--weights", default="yoloe-26x-seg.pt")
     parser.add_argument("--device", default="mps")
-    parser.add_argument("--out", type=Path, default=ios.REPO_ROOT / "tests/results/real_photos/instance_one_shot_cheolyeon")
+    parser.add_argument("--out", type=Path, default=ios.REPO_ROOT / "tests/real_photos/private_results/one_shot_28_photos")
     args = parser.parse_args()
     w, dev = args.weights, args.device
     gold = {k: v["box"] for k, v in json.loads(args.boxes.read_text()).items() if not k.startswith("_")}

@@ -16,7 +16,7 @@ DINO's own candidates).
 
 Example (from the repository root):
   python tests/zero_shot/valuables_test.py --photos tests/real_photos/photos/valuables \
-      --gold tests/results/real_photos/valuables_cheolyeon/gold.json --weights-dir . --device mps
+      --gold tests/real_photos/private_results/valuables/gold.json --weights-dir . --device mps
 """
 
 from __future__ import annotations

@@ -3,3 +3,5 @@
 photos/
 real_photos/
 sheets/
+# Results made from those photos (file names, boxes, per-photo answers) stay local too.
+private_results/

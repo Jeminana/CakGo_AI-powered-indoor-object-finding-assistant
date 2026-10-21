@@ -15,14 +15,14 @@ tau is swept from 0.10 to 0.80. The operating tau of each model and pipeline is 
 "same object found - other object said yes - false alarms") and applied unchanged to the valuables photos.
 
 Datasets:
-- valuables: Member 4's valuables photos (valuables_cheolyeon/gold.json). 4 close-up registrations per object;
+- valuables: Member 4's valuables photos (private_results/valuables/gold.json). 4 close-up registrations per object;
   one-shot (each alone) and four-shot (highest of the 4). Same queries and roles as valuables_test.py.
-- c28: Member 4's 28 photos (instance_one_shot_cheolyeon/gold_boxes.json). One-shot, leave-one-out: each photo with a
+- c28: Member 4's 28 photos (private_results/one_shot_28_photos/gold_boxes.json). One-shot, leave-one-out: each photo with a
   gold box registers its object, the other 27 photos are searched (as in instance_one_shot.py).
 
 `run` computes the candidates and embeddings (GPU); `report` scores them (no model). Examples, from the repository root:
   python tests/zero_shot/dino_verify.py run --out /content/dino_verify --dinov3 /content/dinov3-vitl16 /content/dinov3-vitb16
-  python tests/zero_shot/dino_verify.py report --run <downloaded run folder> --out tests/results/real_photos/dino_verify_cheolyeon
+  python tests/zero_shot/dino_verify.py report --run <downloaded run folder> --out tests/real_photos/private_results/dino_verify
 """
 
 from __future__ import annotations
@@ -39,9 +39,9 @@ import instance_one_shot as ios  # noqa: E402
 
 REPO = ios.REPO_ROOT
 VAL_PHOTOS = REPO / "tests/real_photos/photos/valuables"
-VAL_GOLD = REPO / "tests/results/real_photos/valuables_cheolyeon/gold.json"
+VAL_GOLD = REPO / "tests/real_photos/private_results/valuables/gold.json"
 C28_PHOTOS = REPO / "tests/real_photos/photos"
-C28_GOLD = REPO / "tests/results/real_photos/instance_one_shot_cheolyeon/gold_boxes.json"
+C28_GOLD = REPO / "tests/real_photos/private_results/one_shot_28_photos/gold_boxes.json"
 APP_CATEGORY = {"keys": "keys", "sunglasses": "glasses"}  # valuables object -> app category (prompts.json)
 C28_WORDS = {"wallet": "wallet", "keys": "keys", "glasses": "glasses", "remote_control": "remote control"}
 TOP_K, RERANK_K, FLOOR, APP_THRESHOLD = 10, 5, 0.05, 0.35

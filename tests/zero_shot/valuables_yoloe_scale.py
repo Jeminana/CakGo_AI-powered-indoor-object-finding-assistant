@@ -14,7 +14,7 @@ The plain one-shot / four-shot / text rows at 640 repeat valuables_test.py on th
 
 Example (from the repository root):
   python tests/zero_shot/valuables_yoloe_scale.py --photos tests/real_photos/photos/valuables \
-      --gold tests/results/real_photos/valuables_cheolyeon/gold.json --device cuda:0
+      --gold tests/real_photos/private_results/valuables/gold.json --device cuda:0
 """
 
 from __future__ import annotations
