@@ -1,0 +1,60 @@
+{
+  "run_name": "t4_yoloe-26s_multi",
+  "created_at": "2026-10-20T08:54:02+00:00",
+  "model": {
+    "family": "YOLOE-26 (Ultralytics, text prompts, zero-shot, no fine-tuning)",
+    "model_id": "/content/work/yoloe-26s-seg.pt",
+    "weights_path": "/content/work/yoloe-26s-seg.pt",
+    "weights_sha256": "48f24206bc8680d60cbbfa296b0140da849669b9515058b72f5a945142df0654"
+  },
+  "prompts": {
+    "wallet": "wallet | keys | glasses | sunglasses | remote control | computer mouse | laptop | keyboard | pen | bottle | can | cup | microphone | cable | charger | nail clipper | coin",
+    "keys": "wallet | keys | glasses | sunglasses | remote control | computer mouse | laptop | keyboard | pen | bottle | can | cup | microphone | cable | charger | nail clipper | coin",
+    "glasses": "wallet | keys | glasses | sunglasses | remote control | computer mouse | laptop | keyboard | pen | bottle | can | cup | microphone | cable | charger | nail clipper | coin",
+    "remote_control": "wallet | keys | glasses | sunglasses | remote control | computer mouse | laptop | keyboard | pen | bottle | can | cup | microphone | cable | charger | nail clipper | coin"
+  },
+  "inference_settings": {
+    "prompt_mode": "multi",
+    "look_alikes": [
+      "computer mouse",
+      "laptop",
+      "keyboard",
+      "pen",
+      "bottle",
+      "can",
+      "cup",
+      "microphone",
+      "cable",
+      "charger",
+      "nail clipper",
+      "coin"
+    ],
+    "box_threshold": 0.05,
+    "operating_threshold": 0.25,
+    "operating_threshold_source": "Ultralytics predict() default conf",
+    "device": "cuda:0",
+    "warmup_queries_per_category": 3,
+    "queries_per_image": 4,
+    "half_precision": false,
+    "input": "RGB PIL image read with Pillow",
+    "same_object_iou": 0.7
+  },
+  "timing_notes": "wall_ms[category] = one detect() call (preprocess + inference + post-process) with that category's prompt; image file reading is excluded.",
+  "dataset": {
+    "manifest": "tests/dataset/manifest.csv",
+    "manifest_sha256": "ca73e2c1f12464df03b1f2b3824109cd237ea1e9dbba46fa8d5ac4c6db5bde4b",
+    "num_images": 70
+  },
+  "environment": {
+    "python": "3.13.15",
+    "torch": "2.11.0+cu130",
+    "transformers": "5.20.1",
+    "pillow": "11.3.0",
+    "cuda_available": true,
+    "gpu": "Tesla T4",
+    "peak_vram_mb": 150.8,
+    "cpu": "x86_64",
+    "os": "Linux-6.6.122+-x86_64-with-glibc2.39",
+    "ultralytics": "8.4.177"
+  }
+}
