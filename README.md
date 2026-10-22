@@ -27,7 +27,7 @@
 - **Dataset (confirmed):** *Objects In House* v5 (Roboflow Universe, CC0). The 70 shared test images (wallet, keys, glasses, remote control, and target-absent) are reproduced locally with `tests/dataset/prepare_dataset.py`. See [`tests/dataset/README.md`](tests/dataset/README.md) and [`dataset_info.md`](tests/dataset/dataset_info.md). Microsoft ORBIT remains a future option.
 - **Real-photo test:** 94 phone photos taken by the team. YOLO and Grounding DINO were scored on exactly the same photos: [`tests/results/real_photos/COMPARISON.md`](tests/results/real_photos/COMPARISON.md).
 - **Chosen model: Grounding DINO with the multi-prompt** (`detection/experiments/grounding_dino/`, `prompt_mode: "multi"`, threshold 0.35). Fine-tuned YOLO looked good on the stock-style test images but missed most objects in real phone photos. Details: [`MULTI_PROMPT.md`](detection/experiments/grounding_dino/MULTI_PROMPT.md) and the YOLO README.
-- **Run the demo:** `scripts\start_demo.cmd` starts the backend with the chosen model, the frontend and the HTTPS phone link ([`scripts/README.md`](scripts/README.md)). It needs an NVIDIA GPU for real-time use.
+- **Run the demo:** `scripts\start_demo.cmd` starts the backend with the chosen model, the frontend and the HTTPS phone link. Step-by-step instructions: [`docs/DEMO_GUIDE.md`](docs/DEMO_GUIDE.md). It needs an NVIDIA GPU for real-time use.
 
 **Guidelines for all developers and AI agents:**
 - Never commit dataset images, model weights, API keys, or the team's private phone photos (`tests/real_photos/` is gitignored).
