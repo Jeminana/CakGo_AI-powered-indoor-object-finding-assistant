@@ -21,6 +21,7 @@ The `docs/` directory maintains project-wide specifications, interface contracts
 - [`DEVELOPMENT_PLAN.md`](DEVELOPMENT_PLAN.md): 7-day development plan, member ownership, integration checkpoints, and collaboration workflow.
 - [`REPORT.md`](REPORT.md): Official IC-PBL Team Activity Report (preserved).
 - [`TEAM_ACTIVITY_REPORT.md`](TEAM_ACTIVITY_REPORT.md): Initial IC-PBL Team Activity Report record (preserved).
+- [`TEAM_ACTIVITY_REPORT_2026-10-20.md`](TEAM_ACTIVITY_REPORT_2026-10-20.md): IC-PBL Team Activity Report for the last meeting (20 October 2026), before the final presentation on 22 October.
 
 ## Guidelines for Developers & AI Agents
 1. Treat [`API_CONTRACT.md`](API_CONTRACT.md) as the single source of truth for component communication.
